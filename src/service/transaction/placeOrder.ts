@@ -172,7 +172,7 @@ export class PlaceOrderTransactionService extends Service {
         notes?: string;
     }): Promise<IAuthorizeAction> {
         return this.fetch({
-            uri: `/transactions/placeOrder/${params.transactionId}/actions/authorize/paymentMethod/point`,
+            uri: `/transactions/placeOrder/${params.transactionId}/actions/authorize/paymentMethod/accounts/point`,
             method: 'POST',
             expectedStatusCodes: [CREATED],
             body: {
@@ -197,7 +197,7 @@ export class PlaceOrderTransactionService extends Service {
         actionId: string;
     }): Promise<void> {
         return this.fetch({
-            uri: `/transactions/placeOrder/${params.transactionId}/actions/authorize/paymentMethod/point/${params.actionId}`,
+            uri: `/transactions/placeOrder/${params.transactionId}/actions/authorize/paymentMethod/accounts/point/${params.actionId}`,
             method: 'DELETE',
             expectedStatusCodes: [NO_CONTENT]
         });
@@ -228,7 +228,7 @@ export class PlaceOrderTransactionService extends Service {
         notes?: string;
     }): Promise<IAuthorizeAction> {
         return this.fetch({
-            uri: `/transactions/placeOrder/${params.transactionId}/actions/authorize/award/point`,
+            uri: `/transactions/placeOrder/${params.transactionId}/actions/authorize/award/accounts/point`,
             method: 'POST',
             expectedStatusCodes: [CREATED],
             body: {
@@ -253,7 +253,7 @@ export class PlaceOrderTransactionService extends Service {
         actionId: string;
     }): Promise<void> {
         return this.fetch({
-            uri: `/transactions/placeOrder/${params.transactionId}/actions/authorize/award/point/${params.actionId}`,
+            uri: `/transactions/placeOrder/${params.transactionId}/actions/authorize/award/accounts/point/${params.actionId}`,
             method: 'DELETE',
             expectedStatusCodes: [NO_CONTENT]
         });
