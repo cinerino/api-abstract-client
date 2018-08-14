@@ -68,7 +68,7 @@ describe('person service', () => {
         const data = {};
         sandbox.mock(people).expects('fetch').once().resolves(data);
 
-        const result = await people.findCreditCards({
+        const result = await people.searchCreditCards({
             personId: personId
         });
         assert.deepEqual(result, data);
@@ -121,7 +121,7 @@ describe('person service', () => {
         const data = {};
         sandbox.mock(people).expects('fetch').once().resolves(data);
 
-        const result = await people.openAccount({
+        const result = await people.openPointAccount({
             personId: personId,
             name: 'name'
         });
@@ -134,7 +134,7 @@ describe('person service', () => {
         const data = {};
         sandbox.mock(people).expects('fetch').once().resolves(data);
 
-        const result = await people.closeAccount({
+        const result = await people.closePointAccount({
             personId: personId,
             accountNumber: '12345'
         });
@@ -147,7 +147,7 @@ describe('person service', () => {
         const data = [{}];
         sandbox.mock(people).expects('fetch').once().resolves(data);
 
-        const result = await people.findAccounts({
+        const result = await people.searchPointAccounts({
             personId: personId
         });
         assert.deepEqual(result, data);
@@ -159,7 +159,7 @@ describe('person service', () => {
         const data = [{}];
         sandbox.mock(people).expects('fetch').once().resolves(data);
 
-        const result = await people.searchAccountMoneyTransferActions({
+        const result = await people.searchPointAccountMoneyTransferActions({
             personId: personId,
             accountNumber: '12345'
         });

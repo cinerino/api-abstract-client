@@ -53,9 +53,8 @@ export class PersonService extends Service {
 
     /**
      * クレジットカード検索
-     * @see example /example/person/handleCreditCards
      */
-    public async findCreditCards(params: {
+    public async searchCreditCards(params: {
         /**
          * person id
          * basically specify 'me' to retrieve contacts of login user
@@ -72,8 +71,6 @@ export class PersonService extends Service {
 
     /**
      * クレジットカード追加
-     * @return successfully created credit card info
-     * @see example /example/person/handleCreditCards
      */
     public async addCreditCard(params: {
         /**
@@ -82,7 +79,6 @@ export class PersonService extends Service {
          */
         personId: string;
         /**
-         * credit card info
          * クレジットカード情報(情報の渡し方にはいくつかパターンがあるので、型を参照すること)
          */
         creditCard: ICreditCard;
@@ -97,7 +93,6 @@ export class PersonService extends Service {
 
     /**
      * クレジットカード削除
-     * @see /example/person/handleCreditCards
      */
     public async deleteCreditCard(params: {
         /**
@@ -106,7 +101,6 @@ export class PersonService extends Service {
          */
         personId: string;
         /**
-         * cardSeq
          * カード連番
          */
         cardSeq: string;
@@ -119,9 +113,9 @@ export class PersonService extends Service {
     }
 
     /**
-     * 口座開設
+     * ポイント口座開設
      */
-    public async openAccount(params: {
+    public async openPointAccount(params: {
         /**
          * person id
          * ログインユーザーの場合'me'を指定
@@ -133,7 +127,7 @@ export class PersonService extends Service {
         name: string;
     }): Promise<factory.pecorino.account.IAccount<factory.accountType.Point>> {
         return this.fetch({
-            uri: `/people/${params.personId}/accounts`,
+            uri: `/people/${params.personId}/accounts/point`,
             method: 'POST',
             body: {
                 name: params.name
@@ -143,11 +137,11 @@ export class PersonService extends Service {
     }
 
     /**
-     * 口座開解約
+     * ポイント口座開解約
      * 口座の状態を変更するだけで、ユーザーの所有する口座リストから削除はされません。
      * 解約された口座で取引を進行しようとすると400エラーとなります。
      */
-    public async closeAccount(params: {
+    public async closePointAccount(params: {
         /**
          * person id
          * ログインユーザーの場合'me'を指定
@@ -159,16 +153,16 @@ export class PersonService extends Service {
         accountNumber: string;
     }): Promise<void> {
         return this.fetch({
-            uri: `/people/${params.personId}/accounts/${params.accountNumber}/close`,
+            uri: `/people/${params.personId}/accounts/point/${params.accountNumber}/close`,
             method: 'PUT',
             expectedStatusCodes: [NO_CONTENT]
         });
     }
 
     /**
-     * 口座照会
+     * ポイント口座照会
      */
-    public async findAccounts(params: {
+    public async searchPointAccounts(params: {
         /**
          * person id
          * ログインユーザーの場合'me'を指定
@@ -176,7 +170,7 @@ export class PersonService extends Service {
         personId: string;
     }): Promise<factory.pecorino.account.IAccount<factory.accountType.Point>[]> {
         return this.fetch({
-            uri: `/people/${params.personId}/accounts`,
+            uri: `/people/${params.personId}/accounts/point`,
             method: 'GET',
             qs: {},
             expectedStatusCodes: [OK]
@@ -184,9 +178,9 @@ export class PersonService extends Service {
     }
 
     /**
-     * 口座取引履歴検索
+     * ポイント口座取引履歴検索
      */
-    public async searchAccountMoneyTransferActions(params: {
+    public async searchPointAccountMoneyTransferActions(params: {
         /**
          * person id
          * ログインユーザーの場合'me'を指定
@@ -198,7 +192,7 @@ export class PersonService extends Service {
         accountNumber: string;
     }): Promise<factory.pecorino.action.transfer.moneyTransfer.IAction<factory.accountType.Point>[]> {
         return this.fetch({
-            uri: `/people/${params.personId}/accounts/${params.accountNumber}/actions/moneyTransfer`,
+            uri: `/people/${params.personId}/accounts/point/${params.accountNumber}/actions/moneyTransfer`,
             method: 'GET',
             qs: {},
             expectedStatusCodes: [OK]
