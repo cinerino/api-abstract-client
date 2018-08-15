@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 - 人物サービスを追加。
 - 場所サービスを追加。
 - 注文取引サービスを追加。
+- 注文返品取引サービスを追加。
 
 ### Changed
 

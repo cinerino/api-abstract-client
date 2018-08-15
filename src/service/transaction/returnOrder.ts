@@ -1,8 +1,5 @@
-/**
- * 注文返品取引サービス
- */
 import * as factory from '@cinerino/factory';
-import { CREATED, OK } from 'http-status';
+import { NO_CONTENT, OK } from 'http-status';
 
 import { Service } from '../../service';
 
@@ -48,8 +45,8 @@ export class ReturnOrderTransactionService extends Service {
     }): Promise<factory.transaction.returnOrder.IResult> {
         return this.fetch({
             uri: `/transactions/returnOrder/${params.transactionId}/confirm`,
-            method: 'POST',
-            expectedStatusCodes: [CREATED]
+            method: 'PUT',
+            expectedStatusCodes: [NO_CONTENT]
         });
     }
 }
