@@ -103,14 +103,13 @@ describe('person service', () => {
         sandbox.verify();
     });
 
-    it('所有権検索の結果が期待通り', async () => {
+    it('上映イベント予約検索の結果が期待通り', async () => {
         const personId = 'me';
         const data = [{}];
         sandbox.mock(people).expects('fetch').once().resolves(data);
 
-        const result = await people.searchOwnershipInfos({
-            goodType: client.factory.chevre.reservationType.EventReservation,
-            ownedBy: personId
+        const result = await people.searchScreeningEventReservations({
+            personId: personId
         });
         assert.deepEqual(result, data);
         sandbox.verify();
@@ -121,9 +120,10 @@ describe('person service', () => {
         const data = {};
         sandbox.mock(people).expects('fetch').once().resolves(data);
 
-        const result = await people.openPointAccount({
+        const result = await people.openAccount({
             personId: personId,
-            name: 'name'
+            name: 'name',
+            accountType: client.factory.accountType.Coin
         });
         assert.deepEqual(result, data);
         sandbox.verify();
@@ -134,9 +134,10 @@ describe('person service', () => {
         const data = {};
         sandbox.mock(people).expects('fetch').once().resolves(data);
 
-        const result = await people.closePointAccount({
+        const result = await people.closeAccount({
             personId: personId,
-            accountNumber: '12345'
+            accountNumber: '12345',
+            accountType: client.factory.accountType.Coin
         });
         assert.deepEqual(result, data);
         sandbox.verify();
@@ -147,8 +148,9 @@ describe('person service', () => {
         const data = [{}];
         sandbox.mock(people).expects('fetch').once().resolves(data);
 
-        const result = await people.searchPointAccounts({
-            personId: personId
+        const result = await people.searchAccounts({
+            personId: personId,
+            accountType: client.factory.accountType.Coin
         });
         assert.deepEqual(result, data);
         sandbox.verify();
@@ -159,9 +161,10 @@ describe('person service', () => {
         const data = [{}];
         sandbox.mock(people).expects('fetch').once().resolves(data);
 
-        const result = await people.searchPointAccountMoneyTransferActions({
+        const result = await people.searchAccountMoneyTransferActions({
             personId: personId,
-            accountNumber: '12345'
+            accountNumber: '12345',
+            accountType: client.factory.accountType.Coin
         });
         assert.deepEqual(result, data);
         sandbox.verify();

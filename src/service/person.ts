@@ -5,7 +5,10 @@ import { Service } from '../service';
 
 export type ICreditCard =
     factory.paymentMethod.paymentCard.creditCard.IUncheckedCardRaw | factory.paymentMethod.paymentCard.creditCard.IUncheckedCardTokenized;
-export type IScreeningEventReservation = factory.chevre.reservation.event.IReservation<factory.chevre.event.screeningEvent.IEvent>;
+export type IAccountOwnershipInfo<T extends factory.accountType> =
+    factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<T>>;
+export type IScreeningEventReservationOwnershipInfo =
+    factory.ownershipInfo.IOwnershipInfo<factory.chevre.reservation.event.IReservation<factory.chevre.event.screeningEvent.IEvent>>;
 
 /**
  * ユーザーサービス
@@ -16,8 +19,7 @@ export class PersonService extends Service {
      */
     public async getContacts(params: {
         /**
-         * person id
-         * basically specify 'me' to retrieve contacts of login user
+         * person id(basically specify 'me' to retrieve contacts of login user)
          */
         personId: string;
     }): Promise<factory.person.IContact> {
@@ -28,14 +30,12 @@ export class PersonService extends Service {
             expectedStatusCodes: [OK]
         });
     }
-
     /**
      * ユーザーの連絡先を更新する
      */
     public async updateContacts(params: {
         /**
-         * person id
-         * basically specify 'me' to retrieve contacts of login user
+         * person id(basically specify 'me' to retrieve contacts of login user)
          */
         personId: string;
         /**
@@ -50,14 +50,12 @@ export class PersonService extends Service {
             expectedStatusCodes: [NO_CONTENT]
         });
     }
-
     /**
      * クレジットカード検索
      */
     public async searchCreditCards(params: {
         /**
-         * person id
-         * basically specify 'me' to retrieve contacts of login user
+         * person id(basically specify 'me' to retrieve contacts of login user)
          */
         personId: string;
     }): Promise<factory.paymentMethod.paymentCard.creditCard.ICheckedCard[]> {
@@ -68,14 +66,12 @@ export class PersonService extends Service {
             expectedStatusCodes: [OK]
         });
     }
-
     /**
      * クレジットカード追加
      */
     public async addCreditCard(params: {
         /**
-         * person id
-         * basically specify 'me' to retrieve contacts of login user
+         * person id(basically specify 'me' to retrieve contacts of login user)
          */
         personId: string;
         /**
@@ -90,14 +86,12 @@ export class PersonService extends Service {
             expectedStatusCodes: [CREATED]
         });
     }
-
     /**
      * クレジットカード削除
      */
     public async deleteCreditCard(params: {
         /**
-         * person id
-         * basically specify 'me' to retrieve contacts of login user
+         * person id(basically specify 'me' to retrieve contacts of login user)
          */
         personId: string;
         /**
@@ -111,23 +105,25 @@ export class PersonService extends Service {
             expectedStatusCodes: [NO_CONTENT]
         });
     }
-
     /**
-     * ポイント口座開設
+     * 口座開設
      */
-    public async openPointAccount(params: {
+    public async openAccount<T extends factory.accountType>(params: {
         /**
-         * person id
-         * ログインユーザーの場合'me'を指定
+         * person id(basically specify 'me' to retrieve contacts of login user)
          */
         personId: string;
         /**
          * 口座名義
          */
         name: string;
-    }): Promise<factory.pecorino.account.IAccount<factory.accountType.Point>> {
+        /**
+         * 口座タイプ
+         */
+        accountType: T;
+    }): Promise<IAccountOwnershipInfo<T>> {
         return this.fetch({
-            uri: `/people/${params.personId}/accounts/point`,
+            uri: `/people/${params.personId}/accounts/${params.accountType}`,
             method: 'POST',
             body: {
                 name: params.name
@@ -135,91 +131,114 @@ export class PersonService extends Service {
             expectedStatusCodes: [CREATED]
         });
     }
-
     /**
-     * ポイント口座開解約
+     * 口座解約
      * 口座の状態を変更するだけで、ユーザーの所有する口座リストから削除はされません。
      * 解約された口座で取引を進行しようとすると400エラーとなります。
      */
-    public async closePointAccount(params: {
+    public async closeAccount<T extends factory.accountType>(params: {
         /**
-         * person id
-         * ログインユーザーの場合'me'を指定
+         * person id(basically specify 'me' to retrieve contacts of login user)
          */
         personId: string;
+        /**
+         * 口座タイプ
+         */
+        accountType: T;
         /**
          * 口座番号
          */
         accountNumber: string;
     }): Promise<void> {
         return this.fetch({
-            uri: `/people/${params.personId}/accounts/point/${params.accountNumber}/close`,
+            uri: `/people/${params.personId}/accounts/${params.accountType}/${params.accountNumber}/close`,
             method: 'PUT',
             expectedStatusCodes: [NO_CONTENT]
         });
     }
-
     /**
-     * ポイント口座照会
+     * 口座検索
      */
-    public async searchPointAccounts(params: {
+    public async searchAccounts<T extends factory.accountType>(params: {
         /**
-         * person id
-         * ログインユーザーの場合'me'を指定
+         * person id(basically specify 'me' to retrieve contacts of login user)
          */
         personId: string;
-    }): Promise<factory.pecorino.account.IAccount<factory.accountType.Point>[]> {
+        /**
+         * 口座タイプ
+         */
+        accountType: T;
+    }): Promise<IAccountOwnershipInfo<T>[]> {
         return this.fetch({
-            uri: `/people/${params.personId}/accounts/point`,
+            uri: `/people/${params.personId}/accounts/${params.accountType}`,
             method: 'GET',
             qs: {},
             expectedStatusCodes: [OK]
         });
     }
-
     /**
-     * ポイント口座取引履歴検索
+     * 口座取引履歴検索
      */
-    public async searchPointAccountMoneyTransferActions(params: {
+    public async searchAccountMoneyTransferActions<T extends factory.accountType>(params: {
         /**
-         * person id
-         * ログインユーザーの場合'me'を指定
+         * person id(basically specify 'me' to retrieve contacts of login user)
          */
         personId: string;
+        /**
+         * 口座タイプ
+         */
+        accountType: T;
         /**
          * 口座番号
          */
         accountNumber: string;
-    }): Promise<factory.pecorino.action.transfer.moneyTransfer.IAction<factory.accountType.Point>[]> {
+    }): Promise<factory.pecorino.action.transfer.moneyTransfer.IAction<T>[]> {
         return this.fetch({
-            uri: `/people/${params.personId}/accounts/point/${params.accountNumber}/actions/moneyTransfer`,
+            uri: `/people/${params.personId}/accounts/${params.accountType}/${params.accountNumber}/actions/moneyTransfer`,
             method: 'GET',
             qs: {},
             expectedStatusCodes: [OK]
         });
     }
-
+    /**
+     * 上映イベント予約検索
+     */
+    public async searchScreeningEventReservations(params: {
+        /**
+         * person id(basically specify 'me' to retrieve contacts of login user)
+         */
+        personId: string;
+    }): Promise<IScreeningEventReservationOwnershipInfo[]> {
+        return this.fetch({
+            uri: `/people/${params.personId}/reservations/eventReservation/screeningEvent`,
+            method: 'GET',
+            qs: {},
+            expectedStatusCodes: [OK]
+        });
+    }
     /**
      * 所有権を検索する
      * 座席予約、所属会員プログラム、などユーザーの資産(モノ、サービス)を検索します。
      */
-    public async searchOwnershipInfos<T extends factory.ownershipInfo.IGoodType>(
-        params: factory.ownershipInfo.ISearchConditions<T>
-    ): Promise<factory.ownershipInfo.IOwnershipInfo<T>[]> {
-        return this.fetch({
-            uri: `/people/${params.ownedBy}/ownershipInfos/${params.goodType}`,
-            method: 'GET',
-            qs: {
-                ownedAt: params.ownedAt
-            },
-            expectedStatusCodes: [OK]
-        });
-    }
-
+    // public async searchOwnershipInfos<T extends factory.ownershipInfo.IGoodType>(
+    //     params: factory.ownershipInfo.ISearchConditions<T>
+    // ): Promise<factory.ownershipInfo.IOwnershipInfo<T>[]> {
+    //     return this.fetch({
+    //         uri: `/people/${params.ownedBy}/ownershipInfos/${params.goodType}`,
+    //         method: 'GET',
+    //         qs: {
+    //             ownedAt: params.ownedAt
+    //         },
+    //         expectedStatusCodes: [OK]
+    //     });
+    // }
     /**
      * 会員プログラムに登録する
      */
     public async registerProgramMembership(params: {
+        /**
+         * person id(basically specify 'me' to retrieve contacts of login user)
+         */
         personId: string;
         /**
          * 会員プログラムID
@@ -250,11 +269,13 @@ export class PersonService extends Service {
             expectedStatusCodes: [ACCEPTED]
         });
     }
-
     /**
      * 会員プログラム登録解除
      */
     public async unRegisterProgramMembership(params: {
+        /**
+         * person id(basically specify 'me' to retrieve contacts of login user)
+         */
         personId: string;
         /**
          * 会員プログラム所有権識別子
