@@ -148,10 +148,10 @@ export class PlaceOrderTransactionService extends Service {
     }
 
     /**
-     * ポイント口座決済のオーソリを取得する
+     * 口座決済のオーソリを取得する
      * @returns 承認アクション
      */
-    public async authorizePointPayment(params: {
+    public async authorizeAccountPayment(params: {
         /**
          * 取引ID
          */
@@ -160,6 +160,10 @@ export class PlaceOrderTransactionService extends Service {
          * 金額
          */
         amount: number;
+        /**
+         * 口座タイプ
+         */
+        accountType: factory.accountType;
         /**
          * 引き出し元口座番号
          */
@@ -172,7 +176,7 @@ export class PlaceOrderTransactionService extends Service {
         notes?: string;
     }): Promise<IAuthorizeAction> {
         return this.fetch({
-            uri: `/transactions/placeOrder/${params.transactionId}/actions/authorize/paymentMethod/accounts/point`,
+            uri: `/transactions/placeOrder/${params.transactionId}/actions/authorize/paymentMethod/account/${params.accountType}`,
             method: 'POST',
             expectedStatusCodes: [CREATED],
             body: {
@@ -184,9 +188,9 @@ export class PlaceOrderTransactionService extends Service {
     }
 
     /**
-     * ポイント口座決済オーソリ取消
+     * 口座決済オーソリ取消
      */
-    public async voidPointPayment(params: {
+    public async voidAccountPayment(params: {
         /**
          * 取引ID
          */
@@ -197,7 +201,7 @@ export class PlaceOrderTransactionService extends Service {
         actionId: string;
     }): Promise<void> {
         return this.fetch({
-            uri: `/transactions/placeOrder/${params.transactionId}/actions/authorize/paymentMethod/accounts/point/${params.actionId}`,
+            uri: `/transactions/placeOrder/${params.transactionId}/actions/authorize/paymentMethod/account/${params.actionId}`,
             method: 'DELETE',
             expectedStatusCodes: [NO_CONTENT]
         });
