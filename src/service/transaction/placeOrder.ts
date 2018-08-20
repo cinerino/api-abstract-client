@@ -16,6 +16,17 @@ export type ICreditCard =
 export interface IAuthorizeAction {
     id: string;
 }
+export interface IAccount {
+    /**
+     * 口座タイプ
+     */
+    accountType: factory.accountType;
+    /**
+     * 口座番号
+     */
+    accountNumber: string;
+}
+export type ITokenizedAccount = string;
 /**
  * 注文インセンティブインターフェース
  */
@@ -161,13 +172,9 @@ export class PlaceOrderTransactionService extends Service {
          */
         amount: number;
         /**
-         * 口座タイプ
+         * 確保口座
          */
-        accountType: factory.accountType;
-        /**
-         * 引き出し元口座番号
-         */
-        fromAccountNumber: string;
+        fromAccount: IAccount | ITokenizedAccount;
         /**
          * 取引メモ
          * 指定すると、口座の取引明細に記録されます。
@@ -176,12 +183,12 @@ export class PlaceOrderTransactionService extends Service {
         notes?: string;
     }): Promise<IAuthorizeAction> {
         return this.fetch({
-            uri: `/transactions/placeOrder/${params.transactionId}/actions/authorize/paymentMethod/account/${params.accountType}`,
+            uri: `/transactions/placeOrder/${params.transactionId}/actions/authorize/paymentMethod/account`,
             method: 'POST',
             expectedStatusCodes: [CREATED],
             body: {
                 amount: params.amount,
-                fromAccountNumber: params.fromAccountNumber,
+                fromAccount: params.fromAccount,
                 notes: params.notes
             }
         });

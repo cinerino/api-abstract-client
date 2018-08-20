@@ -9,6 +9,9 @@ export type IAccountOwnershipInfo<T extends factory.accountType> =
     factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<T>>;
 export type IScreeningEventReservationOwnershipInfo =
     factory.ownershipInfo.IOwnershipInfo<factory.chevre.reservation.event.IReservation<factory.chevre.event.screeningEvent.IEvent>>;
+export interface ICodeResponse {
+    code: string;
+}
 
 /**
  * ユーザーサービス
@@ -213,6 +216,29 @@ export class PersonService extends Service {
             uri: `/people/${params.personId}/reservations/eventReservation/screeningEvent`,
             method: 'GET',
             qs: {},
+            expectedStatusCodes: [OK]
+        });
+    }
+    /**
+     * 所有権に対して認可コードを発行する
+     */
+    public async authorizeOwnershipInfo(params: {
+        /**
+         * person id(basically specify 'me' to retrieve contacts of login user)
+         */
+        personId: string;
+        /**
+         * 所有権識別子
+         */
+        identifier: string;
+        /**
+         * 所有対象物のタイプ
+         */
+        goodType: factory.ownershipInfo.IGoodType;
+    }): Promise<ICodeResponse> {
+        return this.fetch({
+            uri: `/people/${params.personId}/ownershipInfos/${params.goodType}/${params.identifier}/authorize`,
+            method: 'GET',
             expectedStatusCodes: [OK]
         });
     }

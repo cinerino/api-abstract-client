@@ -9,8 +9,10 @@ import { AuthClient } from './auth/authClient';
 import { EventService } from './service/event';
 import { OrderService } from './service/order';
 import { OrganizationService } from './service/organization';
+import { OwnershipInfoService } from './service/ownershipInfo';
 import { PersonService } from './service/person';
 import { PlaceService } from './service/place';
+import { ReservationService } from './service/reservation';
 import { PlaceOrderTransactionService } from './service/transaction/placeOrder';
 import { ReturnOrderTransactionService } from './service/transaction/returnOrder';
 import * as transporters from './transporters';
@@ -39,6 +41,10 @@ export namespace service {
      */
     export class Organization extends OrganizationService { }
     /**
+     * 所有権サービス
+     */
+    export class OwnershipInfo extends OwnershipInfoService { }
+    /**
      * ユーザーサービス
      */
     export class Person extends PersonService { }
@@ -46,6 +52,10 @@ export namespace service {
      * 場所サービス
      */
     export class Place extends PlaceService { }
+    /**
+     * 予約サービス
+     */
+    export class Reservation extends ReservationService { }
     export namespace transaction {
         /**
          * 注文取引サービス
