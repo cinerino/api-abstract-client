@@ -243,21 +243,18 @@ export class PersonService extends Service {
         });
     }
     /**
-     * 所有権を検索する
-     * 座席予約、所属会員プログラム、などユーザーの資産(モノ、サービス)を検索します。
+     * 注文を検索する
      */
-    // public async searchOwnershipInfos<T extends factory.ownershipInfo.IGoodType>(
-    //     params: factory.ownershipInfo.ISearchConditions<T>
-    // ): Promise<factory.ownershipInfo.IOwnershipInfo<T>[]> {
-    //     return this.fetch({
-    //         uri: `/people/${params.ownedBy}/ownershipInfos/${params.goodType}`,
-    //         method: 'GET',
-    //         qs: {
-    //             ownedAt: params.ownedAt
-    //         },
-    //         expectedStatusCodes: [OK]
-    //     });
-    // }
+    public async searchOrders(params: factory.order.ISearchConditions & {
+        personId: string;
+    }): Promise<factory.order.IOrder[]> {
+        return this.fetch({
+            uri: `/people/${params.personId}/orders`,
+            method: 'GET',
+            qs: params,
+            expectedStatusCodes: [OK]
+        });
+    }
     /**
      * 会員プログラムに登録する
      */
