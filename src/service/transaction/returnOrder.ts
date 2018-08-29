@@ -30,7 +30,7 @@ export class ReturnOrderTransactionService extends Service {
                 transactionId: params.transactionId
             },
             expectedStatusCodes: [OK]
-        });
+        }).then(async (response) => response.json());
     }
 
     /**
@@ -42,8 +42,8 @@ export class ReturnOrderTransactionService extends Service {
          * 返品取引ID
          */
         transactionId: string;
-    }): Promise<factory.transaction.returnOrder.IResult> {
-        return this.fetch({
+    }): Promise<void> {
+        await this.fetch({
             uri: `/transactions/returnOrder/${params.transactionId}/confirm`,
             method: 'PUT',
             expectedStatusCodes: [NO_CONTENT]

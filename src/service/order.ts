@@ -1,6 +1,3 @@
-/**
- * 注文サービス
- */
 import * as factory from '@cinerino/factory';
 import { OK } from 'http-status';
 
@@ -24,9 +21,8 @@ export class OrderService extends Service {
             method: 'POST',
             body: params,
             expectedStatusCodes: [OK]
-        });
+        }).then(async (response) => response.json());
     }
-
     /**
      * 注文を検索する
      */
@@ -38,6 +34,6 @@ export class OrderService extends Service {
             method: 'GET',
             qs: params,
             expectedStatusCodes: [OK]
-        });
+        }).then(async (response) => response.json());
     }
 }

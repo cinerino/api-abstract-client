@@ -21,6 +21,6 @@ export class ReservationService extends Service {
             method: 'POST',
             body: { token: params.token },
             expectedStatusCodes: [OK]
-        });
+        }).then(async (response) => response.json());
     }
 }

@@ -7,7 +7,6 @@ import {
     CREATED,
     FORBIDDEN,
     INTERNAL_SERVER_ERROR,
-    NO_CONTENT,
     NOT_FOUND,
     NOT_IMPLEMENTED,
     OK,
@@ -27,7 +26,7 @@ describe('fetch()', () => {
     let sandbox: sinon.SinonSandbox;
 
     beforeEach(() => {
-        sandbox = sinon.sandbox.create();
+        sandbox = sinon.createSandbox();
         nock.cleanAll();
         nock.disableNetConnect();
     });
@@ -49,27 +48,7 @@ describe('fetch()', () => {
                 .get('/uri')
                 .reply(statusCode, body);
 
-            const result = await transporter.fetch(`${API_ENDPOINT}/uri`, {});
-
-            assert.deepEqual(result, body);
-            sandbox.verify();
-            assert(scope.isDone());
-        });
-    });
-
-    // tslint:disable-next-line:mocha-no-side-effect-code
-    [NO_CONTENT].forEach((statusCode) => {
-        it(`次のステータスコードが返却されれば、レスポンスはundefinedのはず ${statusCode}`, async () => {
-            const body = undefined;
-
-            const transporter = new DefaultTransporter([statusCode]);
-
-            scope = nock(API_ENDPOINT)
-                .get('/uri')
-                .reply(statusCode, body);
-
-            const result = await transporter.fetch(`${API_ENDPOINT}/uri`, {});
-
+            const result = await transporter.fetch(`${API_ENDPOINT}/uri`, {}).then(async (res) => res.json());
             assert.deepEqual(result, body);
             sandbox.verify();
             assert(scope.isDone());
@@ -133,23 +112,11 @@ describe('CONFIGURE()', () => {
     let sandbox: sinon.SinonSandbox;
 
     beforeEach(() => {
-        sandbox = sinon.sandbox.create();
+        sandbox = sinon.createSandbox();
     });
 
     afterEach(() => {
         sandbox.restore();
-    });
-
-    it('すでにヘッダー情報があれば、継承されるされるはず', async () => {
-        const options = {
-            headers: {
-                'User-Agent': 'useragent'
-            }
-        };
-
-        const result = DefaultTransporter.CONFIGURE(options);
-        assert.deepEqual(result.headers, options.headers);
-        sandbox.verify();
     });
 
     // it('既存のUser-Agentヘッダーにパッケージ情報がなければ、ヘッダーに情報が追加されるはず', async () => {
@@ -160,7 +127,7 @@ describe('CONFIGURE()', () => {
     //     };
 
     //     const result = DefaultTransporter.CONFIGURE(options);
-    //     assert(result.headers['User-Agent'].indexOf(DefaultTransporter.USER_AGENT) > 0);
+    //     assert((<any>result.headers)['User-Agent'].indexOf(DefaultTransporter.USER_AGENT) > 0);
     //     sandbox.verify();
     // });
 });

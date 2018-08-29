@@ -2,6 +2,7 @@
 /**
  * order service test
  */
+import * as fetchMock from 'fetch-mock';
 import { } from 'mocha';
 import * as assert from 'power-assert';
 import * as sinon from 'sinon';
@@ -24,7 +25,7 @@ describe('注文サービス', () => {
     });
 
     beforeEach(() => {
-        sandbox = sinon.sandbox.create();
+        sandbox = sinon.createSandbox();
     });
 
     afterEach(() => {
@@ -33,7 +34,8 @@ describe('注文サービス', () => {
 
     it('注文照会結果が期待通り', async () => {
         const data = {};
-        sandbox.mock(orders).expects('fetch').once().resolves(data);
+        const myMock = fetchMock.sandbox().mock('*', data);
+        sandbox.mock(orders).expects('fetch').once().resolves(await myMock());
 
         const result = await orders.findByOrderInquiryKey({
             theaterCode: 'xxx',
@@ -46,7 +48,8 @@ describe('注文サービス', () => {
 
     it('注文検索結果が期待通り', async () => {
         const data = {};
-        sandbox.mock(orders).expects('fetch').once().resolves(data);
+        const myMock = fetchMock.sandbox().mock('*', data);
+        sandbox.mock(orders).expects('fetch').once().resolves(await myMock());
 
         const result = await orders.search({
             orderDateFrom: new Date(),

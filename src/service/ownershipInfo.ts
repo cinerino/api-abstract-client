@@ -21,6 +21,6 @@ export class OwnershipInfoService extends Service {
             method: 'POST',
             body: params,
             expectedStatusCodes: [OK]
-        });
+        }).then(async (response) => response.json());
     }
 }

@@ -22,7 +22,6 @@ export interface IOptions {
      */
     transporter?: Transporter;
 }
-
 export interface IFetchOptions {
     uri: string;
     form?: any;
@@ -34,17 +33,14 @@ export interface IFetchOptions {
     body?: any;
     expectedStatusCodes: number[];
 }
-
 /**
  * base service class
  */
 export class Service {
     public options: IOptions;
-
     constructor(options: IOptions) {
         this.options = options;
     }
-
     /**
      * Create and send request to API
      */

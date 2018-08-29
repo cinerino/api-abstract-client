@@ -21,7 +21,7 @@ export class EventService extends Service {
             method: 'GET',
             qs: params,
             expectedStatusCodes: [OK]
-        });
+        }).then(async (response) => response.json());
     }
     /**
      * 上映イベント情報取得
@@ -36,7 +36,7 @@ export class EventService extends Service {
             uri: `/events/screeningEvent/${params.eventId}`,
             method: 'GET',
             expectedStatusCodes: [OK]
-        });
+        }).then(async (response) => response.json());
     }
     /**
      * 上映イベントに対する券種検索
@@ -51,7 +51,7 @@ export class EventService extends Service {
             uri: `/events/screeningEvent/${params.eventId}/ticketTypes`,
             method: 'GET',
             expectedStatusCodes: [OK]
-        });
+        }).then(async (response) => response.json());
     }
     /**
      * 上映イベントに対するオファー検索
@@ -66,6 +66,6 @@ export class EventService extends Service {
             uri: `/events/screeningEvent/${params.eventId}/offers`,
             method: 'GET',
             expectedStatusCodes: [OK]
-        });
+        }).then(async (response) => response.json());
     }
 }

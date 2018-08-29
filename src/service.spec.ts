@@ -9,15 +9,27 @@ import * as sinon from 'sinon';
 
 import { StubAuthClient } from './auth/authClient';
 import { Service } from './service';
-import { DefaultTransporter, StubTransporter } from './transporters';
+import { DefaultTransporter, Transporter } from './transporters';
 
+/**
+ * スタブトランポーター
+ */
+class StubTransporter implements Transporter {
+    public body: any;
+    constructor(body: any) {
+        this.body = body;
+    }
+    public async fetch(_: string, options: RequestInit) {
+        return new Response(this.body, options);
+    }
+}
 const API_ENDPOINT = 'https://example.com';
 
 describe('fetch()', () => {
     let sandbox: sinon.SinonSandbox;
 
     beforeEach(() => {
-        sandbox = sinon.sandbox.create();
+        sandbox = sinon.createSandbox();
     });
 
     afterEach(() => {
@@ -50,8 +62,7 @@ describe('fetch()', () => {
         });
 
         const result = await service.fetch(<any>{});
-
-        assert.deepEqual(result, response);
+        assert.deepEqual(result.body, response);
         sandbox.verify();
     });
 
@@ -76,7 +87,6 @@ describe('fetch()', () => {
             .withArgs(sinon.match(new RegExp(`\\?${querystrings}$`))).resolves(response);
 
         const result = await service.fetch(<any>options);
-
         assert.deepEqual(result, response);
         sandbox.verify();
     });

@@ -31,7 +31,7 @@ export class PersonService extends Service {
             method: 'GET',
             qs: {},
             expectedStatusCodes: [OK]
-        });
+        }).then(async (response) => response.json());
     }
     /**
      * ユーザーの連絡先を更新する
@@ -46,7 +46,7 @@ export class PersonService extends Service {
          */
         contacts: factory.person.IContact;
     }): Promise<void> {
-        return this.fetch({
+        await this.fetch({
             uri: `/people/${params.personId}/contacts`,
             method: 'PUT',
             body: params.contacts,
@@ -67,7 +67,7 @@ export class PersonService extends Service {
             method: 'GET',
             qs: {},
             expectedStatusCodes: [OK]
-        });
+        }).then(async (response) => response.json());
     }
     /**
      * クレジットカード追加
@@ -87,7 +87,7 @@ export class PersonService extends Service {
             method: 'POST',
             body: params.creditCard,
             expectedStatusCodes: [CREATED]
-        });
+        }).then(async (response) => response.json());
     }
     /**
      * クレジットカード削除
@@ -102,7 +102,7 @@ export class PersonService extends Service {
          */
         cardSeq: string;
     }): Promise<void> {
-        return this.fetch({
+        await this.fetch({
             uri: `/people/${params.personId}/creditCards/${params.cardSeq}`,
             method: 'DELETE',
             expectedStatusCodes: [NO_CONTENT]
@@ -132,7 +132,7 @@ export class PersonService extends Service {
                 name: params.name
             },
             expectedStatusCodes: [CREATED]
-        });
+        }).then(async (response) => response.json());
     }
     /**
      * 口座解約
@@ -153,7 +153,7 @@ export class PersonService extends Service {
          */
         accountNumber: string;
     }): Promise<void> {
-        return this.fetch({
+        await this.fetch({
             uri: `/people/${params.personId}/accounts/${params.accountType}/${params.accountNumber}/close`,
             method: 'PUT',
             expectedStatusCodes: [NO_CONTENT]
@@ -177,7 +177,7 @@ export class PersonService extends Service {
             method: 'GET',
             qs: {},
             expectedStatusCodes: [OK]
-        });
+        }).then(async (response) => response.json());
     }
     /**
      * 口座取引履歴検索
@@ -201,7 +201,7 @@ export class PersonService extends Service {
             method: 'GET',
             qs: {},
             expectedStatusCodes: [OK]
-        });
+        }).then(async (response) => response.json());
     }
     /**
      * 上映イベント予約検索
@@ -217,7 +217,7 @@ export class PersonService extends Service {
             method: 'GET',
             qs: {},
             expectedStatusCodes: [OK]
-        });
+        }).then(async (response) => response.json());
     }
     /**
      * 所有権に対して認可コードを発行する
@@ -240,7 +240,7 @@ export class PersonService extends Service {
             uri: `/people/${params.personId}/ownershipInfos/${params.goodType}/${params.identifier}/authorize`,
             method: 'GET',
             expectedStatusCodes: [OK]
-        });
+        }).then(async (response) => response.json());
     }
     /**
      * 注文を検索する
@@ -253,7 +253,7 @@ export class PersonService extends Service {
             method: 'GET',
             qs: params,
             expectedStatusCodes: [OK]
-        });
+        }).then(async (response) => response.json());
     }
     /**
      * 会員プログラムに登録する
@@ -290,7 +290,7 @@ export class PersonService extends Service {
                 sellerId: params.sellerId
             },
             expectedStatusCodes: [ACCEPTED]
-        });
+        }).then(async (response) => response.json());
     }
     /**
      * 会員プログラム登録解除
@@ -310,6 +310,6 @@ export class PersonService extends Service {
             method: 'PUT',
             body: {},
             expectedStatusCodes: [ACCEPTED]
-        });
+        }).then(async (response) => response.json());
     }
 }

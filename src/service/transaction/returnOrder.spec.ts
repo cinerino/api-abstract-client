@@ -2,9 +2,11 @@
 /**
  * 注文返品取引サービステスト
  */
+import * as fetchMock from 'fetch-mock';
 import { } from 'mocha';
 import * as assert from 'power-assert';
 import * as sinon from 'sinon';
+
 import * as client from '../../index';
 
 import { StubAuthClient } from '../../auth/authClient';
@@ -24,7 +26,7 @@ describe('注文返品取引サービス', () => {
     });
 
     beforeEach(() => {
-        sandbox = sinon.sandbox.create();
+        sandbox = sinon.createSandbox();
     });
 
     afterEach(() => {
@@ -33,20 +35,20 @@ describe('注文返品取引サービス', () => {
 
     it('取引開始結果が期待通り', async () => {
         const data = {};
-        sandbox.mock(transactions).expects('fetch').once().resolves(data);
+        const myMock = fetchMock.sandbox().mock('*', data);
+        sandbox.mock(transactions).expects('fetch').once().resolves(await myMock());
 
         const result = await transactions.start({
             expires: new Date(),
             transactionId: 'transactionId'
         });
-
         assert.deepEqual(result, data);
         sandbox.verify();
     });
 
     it('取引確定結果が期待通り', async () => {
-        const data = {};
-        sandbox.mock(transactions).expects('fetch').once().resolves(data);
+        const data = undefined;
+        sandbox.mock(transactions).expects('fetch').once().resolves();
 
         const result = await transactions.confirm({
             transactionId: 'transactionId'
