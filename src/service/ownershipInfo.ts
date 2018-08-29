@@ -6,7 +6,6 @@ import { Service } from '../service';
 export interface ITokenResponse {
     token: string;
 }
-
 /**
  * 所有権サービス
  */
@@ -18,7 +17,7 @@ export class OwnershipInfoService extends Service {
         code: string;
     }): Promise<ITokenResponse> {
         return this.fetch({
-            uri: '/auth/token',
+            uri: '/ownershipInfos/tokens',
             method: 'POST',
             body: params,
             expectedStatusCodes: [OK]

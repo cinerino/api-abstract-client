@@ -11,7 +11,6 @@ import { OrderService } from './service/order';
 import { OrganizationService } from './service/organization';
 import { OwnershipInfoService } from './service/ownershipInfo';
 import { PersonService } from './service/person';
-import { PlaceService } from './service/place';
 import { ReservationService } from './service/reservation';
 import { PlaceOrderTransactionService } from './service/transaction/placeOrder';
 import { ReturnOrderTransactionService } from './service/transaction/returnOrder';
@@ -48,10 +47,6 @@ export namespace service {
      * ユーザーサービス
      */
     export class Person extends PersonService { }
-    /**
-     * 場所サービス
-     */
-    export class Place extends PlaceService { }
     /**
      * 予約サービス
      */
