@@ -1,7 +1,7 @@
 import * as factory from '@cinerino/factory';
 import { ACCEPTED, CREATED, NO_CONTENT, OK } from 'http-status';
 
-import { Service } from '../service';
+import { ISearchResult, Service } from '../service';
 
 export type ICreditCard =
     factory.paymentMethod.paymentCard.creditCard.IUncheckedCardRaw | factory.paymentMethod.paymentCard.creditCard.IUncheckedCardTokenized;
@@ -195,13 +195,20 @@ export class PersonService extends Service {
          * 口座番号
          */
         accountNumber: string;
-    }): Promise<factory.pecorino.action.transfer.moneyTransfer.IAction<T>[]> {
+        limit?: number;
+        page?: number;
+    }): Promise<ISearchResult<factory.pecorino.action.transfer.moneyTransfer.IAction<T>[]>> {
         return this.fetch({
             uri: `/people/${params.personId}/accounts/${params.accountType}/${params.accountNumber}/actions/moneyTransfer`,
             method: 'GET',
             qs: {},
             expectedStatusCodes: [OK]
-        }).then(async (response) => response.json());
+        }).then(async (response) => {
+            return {
+                totalCount: Number(<string>response.headers.get('X-Total-Count')),
+                data: await response.json()
+            };
+        });
     }
     /**
      * 上映イベント予約検索
@@ -211,13 +218,18 @@ export class PersonService extends Service {
          * person id(basically specify 'me' to retrieve contacts of login user)
          */
         personId: string;
-    }): Promise<IScreeningEventReservationOwnershipInfo[]> {
+    }): Promise<ISearchResult<IScreeningEventReservationOwnershipInfo[]>> {
         return this.fetch({
             uri: `/people/${params.personId}/reservations/eventReservation/screeningEvent`,
             method: 'GET',
             qs: {},
             expectedStatusCodes: [OK]
-        }).then(async (response) => response.json());
+        }).then(async (response) => {
+            return {
+                totalCount: Number(<string>response.headers.get('X-Total-Count')),
+                data: await response.json()
+            };
+        });
     }
     /**
      * 所有権に対して認可コードを発行する
@@ -247,13 +259,18 @@ export class PersonService extends Service {
      */
     public async searchOrders(params: factory.order.ISearchConditions & {
         personId: string;
-    }): Promise<factory.order.IOrder[]> {
+    }): Promise<ISearchResult<factory.order.IOrder[]>> {
         return this.fetch({
             uri: `/people/${params.personId}/orders`,
             method: 'GET',
             qs: params,
             expectedStatusCodes: [OK]
-        }).then(async (response) => response.json());
+        }).then(async (response) => {
+            return {
+                totalCount: Number(<string>response.headers.get('X-Total-Count')),
+                data: await response.json()
+            };
+        });
     }
     /**
      * 会員プログラムに登録する

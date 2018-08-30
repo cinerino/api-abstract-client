@@ -80,7 +80,7 @@
     "typescript": "^3.0.1"
   },
   "dependencies": {
-    "@cinerino/factory": "^1.0.0-alpha.8",
+    "@cinerino/factory": "^1.0.0-alpha.9",
     "debug": "^3.1.0",
     "http-status": "^1.1.2",
     "isomorphic-fetch": "^2.2.1",

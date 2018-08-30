@@ -1,7 +1,7 @@
 import * as factory from '@cinerino/factory';
 import { OK } from 'http-status';
 
-import { Service } from '../service';
+import { ISearchResult, Service } from '../service';
 
 /**
  * event service
@@ -11,29 +11,28 @@ export class EventService extends Service {
      * 上映イベント検索
      */
     public async searchScreeningEvents(
-        /**
-         * 検索条件
-         */
         params: factory.chevre.event.screeningEvent.ISearchConditions
-    ): Promise<factory.chevre.event.screeningEvent.IEvent[]> {
+    ): Promise<ISearchResult<factory.chevre.event.screeningEvent.IEvent[]>> {
         return this.fetch({
             uri: '/events/screeningEvent',
             method: 'GET',
             qs: params,
             expectedStatusCodes: [OK]
-        }).then(async (response) => response.json());
+        }).then(async (response) => {
+            return {
+                totalCount: Number(<string>response.headers.get('X-Total-Count')),
+                data: await response.json()
+            };
+        });
     }
     /**
      * 上映イベント情報取得
      */
     public async findScreeningEventById(params: {
-        /**
-         * イベントID
-         */
-        eventId: string;
+        id: string;
     }): Promise<factory.chevre.event.screeningEvent.IEvent> {
         return this.fetch({
-            uri: `/events/screeningEvent/${params.eventId}`,
+            uri: `/events/screeningEvent/${params.id}`,
             method: 'GET',
             expectedStatusCodes: [OK]
         }).then(async (response) => response.json());

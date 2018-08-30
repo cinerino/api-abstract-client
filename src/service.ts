@@ -83,3 +83,16 @@ export class Service {
         }
     }
 }
+/**
+ * 検索結果インターフェース
+ */
+export interface ISearchResult<T> {
+    /**
+     * マッチ数
+     */
+    totalCount: number;
+    /**
+     * マッチデータ
+     */
+    data: T;
+}

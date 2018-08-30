@@ -55,7 +55,7 @@ describe('注文サービス', () => {
             orderDateFrom: new Date(),
             orderDateThrough: new Date()
         });
-        assert.deepEqual(result, data);
+        assert.deepEqual(result.data, data);
         sandbox.verify();
     });
 });

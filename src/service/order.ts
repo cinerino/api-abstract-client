@@ -1,7 +1,7 @@
 import * as factory from '@cinerino/factory';
 import { OK } from 'http-status';
 
-import { Service } from '../service';
+import { ISearchResult, Service } from '../service';
 
 /**
  * order service
@@ -28,12 +28,17 @@ export class OrderService extends Service {
      */
     public async search(
         params: factory.order.ISearchConditions
-    ): Promise<factory.order.IOrder[]> {
+    ): Promise<ISearchResult<factory.order.IOrder[]>> {
         return this.fetch({
             uri: '/orders',
             method: 'GET',
             qs: params,
             expectedStatusCodes: [OK]
-        }).then(async (response) => response.json());
+        }).then(async (response) => {
+            return {
+                totalCount: Number(<string>response.headers.get('X-Total-Count')),
+                data: await response.json()
+            };
+        });
     }
 }

@@ -114,7 +114,7 @@ describe('person service', () => {
         const result = await people.searchScreeningEventReservations({
             personId: personId
         });
-        assert.deepEqual(result, data);
+        assert.deepEqual(result.data, data);
         sandbox.verify();
     });
 
@@ -172,7 +172,7 @@ describe('person service', () => {
             accountNumber: '12345',
             accountType: client.factory.accountType.Coin
         });
-        assert.deepEqual(result, data);
+        assert.deepEqual(result.data, data);
         sandbox.verify();
     });
 
