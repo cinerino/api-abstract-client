@@ -5,7 +5,6 @@ import { Service } from '../service';
 
 export type IScreeningEventReservationOwnershipInfo =
     factory.ownershipInfo.IOwnershipInfo<factory.chevre.reservation.event.IReservation<factory.chevre.event.screeningEvent.IEvent>>;
-
 /**
  * 予約サービス
  */

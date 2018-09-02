@@ -11,6 +11,7 @@ import { OrderService } from './service/order';
 import { OrganizationService } from './service/organization';
 import { OwnershipInfoService } from './service/ownershipInfo';
 import { PersonService } from './service/person';
+import { PersonOwnershipInfoService } from './service/person/ownershipInfo';
 import { ReservationService } from './service/reservation';
 import { PlaceOrderTransactionService } from './service/transaction/placeOrder';
 import { ReturnOrderTransactionService } from './service/transaction/returnOrder';
@@ -47,6 +48,13 @@ export namespace service {
      * ユーザーサービス
      */
     export class Person extends PersonService { }
+    export namespace person {
+        /**
+         * ユーザー所有権サービス
+         */
+        // tslint:disable-next-line:no-shadowed-variable
+        export class OwnershipInfo extends PersonOwnershipInfoService { }
+    }
     /**
      * 予約サービス
      */
