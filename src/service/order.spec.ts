@@ -15,7 +15,6 @@ const API_ENDPOINT = 'https://localhost';
 describe('注文サービス', () => {
     let sandbox: sinon.SinonSandbox;
     let orders: client.service.Order;
-
     before(() => {
         const auth = new StubAuthClient();
         orders = new client.service.Order({
@@ -23,29 +22,26 @@ describe('注文サービス', () => {
             endpoint: API_ENDPOINT
         });
     });
-
     beforeEach(() => {
         sandbox = sinon.createSandbox();
     });
-
     afterEach(() => {
         sandbox.restore();
     });
-
     it('注文照会結果が期待通り', async () => {
         const data = {};
         const myMock = fetchMock.sandbox().mock('*', data);
         sandbox.mock(orders).expects('fetch').once().resolves(await myMock());
 
-        const result = await orders.findByOrderInquiryKey({
-            theaterCode: 'xxx',
+        const result = await orders.findByConfirmationNumber({
             confirmationNumber: 123,
-            telephone: 'xxx'
+            customer: {
+                telephone: 'xxx'
+            }
         });
         assert.deepEqual(result, data);
         sandbox.verify();
     });
-
     it('注文検索結果が期待通り', async () => {
         const data = {};
         const myMock = fetchMock.sandbox().mock('*', data);

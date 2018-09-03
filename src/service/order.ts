@@ -4,20 +4,22 @@ import { OK } from 'http-status';
 import { ISearchResult, Service } from '../service';
 
 /**
- * order service
+ * 注文サービス
  */
 export class OrderService extends Service {
     /**
-     * 照会キーで注文情報を取得する
+     * 確認番号で検索
+     * 確認番号と購入者情報より、最新の注文を検索します
      */
-    public async findByOrderInquiryKey(
-        /**
-         * 注文照会キー
-         */
-        params: factory.order.IOrderInquiryKey
-    ): Promise<factory.order.IOrder> {
+    public async findByConfirmationNumber(params: {
+        confirmationNumber: number;
+        customer: {
+            email?: string;
+            telephone?: string;
+        };
+    }): Promise<factory.order.IOrder> {
         return this.fetch({
-            uri: '/orders/findByOrderInquiryKey',
+            uri: '/orders/findByConfirmationNumber',
             method: 'POST',
             body: params,
             expectedStatusCodes: [OK]
