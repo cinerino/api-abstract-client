@@ -23,4 +23,16 @@ export class OwnershipInfoService extends Service {
             expectedStatusCodes: [OK]
         }).then(async (response) => response.json());
     }
+    /**
+     * 所有権検証アクションを検索する
+     */
+    public async searchCheckTokenActions(params: {
+        id: string;
+    }): Promise<ITokenResponse> {
+        return this.fetch({
+            uri: `/ownershipInfos/${params.id}/actions/checkToken`,
+            method: 'GET',
+            expectedStatusCodes: [OK]
+        }).then(async (response) => response.json());
+    }
 }
