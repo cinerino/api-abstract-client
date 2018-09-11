@@ -1,6 +1,6 @@
-import * as factory from '@cinerino/factory';
 import { NO_CONTENT, OK } from 'http-status';
 
+import * as factory from '../../factory';
 import { Service } from '../../service';
 
 /**
@@ -9,7 +9,6 @@ import { Service } from '../../service';
 export class ReturnOrderTransactionService extends Service {
     /**
      * 取引を開始する
-     * @returns 注文返品取引オブジェクト
      */
     public async start(params: {
         /**
@@ -35,7 +34,6 @@ export class ReturnOrderTransactionService extends Service {
 
     /**
      * 取引確定
-     * @returns 注文返品取引結果
      */
     public async confirm(params: {
         /**

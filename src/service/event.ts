@@ -1,6 +1,6 @@
-import * as factory from '@cinerino/factory';
 import { OK } from 'http-status';
 
+import * as factory from '../factory';
 import { ISearchResult, Service } from '../service';
 
 /**

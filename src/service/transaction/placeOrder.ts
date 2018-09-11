@@ -1,6 +1,6 @@
-import * as factory from '@cinerino/factory';
 import { CREATED, NO_CONTENT, OK } from 'http-status';
 
+import * as factory from '../../factory';
 import { Service } from '../../service';
 
 /**
@@ -48,7 +48,6 @@ export class PlaceOrderTransactionService extends Service {
     /**
      * 取引を開始する
      * 開始できない場合(混雑中など)、nullが返されます。
-     * @returns 取引オブジェクト
      */
     public async start(params: {
         /**
@@ -79,7 +78,6 @@ export class PlaceOrderTransactionService extends Service {
 
     /**
      * 取引に座席予約を追加する
-     * @returns 座席予約承認アクション
      */
     public async authorizeSeatReservation(params: factory.chevre.transaction.reserve.IObjectWithoutDetail & {
         /**
@@ -101,7 +99,6 @@ export class PlaceOrderTransactionService extends Service {
 
     /**
      * クレジットカードのオーソリを取得する
-     * @returns 承認アクション
      */
     public async authorizeCreditCardPayment(params: {
         /**
@@ -160,7 +157,6 @@ export class PlaceOrderTransactionService extends Service {
 
     /**
      * 口座決済のオーソリを取得する
-     * @returns 承認アクション
      */
     public async authorizeAccountPayment(params: {
         /**
@@ -216,7 +212,6 @@ export class PlaceOrderTransactionService extends Service {
 
     /**
      * ポイントインセンティブのオーソリを取得する
-     * @returns 承認アクション
      */
     public async authorizePointAward(params: {
         /**
@@ -272,7 +267,6 @@ export class PlaceOrderTransactionService extends Service {
 
     /**
      * Mocoin決済のオーソリを取得する
-     * @returns 承認アクション
      */
     public async authorizeMocoinPayment(params: {
         /**
@@ -314,7 +308,6 @@ export class PlaceOrderTransactionService extends Service {
 
     /**
      * 購入者連絡先登録
-     * @returns 登録された購入者情報
      */
     public async setCustomerContact(params: {
         /**
@@ -336,7 +329,6 @@ export class PlaceOrderTransactionService extends Service {
 
     /**
      * 取引確定
-     * @returns 取引結果
      */
     public async confirm(params: {
         /**

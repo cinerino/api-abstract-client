@@ -1,6 +1,6 @@
-import * as factory from '@cinerino/factory';
 import { OK } from 'http-status';
 
+import * as factory from '../factory';
 import { ISearchResult, Service } from '../service';
 
 /**
@@ -29,7 +29,7 @@ export class OrderService extends Service {
      * 所有権コードを発行する
      */
     public async authorizeOwnershipInfos(params: {
-        orderNumber: number;
+        orderNumber: string;
         customer: {
             email?: string;
             telephone?: string;

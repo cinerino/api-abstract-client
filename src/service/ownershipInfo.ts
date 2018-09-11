@@ -1,4 +1,3 @@
-// import * as factory from '@cinerino/factory';
 import { OK } from 'http-status';
 
 import { Service } from '../service';

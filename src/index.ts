@@ -2,7 +2,7 @@
 /**
  * API Service Library for Javascript
  */
-import * as factory from '@cinerino/factory';
+import * as factory from './factory';
 
 import { AuthClient } from './auth/authClient';
 
