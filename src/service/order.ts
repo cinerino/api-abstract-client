@@ -43,6 +43,20 @@ export class OrderService extends Service {
         }).then(async (response) => response.json());
     }
     /**
+     * 注文に対するアクションを検索する
+     */
+    public async searchActionsByOrderNumber(params: {
+        orderNumber: string;
+        sort: factory.action.ISortOrder;
+    }): Promise<factory.action.IAction<factory.action.IAttributes<factory.actionType, any, any>>[]> {
+        return this.fetch({
+            uri: `/orders/${params.orderNumber}/actions`,
+            method: 'GET',
+            qs: params,
+            expectedStatusCodes: [OK]
+        }).then(async (response) => response.json());
+    }
+    /**
      * 注文を検索する
      */
     public async search(
