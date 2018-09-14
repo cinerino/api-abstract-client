@@ -13,6 +13,7 @@ import { OwnershipInfoService } from './service/ownershipInfo';
 import { PersonService } from './service/person';
 import { PersonOwnershipInfoService } from './service/person/ownershipInfo';
 import { ReservationService } from './service/reservation';
+import { TaskService } from './service/task';
 import { PlaceOrderTransactionService } from './service/transaction/placeOrder';
 import { ReturnOrderTransactionService } from './service/transaction/returnOrder';
 import * as transporters from './transporters';
@@ -59,6 +60,10 @@ export namespace service {
      * 予約サービス
      */
     export class Reservation extends ReservationService { }
+    /**
+     * タスクサービス
+     */
+    export class Task extends TaskService { }
     export namespace transaction {
         /**
          * 注文取引サービス
