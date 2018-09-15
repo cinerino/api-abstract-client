@@ -32,33 +32,33 @@ describe('person service', () => {
         sandbox.restore();
     });
 
-    it('連絡先取得の結果が期待通り', async () => {
+    it('プロフィール取得の結果が期待通り', async () => {
         const data = {};
         const myMock = fetchMock.sandbox().mock('*', data);
         sandbox.mock(people).expects('fetch').once().resolves(await myMock());
         const personId = 'me';
 
-        const result = await people.getContacts({
+        const result = await people.getProfile({
             personId: personId
         });
         assert.deepEqual(result, data);
         sandbox.verify();
     });
 
-    it('連絡先更新の結果が期待通り', async () => {
+    it('プロフィール更新の結果が期待通り', async () => {
         const personId = 'me';
         const data = undefined;
         sandbox.mock(people).expects('fetch').once().resolves();
 
-        const contacts = {
+        const profile = {
             givenName: 'xxx',
             familyName: 'xxx',
             telephone: 'xxx',
             email: 'xxx'
         };
-        const result = await people.updateContacts({
+        const result = await people.updateProfile({
             personId: personId,
-            contacts: contacts
+            ...profile
         });
         assert.deepEqual(result, data);
         sandbox.verify();

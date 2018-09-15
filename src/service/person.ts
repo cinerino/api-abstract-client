@@ -8,38 +8,33 @@ import { ISearchResult, Service } from '../service';
  */
 export class PersonService extends Service {
     /**
-     * ユーザーの連絡先を検索する
+     * プロフィール検索
      */
-    public async getContacts(params: {
+    public async getProfile(params: {
         /**
          * person id(basically specify 'me' to retrieve contacts of login user)
          */
         personId: string;
-    }): Promise<factory.person.IContact> {
+    }): Promise<factory.person.IProfile> {
         return this.fetch({
-            uri: `/people/${params.personId}/contacts`,
+            uri: `/people/${params.personId}/profile`,
             method: 'GET',
-            qs: {},
             expectedStatusCodes: [OK]
         }).then(async (response) => response.json());
     }
     /**
-     * ユーザーの連絡先を更新する
+     * プロフィール更新
      */
-    public async updateContacts(params: {
+    public async updateProfile(params: factory.person.IProfile & {
         /**
          * person id(basically specify 'me' to retrieve contacts of login user)
          */
         personId: string;
-        /**
-         * contacts
-         */
-        contacts: factory.person.IContact;
     }): Promise<void> {
         await this.fetch({
-            uri: `/people/${params.personId}/contacts`,
+            uri: `/people/${params.personId}/profile`,
             method: 'PUT',
-            body: params.contacts,
+            body: params,
             expectedStatusCodes: [NO_CONTENT]
         });
     }

@@ -322,7 +322,7 @@ export class PlaceOrderTransactionService extends Service {
         return this.fetch({
             uri: `/transactions/placeOrder/${params.transactionId}/customerContact`,
             method: 'PUT',
-            expectedStatusCodes: [CREATED],
+            expectedStatusCodes: [OK],
             body: params.contact
         }).then(async (response) => response.json());
     }
