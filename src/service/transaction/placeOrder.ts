@@ -386,4 +386,18 @@ export class PlaceOrderTransactionService extends Service {
             };
         });
     }
+    /**
+     * 取引に対するアクションを検索する
+     */
+    public async searchActionsByTransactionId(params: {
+        transactionId: string;
+        sort: factory.action.ISortOrder;
+    }): Promise<factory.action.IAction<factory.action.IAttributes<factory.actionType, any, any>>[]> {
+        return this.fetch({
+            uri: `/transactions/placeOrder/${params.transactionId}/actions`,
+            method: 'GET',
+            qs: params,
+            expectedStatusCodes: [OK]
+        }).then(async (response) => response.json());
+    }
 }
