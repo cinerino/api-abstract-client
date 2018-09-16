@@ -1,7 +1,7 @@
 import { NO_CONTENT, OK } from 'http-status';
 
 import * as factory from '../../factory';
-import { Service } from '../../service';
+import { ISearchResult, Service } from '../../service';
 
 /**
  * 注文返品取引サービス
@@ -20,7 +20,7 @@ export class ReturnOrderTransactionService extends Service {
          * 返品したい注文取引ID
          */
         transactionId: string;
-    }): Promise<factory.transaction.returnOrder.ITransaction> {
+    }): Promise<factory.transaction.ITransaction<factory.transactionType.ReturnOrder>> {
         return this.fetch({
             uri: '/transactions/returnOrder/start',
             method: 'POST',
@@ -45,6 +45,24 @@ export class ReturnOrderTransactionService extends Service {
             uri: `/transactions/returnOrder/${params.transactionId}/confirm`,
             method: 'PUT',
             expectedStatusCodes: [NO_CONTENT]
+        });
+    }
+    /**
+     * 取引検索
+     */
+    public async search(
+        params: factory.transaction.ISearchConditions<factory.transactionType.ReturnOrder>
+    ): Promise<ISearchResult<factory.transaction.ITransaction<factory.transactionType.ReturnOrder>[]>> {
+        return this.fetch({
+            uri: '/transactions/returnOrder',
+            method: 'GET',
+            qs: params,
+            expectedStatusCodes: [OK]
+        }).then(async (response) => {
+            return {
+                totalCount: Number(<string>response.headers.get('X-Total-Count')),
+                data: await response.json()
+            };
         });
     }
 }

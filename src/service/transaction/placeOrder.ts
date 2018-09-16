@@ -1,7 +1,7 @@
 import { CREATED, NO_CONTENT, OK } from 'http-status';
 
 import * as factory from '../../factory';
-import { Service } from '../../service';
+import { ISearchResult, Service } from '../../service';
 
 /**
  * クレジットカード承認アクションに必要なクレジットカード情報インターフェース
@@ -63,7 +63,7 @@ export class PlaceOrderTransactionService extends Service {
          * WAITER許可証トークン
          */
         passportToken?: string;
-    }): Promise<factory.transaction.placeOrder.ITransaction> {
+    }): Promise<factory.transaction.ITransaction<factory.transactionType.PlaceOrder>> {
         return this.fetch({
             uri: '/transactions/placeOrder/start',
             method: 'POST',
@@ -366,6 +366,24 @@ export class PlaceOrderTransactionService extends Service {
             uri: `/transactions/placeOrder/${params.transactionId}/cancel`,
             method: 'PUT',
             expectedStatusCodes: [NO_CONTENT]
+        });
+    }
+    /**
+     * 取引検索
+     */
+    public async search(
+        params: factory.transaction.ISearchConditions<factory.transactionType.PlaceOrder>
+    ): Promise<ISearchResult<factory.transaction.ITransaction<factory.transactionType.PlaceOrder>[]>> {
+        return this.fetch({
+            uri: '/transactions/placeOrder',
+            method: 'GET',
+            qs: params,
+            expectedStatusCodes: [OK]
+        }).then(async (response) => {
+            return {
+                totalCount: Number(<string>response.headers.get('X-Total-Count')),
+                data: await response.json()
+            };
         });
     }
 }
