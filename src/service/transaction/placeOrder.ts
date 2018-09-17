@@ -98,6 +98,26 @@ export class PlaceOrderTransactionService extends Service {
     }
 
     /**
+     * 座席予約承認取消
+     */
+    public async voidSeatReservation(params: {
+        /**
+         * 取引ID
+         */
+        transactionId: string;
+        /**
+         * アクションID
+         */
+        actionId: string;
+    }): Promise<void> {
+        await this.fetch({
+            uri: `/transactions/placeOrder/${params.transactionId}/actions/authorize/offer/seatReservation/${params.actionId}/cancel`,
+            method: 'PUT',
+            expectedStatusCodes: [NO_CONTENT]
+        });
+    }
+
+    /**
      * クレジットカードのオーソリを取得する
      */
     public async authorizeCreditCardPayment(params: {
@@ -149,8 +169,8 @@ export class PlaceOrderTransactionService extends Service {
         actionId: string;
     }): Promise<void> {
         await this.fetch({
-            uri: `/transactions/placeOrder/${params.transactionId}/actions/authorize/paymentMethod/creditCard/${params.actionId}`,
-            method: 'DELETE',
+            uri: `/transactions/placeOrder/${params.transactionId}/actions/authorize/paymentMethod/creditCard/${params.actionId}/cancel`,
+            method: 'PUT',
             expectedStatusCodes: [NO_CONTENT]
         });
     }
@@ -204,8 +224,8 @@ export class PlaceOrderTransactionService extends Service {
         actionId: string;
     }): Promise<void> {
         await this.fetch({
-            uri: `/transactions/placeOrder/${params.transactionId}/actions/authorize/paymentMethod/account/${params.actionId}`,
-            method: 'DELETE',
+            uri: `/transactions/placeOrder/${params.transactionId}/actions/authorize/paymentMethod/account/${params.actionId}/cancel`,
+            method: 'PUT',
             expectedStatusCodes: [NO_CONTENT]
         });
     }
@@ -259,8 +279,8 @@ export class PlaceOrderTransactionService extends Service {
         actionId: string;
     }): Promise<void> {
         await this.fetch({
-            uri: `/transactions/placeOrder/${params.transactionId}/actions/authorize/award/accounts/point/${params.actionId}`,
-            method: 'DELETE',
+            uri: `/transactions/placeOrder/${params.transactionId}/actions/authorize/award/accounts/point/${params.actionId}/cancel`,
+            method: 'PUT',
             expectedStatusCodes: [NO_CONTENT]
         });
     }
