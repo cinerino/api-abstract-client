@@ -40,7 +40,9 @@ describe('注文返品取引サービス', () => {
 
         const result = await transactions.start({
             expires: new Date(),
-            transactionId: 'transactionId'
+            object: {
+                order: { orderNumber: 'orderNumber' }
+            }
         });
         assert.deepEqual(result, data);
         sandbox.verify();

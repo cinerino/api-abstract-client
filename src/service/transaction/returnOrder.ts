@@ -13,25 +13,22 @@ export class ReturnOrderTransactionService extends Service {
     public async start(params: {
         /**
          * 取引期限
-         * 指定した日時を過ぎると、取引を進行することはできなくなります。
          */
         expires: Date;
-        /**
-         * 返品したい注文取引ID
-         */
-        transactionId: string;
+        object: {
+            /**
+             * 返品対象注文
+             */
+            order: { orderNumber: string };
+        };
     }): Promise<factory.transaction.ITransaction<factory.transactionType.ReturnOrder>> {
         return this.fetch({
             uri: '/transactions/returnOrder/start',
             method: 'POST',
-            body: {
-                expires: params.expires,
-                transactionId: params.transactionId
-            },
+            body: params,
             expectedStatusCodes: [OK]
         }).then(async (response) => response.json());
     }
-
     /**
      * 取引確定
      */
