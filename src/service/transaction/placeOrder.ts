@@ -47,31 +47,38 @@ export type ITokenizedAccount = string;
 export class PlaceOrderTransactionService extends Service {
     /**
      * 取引を開始する
-     * 開始できない場合(混雑中など)、nullが返されます。
      */
     public async start(params: {
         /**
          * 取引期限
-         * 指定した日時を過ぎると、取引を進行することはできなくなります。
          */
         expires: Date;
         /**
-         * 販売者ID
+         * 購入者
          */
-        sellerId: string;
+        agent?: {
+            identifier?: factory.person.IIdentifier;
+        };
         /**
-         * WAITER許可証トークン
+         * 販売者
          */
-        passportToken?: string;
+        seller: {
+            typeOf: factory.organizationType;
+            id: string;
+        };
+        object: {
+            /**
+             * WAITER許可証
+             */
+            passport?: {
+                token: factory.waiter.passport.IEncodedPassport;
+            };
+        };
     }): Promise<factory.transaction.ITransaction<factory.transactionType.PlaceOrder>> {
         return this.fetch({
             uri: '/transactions/placeOrder/start',
             method: 'POST',
-            body: {
-                expires: params.expires,
-                sellerId: params.sellerId,
-                passportToken: params.passportToken
-            },
+            body: params,
             expectedStatusCodes: [OK]
         }).then(async (response) => response.json());
     }
