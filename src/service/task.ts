@@ -1,7 +1,7 @@
 import { CREATED, OK } from 'http-status';
 
 import * as factory from '../factory';
-import { Service } from '../service';
+import { ISearchResult, Service } from '../service';
 
 /**
  * タスクサービス
@@ -30,5 +30,23 @@ export class TaskService extends Service {
             method: 'GET',
             expectedStatusCodes: [OK]
         }).then(async (response) => response.json());
+    }
+    /**
+     * 検索する
+     */
+    public async search<T extends factory.taskName>(
+        params: factory.task.ISearchConditions<T>
+    ): Promise<ISearchResult<factory.task.ITask<T>[]>> {
+        return this.fetch({
+            uri: '/tasks',
+            method: 'GET',
+            qs: params,
+            expectedStatusCodes: [OK]
+        }).then(async (response) => {
+            return {
+                totalCount: Number(<string>response.headers.get('X-Total-Count')),
+                data: await response.json()
+            };
+        });
     }
 }
