@@ -16,6 +16,7 @@ import { ReservationService } from './service/reservation';
 import { TaskService } from './service/task';
 import { PlaceOrderTransactionService } from './service/transaction/placeOrder';
 import { ReturnOrderTransactionService } from './service/transaction/returnOrder';
+import { UserPoolService } from './service/userPool';
 import * as transporters from './transporters';
 
 export import factory = factory;
@@ -74,4 +75,8 @@ export namespace service {
          */
         export class ReturnOrder extends ReturnOrderTransactionService { }
     }
+    /**
+     * Cognitoユーザープールサービス
+     */
+    export class UserPool extends UserPoolService { }
 }
