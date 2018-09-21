@@ -427,4 +427,17 @@ export class PlaceOrderTransactionService extends Service {
             expectedStatusCodes: [OK]
         }).then(async (response) => response.json());
     }
+    /**
+     * レポートダウンロード
+     */
+    public async downloadReport(params: factory.transaction.ISearchConditions<factory.transactionType.PlaceOrder> & {
+        format: factory.encodingFormat.Text;
+    }): Promise<NodeJS.ReadableStream | ReadableStream> {
+        return this.fetch({
+            uri: '/transactions/placeOrder/report',
+            method: 'GET',
+            qs: params,
+            expectedStatusCodes: [OK]
+        }).then(async (response) => <NodeJS.ReadableStream | ReadableStream>response.body);
+    }
 }
