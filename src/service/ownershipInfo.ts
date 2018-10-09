@@ -1,6 +1,7 @@
 import { OK } from 'http-status';
 
-import { Service } from '../service';
+import * as factory from '../factory';
+import { ISearchResult, Service } from '../service';
 
 export interface ITokenResponse {
     token: string;
@@ -27,11 +28,16 @@ export class OwnershipInfoService extends Service {
      */
     public async searchCheckTokenActions(params: {
         id: string;
-    }): Promise<ITokenResponse> {
+    }): Promise<ISearchResult<factory.action.check.token.IAction[]>> {
         return this.fetch({
             uri: `/ownershipInfos/${params.id}/actions/checkToken`,
             method: 'GET',
             expectedStatusCodes: [OK]
-        }).then(async (response) => response.json());
+        }).then(async (response) => {
+            return {
+                totalCount: Number(<string>response.headers.get('X-Total-Count')),
+                data: await response.json()
+            };
+        });
     }
 }
