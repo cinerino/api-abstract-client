@@ -40,14 +40,14 @@ export class EventService extends Service {
     /**
      * 上映イベントに対する券種検索
      */
-    public async searchScreeningEventTicketTypes(params: {
+    public async searchScreeningEventTicketOffers(params: {
         /**
          * イベントID
          */
         eventId: string;
-    }): Promise<factory.chevre.ticketType.ITicketType[]> {
+    }): Promise<factory.chevre.event.screeningEvent.ITicketOffer[]> {
         return this.fetch({
-            uri: `/events/screeningEvent/${params.eventId}/ticketTypes`,
+            uri: `/events/screeningEvent/${params.eventId}/offers/ticket`,
             method: 'GET',
             expectedStatusCodes: [OK]
         }).then(async (response) => response.json());

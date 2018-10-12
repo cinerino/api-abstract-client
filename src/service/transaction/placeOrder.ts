@@ -96,11 +96,7 @@ export class PlaceOrderTransactionService extends Service {
             uri: `/transactions/placeOrder/${params.transactionId}/actions/authorize/offer/seatReservation`,
             method: 'POST',
             expectedStatusCodes: [CREATED],
-            body: {
-                event: params.event,
-                notes: params.notes,
-                tickets: params.tickets
-            }
+            body: params
         }).then(async (response) => response.json());
     }
 
