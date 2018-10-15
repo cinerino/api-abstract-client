@@ -4,13 +4,6 @@ import * as factory from '../../factory';
 import { ISearchResult, Service } from '../../service';
 
 /**
- * クレジットカード承認アクションに必要なクレジットカード情報インターフェース
- */
-export type ICreditCard =
-    factory.paymentMethod.paymentCard.creditCard.IUncheckedCardRaw |
-    factory.paymentMethod.paymentCard.creditCard.IUncheckedCardTokenized |
-    factory.paymentMethod.paymentCard.creditCard.IUnauthorizedCardOfMember;
-/**
  * 承認アクションインターフェース
  */
 export interface IAuthorizeAction {
@@ -123,38 +116,17 @@ export class PlaceOrderTransactionService extends Service {
     /**
      * クレジットカードのオーソリを取得する
      */
-    public async authorizeCreditCardPayment(params: {
+    public async authorizeCreditCardPayment(params: factory.action.authorize.paymentMethod.creditCard.IObject & {
         /**
          * 取引ID
          */
         transactionId: string;
-        /**
-         * オーダーID
-         */
-        orderId: string;
-        /**
-         * 金額
-         */
-        amount: number;
-        /**
-         * 支払い方法
-         */
-        method: string;
-        /**
-         * クレジットカード情報
-         */
-        creditCard: ICreditCard;
     }): Promise<IAuthorizeAction> {
         return this.fetch({
             uri: `/transactions/placeOrder/${params.transactionId}/actions/authorize/paymentMethod/creditCard`,
             method: 'POST',
             expectedStatusCodes: [CREATED],
-            body: {
-                orderId: params.orderId,
-                amount: params.amount,
-                method: params.method,
-                creditCard: params.creditCard
-            }
+            body: params
         }).then(async (response) => response.json());
     }
 
@@ -205,11 +177,7 @@ export class PlaceOrderTransactionService extends Service {
             uri: `/transactions/placeOrder/${params.transactionId}/actions/authorize/paymentMethod/account`,
             method: 'POST',
             expectedStatusCodes: [CREATED],
-            body: {
-                amount: params.amount,
-                fromAccount: params.fromAccount,
-                notes: params.notes
-            }
+            body: params
         }).then(async (response) => response.json());
     }
 
@@ -228,6 +196,43 @@ export class PlaceOrderTransactionService extends Service {
     }): Promise<void> {
         await this.fetch({
             uri: `/transactions/placeOrder/${params.transactionId}/actions/authorize/paymentMethod/account/${params.actionId}/cancel`,
+            method: 'PUT',
+            expectedStatusCodes: [NO_CONTENT]
+        });
+    }
+
+    /**
+     * ムビチケ承認
+     */
+    public async authorizeMovieTicketPayment(params: factory.action.authorize.paymentMethod.movieTicket.IObject & {
+        /**
+         * 取引ID
+         */
+        transactionId: string;
+    }): Promise<factory.action.authorize.paymentMethod.movieTicket.IAction> {
+        return this.fetch({
+            uri: `/transactions/placeOrder/${params.transactionId}/actions/authorize/paymentMethod/movieTicket`,
+            method: 'POST',
+            expectedStatusCodes: [CREATED],
+            body: params
+        }).then(async (response) => response.json());
+    }
+
+    /**
+     * ムビチケ承認取消
+     */
+    public async voidMovieTicketPayment(params: {
+        /**
+         * 取引ID
+         */
+        transactionId: string;
+        /**
+         * アクションID
+         */
+        actionId: string;
+    }): Promise<void> {
+        await this.fetch({
+            uri: `/transactions/placeOrder/${params.transactionId}/actions/authorize/paymentMethod/movieTicket/${params.actionId}/cancel`,
             method: 'PUT',
             expectedStatusCodes: [NO_CONTENT]
         });
@@ -260,11 +265,7 @@ export class PlaceOrderTransactionService extends Service {
             uri: `/transactions/placeOrder/${params.transactionId}/actions/authorize/award/accounts/point`,
             method: 'POST',
             expectedStatusCodes: [CREATED],
-            body: {
-                amount: params.amount,
-                toAccountNumber: params.toAccountNumber,
-                notes: params.notes
-            }
+            body: params
         }).then(async (response) => response.json());
     }
 
@@ -320,12 +321,7 @@ export class PlaceOrderTransactionService extends Service {
             uri: `/transactions/placeOrder/${params.transactionId}/actions/authorize/paymentMethod/mocoin`,
             method: 'POST',
             expectedStatusCodes: [CREATED],
-            body: {
-                amount: params.amount,
-                fromAccountNumber: params.fromAccountNumber,
-                notes: params.notes,
-                token: params.token
-            }
+            body: params
         }).then(async (response) => response.json());
     }
 
@@ -372,10 +368,7 @@ export class PlaceOrderTransactionService extends Service {
             uri: `/transactions/placeOrder/${params.transactionId}/confirm`,
             method: 'PUT',
             expectedStatusCodes: [OK],
-            body: {
-                sendEmailMessage: params.sendEmailMessage
-                // incentives: params.incentives
-            }
+            body: params
         }).then(async (response) => response.json());
     }
     /**
