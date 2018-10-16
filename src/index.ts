@@ -10,6 +10,7 @@ import { EventService } from './service/event';
 import { OrderService } from './service/order';
 import { OrganizationService } from './service/organization';
 import { OwnershipInfoService } from './service/ownershipInfo';
+import { PaymentService } from './service/payment';
 import { PersonService } from './service/person';
 import { PersonOwnershipInfoService } from './service/person/ownershipInfo';
 import { ReservationService } from './service/reservation';
@@ -46,6 +47,10 @@ export namespace service {
      * 所有権サービス
      */
     export class OwnershipInfo extends OwnershipInfoService { }
+    /**
+     * 決済サービス
+     */
+    export class Payment extends PaymentService { }
     /**
      * ユーザーサービス
      */
