@@ -114,6 +114,45 @@ export class PlaceOrderTransactionService extends Service {
     }
 
     /**
+     * 汎用決済承認
+     */
+    public async authorizeAnyPayment<T extends factory.paymentMethodType>(
+        params: factory.action.authorize.paymentMethod.any.IObject<T> & {
+            /**
+             * 取引ID
+             */
+            transactionId: string;
+        }
+    ): Promise<IAuthorizeAction> {
+        return this.fetch({
+            uri: `/transactions/placeOrder/${params.transactionId}/actions/authorize/paymentMethod/any`,
+            method: 'POST',
+            expectedStatusCodes: [CREATED],
+            body: params
+        }).then(async (response) => response.json());
+    }
+
+    /**
+     * 汎用決済承認取消
+     */
+    public async voidAnyPayment(params: {
+        /**
+         * 取引ID
+         */
+        transactionId: string;
+        /**
+         * アクションID
+         */
+        actionId: string;
+    }): Promise<void> {
+        await this.fetch({
+            uri: `/transactions/placeOrder/${params.transactionId}/actions/authorize/paymentMethod/any/${params.actionId}/cancel`,
+            method: 'PUT',
+            expectedStatusCodes: [NO_CONTENT]
+        });
+    }
+
+    /**
      * クレジットカードのオーソリを取得する
      */
     public async authorizeCreditCardPayment(params: factory.action.authorize.paymentMethod.creditCard.IObject & {
