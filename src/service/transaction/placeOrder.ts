@@ -9,17 +9,6 @@ import { ISearchResult, Service } from '../../service';
 export interface IAuthorizeAction {
     id: string;
 }
-export interface IAccount {
-    /**
-     * 口座タイプ
-     */
-    accountType: factory.accountType;
-    /**
-     * 口座番号
-     */
-    accountNumber: string;
-}
-export type ITokenizedAccount = string;
 /**
  * 注文インセンティブインターフェース
  */
@@ -192,25 +181,11 @@ export class PlaceOrderTransactionService extends Service {
     /**
      * 口座決済のオーソリを取得する
      */
-    public async authorizeAccountPayment(params: {
+    public async authorizeAccountPayment(params: factory.action.authorize.paymentMethod.account.IObject<factory.accountType> & {
         /**
          * 取引ID
          */
         transactionId: string;
-        /**
-         * 金額
-         */
-        amount: number;
-        /**
-         * 確保口座
-         */
-        fromAccount: IAccount | ITokenizedAccount;
-        /**
-         * 取引メモ
-         * 指定すると、口座の取引明細に記録されます。
-         * 後の調査のためにある程度の情報を記録することが望ましい。
-         */
-        notes?: string;
     }): Promise<IAuthorizeAction> {
         return this.fetch({
             uri: `/transactions/placeOrder/${params.transactionId}/actions/authorize/paymentMethod/account`,
@@ -331,30 +306,11 @@ export class PlaceOrderTransactionService extends Service {
     /**
      * Mocoin決済のオーソリを取得する
      */
-    public async authorizeMocoinPayment(params: {
+    public async authorizeMocoinPayment(params: factory.action.authorize.paymentMethod.mocoin.IObject & {
         /**
          * 取引ID
          */
         transactionId: string;
-        /**
-         * 金額
-         */
-        amount: number;
-        /**
-         * 引き出し元口座番号
-         */
-        fromAccountNumber: string;
-        /**
-         * 取引メモ
-         * 指定すると、口座の取引明細に記録されます。
-         * 後の調査のためにある程度の情報を記録することが望ましい。
-         */
-        notes?: string;
-        /**
-         * 決済トークン
-         * Mocoinユーザーのアクセストークンをセットしてください。
-         */
-        token: string;
     }): Promise<IAuthorizeAction> {
         return this.fetch({
             uri: `/transactions/placeOrder/${params.transactionId}/actions/authorize/paymentMethod/mocoin`,
