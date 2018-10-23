@@ -3,6 +3,8 @@ import { NO_CONTENT, OK } from 'http-status';
 import * as factory from '../factory';
 import { ISearchResult, Service } from '../service';
 
+export type IPerson = factory.person.IProfile & factory.person.IPerson;
+
 /**
  * ユーザーサービス
  */
@@ -22,6 +24,7 @@ export class PersonService extends Service {
             expectedStatusCodes: [OK]
         }).then(async (response) => response.json());
     }
+
     /**
      * プロフィール更新
      */
@@ -38,6 +41,7 @@ export class PersonService extends Service {
             expectedStatusCodes: [NO_CONTENT]
         });
     }
+
     /**
      * 注文を検索する
      */
@@ -55,5 +59,42 @@ export class PersonService extends Service {
                 data: await response.json()
             };
         });
+    }
+
+    /**
+     * 会員検索
+     */
+    public async search(params: {
+        id?: string;
+        username?: string;
+        email?: string;
+        telephone?: string;
+        givenName?: string;
+        familyName?: string;
+    }): Promise<ISearchResult<IPerson[]>> {
+        return this.fetch({
+            uri: '/people',
+            method: 'GET',
+            qs: params,
+            expectedStatusCodes: [OK]
+        }).then(async (response) => {
+            return {
+                totalCount: Number(<string>response.headers.get('X-Total-Count')),
+                data: await response.json()
+            };
+        });
+    }
+
+    /**
+     * IDで検索
+     */
+    public async findById(params: {
+        id: string;
+    }): Promise<IPerson> {
+        return this.fetch({
+            uri: `/people/${params.id}`,
+            method: 'GET',
+            expectedStatusCodes: [OK]
+        }).then(async (response) => response.json());
     }
 }

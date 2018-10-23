@@ -125,28 +125,6 @@ export class PersonOwnershipInfoService extends Service {
         });
     }
     /**
-     * 口座検索
-     */
-    // public async searchAccounts<T extends factory.accountType>(
-    //     params: factory.ownershipInfo.ISearchConditions<factory.ownershipInfo.AccountGoodType.Account> & {
-    //         /**
-    //          * person id(basically specify 'me' to retrieve contacts of login user)
-    //          */
-    //         personId: string;
-    //     }): Promise<ISearchResult<IAccountOwnershipInfo<T>[]>> {
-    //     return this.fetch({
-    //         uri: `/people/${params.personId}/ownershipInfos/accounts`,
-    //         method: 'GET',
-    //         qs: params,
-    //         expectedStatusCodes: [OK]
-    //     }).then(async (response) => {
-    //         return {
-    //             totalCount: Number(<string>response.headers.get('X-Total-Count')),
-    //             data: await response.json()
-    //         };
-    //     });
-    // }
-    /**
      * 口座取引履歴検索
      */
     public async searchAccountMoneyTransferActions<T extends factory.accountType>(
@@ -169,29 +147,6 @@ export class PersonOwnershipInfoService extends Service {
             };
         });
     }
-    /**
-     * 上映イベント予約検索
-     */
-    // public async searchScreeningEventReservations(
-    //     params: factory.ownershipInfo.ISearchConditions<factory.chevre.reservationType.EventReservation> & {
-    //         /**
-    //          * person id(basically specify 'me' to retrieve contacts of login user)
-    //          */
-    //         personId: string;
-    //     }
-    // ): Promise<ISearchResult<IScreeningEventReservationOwnershipInfo[]>> {
-    //     return this.fetch({
-    //         uri: `/people/${params.personId}/ownershipInfos/reservations/eventReservation/screeningEvent`,
-    //         method: 'GET',
-    //         qs: params,
-    //         expectedStatusCodes: [OK]
-    //     }).then(async (response) => {
-    //         return {
-    //             totalCount: Number(<string>response.headers.get('X-Total-Count')),
-    //             data: await response.json()
-    //         };
-    //     });
-    // }
     /**
      * 所有権検索
      */
