@@ -25,8 +25,9 @@ export class EventService extends Service {
             };
         });
     }
+
     /**
-     * 上映イベント情報取得
+     * IDで上映イベント検索
      */
     public async findScreeningEventById(params: {
         id: string;
@@ -37,23 +38,9 @@ export class EventService extends Service {
             expectedStatusCodes: [OK]
         }).then(async (response) => response.json());
     }
+
     /**
-     * 上映イベントに対する券種検索
-     */
-    public async searchScreeningEventTicketOffers(params: {
-        /**
-         * イベントID
-         */
-        eventId: string;
-    }): Promise<factory.chevre.event.screeningEvent.ITicketOffer[]> {
-        return this.fetch({
-            uri: `/events/screeningEvent/${params.eventId}/offers/ticket`,
-            method: 'GET',
-            expectedStatusCodes: [OK]
-        }).then(async (response) => response.json());
-    }
-    /**
-     * 上映イベントに対するオファー検索
+     * 上映イベントに対する座席オファー検索
      */
     public async searchScreeningEventOffers(params: {
         /**
@@ -65,6 +52,31 @@ export class EventService extends Service {
             uri: `/events/screeningEvent/${params.eventId}/offers`,
             method: 'GET',
             expectedStatusCodes: [OK]
+        }).then(async (response) => response.json());
+    }
+
+    /**
+     * 上映イベントに対する券種オファー検索
+     */
+    public async searchScreeningEventTicketOffers(params: {
+        /**
+         * イベント
+         */
+        event: { id: string };
+        /**
+         * 販売者
+         */
+        seller: { typeOf: factory.organizationType; id: string };
+        /**
+         * 店舗(idにはアプリケーションクライアントIDを指定)
+         */
+        store: { id: string };
+    }): Promise<factory.chevre.event.screeningEvent.ITicketOffer[]> {
+        return this.fetch({
+            uri: `/events/screeningEvent/${params.event.id}/offers/ticket`,
+            method: 'GET',
+            expectedStatusCodes: [OK],
+            qs: params
         }).then(async (response) => response.json());
     }
 }
