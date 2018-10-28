@@ -15,11 +15,11 @@ const API_ENDPOINT = 'https://localhost';
 
 describe('注文返品取引サービス', () => {
     let sandbox: sinon.SinonSandbox;
-    let transactions: client.service.transaction.ReturnOrder;
+    let transactions: client.service.txn.ReturnOrder;
 
     before(() => {
         const auth = new StubAuthClient();
-        transactions = new client.service.transaction.ReturnOrder({
+        transactions = new client.service.txn.ReturnOrder({
             auth: auth,
             endpoint: API_ENDPOINT
         });
@@ -53,7 +53,7 @@ describe('注文返品取引サービス', () => {
         sandbox.mock(transactions).expects('fetch').once().resolves();
 
         const result = await transactions.confirm({
-            transactionId: 'transactionId'
+            id: 'id'
         });
         assert.deepEqual(result, data);
     });

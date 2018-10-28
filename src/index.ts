@@ -16,6 +16,7 @@ import { PersonOwnershipInfoService } from './service/person/ownershipInfo';
 import { ReservationService } from './service/reservation';
 import { TaskService } from './service/task';
 import { PlaceOrderTransactionService } from './service/transaction/placeOrder';
+import { PlaceOrder2TransactionService } from './service/transaction/placeOrder2';
 import { ReturnOrderTransactionService } from './service/transaction/returnOrder';
 import { UserPoolService } from './service/userPool';
 import * as transporters from './transporters';
@@ -70,7 +71,10 @@ export namespace service {
      * タスクサービス
      */
     export class Task extends TaskService { }
-    export namespace transaction {
+    /**
+     * 取引サービス
+     */
+    export namespace txn {
         /**
          * 注文取引サービス
          */
@@ -79,6 +83,16 @@ export namespace service {
          * 注文返品取引サービス
          */
         export class ReturnOrder extends ReturnOrderTransactionService { }
+    }
+    /**
+     * 取引サービス
+     * @deprecated Use service.txn
+     */
+    export namespace transaction {
+        /**
+         * 注文取引サービス
+         */
+        export class PlaceOrder extends PlaceOrder2TransactionService { }
     }
     /**
      * Cognitoユーザープールサービス

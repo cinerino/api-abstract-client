@@ -2,11 +2,14 @@ import { NO_CONTENT, OK } from 'http-status';
 
 import * as factory from '../../factory';
 import { ISearchResult, Service } from '../../service';
+import { TransactionService } from '../transaction';
 
 /**
  * 注文返品取引サービス
  */
-export class ReturnOrderTransactionService extends Service {
+export class ReturnOrderTransactionService extends Service implements TransactionService {
+    public typeOf: factory.transactionType.ReturnOrder = factory.transactionType.ReturnOrder;
+
     /**
      * 取引を開始する
      */
@@ -23,27 +26,29 @@ export class ReturnOrderTransactionService extends Service {
         };
     }): Promise<factory.transaction.ITransaction<factory.transactionType.ReturnOrder>> {
         return this.fetch({
-            uri: '/transactions/returnOrder/start',
+            uri: `/transactions/${this.typeOf}/start`,
             method: 'POST',
             body: params,
             expectedStatusCodes: [OK]
         }).then(async (response) => response.json());
     }
+
     /**
      * 取引確定
      */
     public async confirm(params: {
         /**
-         * 返品取引ID
+         * 取引ID
          */
-        transactionId: string;
+        id: string;
     }): Promise<void> {
         await this.fetch({
-            uri: `/transactions/returnOrder/${params.transactionId}/confirm`,
+            uri: `/transactions/${this.typeOf}/${params.id}/confirm`,
             method: 'PUT',
             expectedStatusCodes: [NO_CONTENT]
         });
     }
+
     /**
      * 取引検索
      */
