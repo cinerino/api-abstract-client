@@ -85,7 +85,7 @@ export namespace service {
     }
     /**
      * 取引サービス
-     * @alias
+     * @alias service.transaction
      */
     export import txn = transaction;
     /**
