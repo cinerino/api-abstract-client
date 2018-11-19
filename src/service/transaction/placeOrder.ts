@@ -261,10 +261,17 @@ export class PlaceOrderTransactionService extends Service implements Transaction
         id: string;
         options?: {
             /**
-             * 注文メールを送信するかどうか
-             * デフォルトはfalse
+             * 注文配送メールを送信するかどうか
              */
             sendEmailMessage?: boolean;
+            /**
+             * 注文配送メールテンプレート
+             * メールをカスタマイズしたい場合、PUGテンプレートを指定
+             * 挿入変数として`order`を使用できます
+             * @see https://pugjs.org/api/getting-started.html
+             * @example example/sendOrder.pug
+             */
+            emailTemplate?: string;
             /**
              * インセンティブとしてポイントを付与する場合、ポイント数と対象口座を指定
              */
