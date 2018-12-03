@@ -6,6 +6,7 @@ import * as factory from './factory';
 
 import { AuthClient } from './auth/authClient';
 
+import { DeliveryService } from './service/delivery';
 import { EventService } from './service/event';
 import { OrderService } from './service/order';
 import { OrganizationService } from './service/organization';
@@ -31,6 +32,10 @@ export abstract class Auth extends AuthClient { }
  * サービスモジュール
  */
 export namespace service {
+    /**
+     * 配送サービス
+     */
+    export class Delivery extends DeliveryService { }
     /**
      * イベントサービス
      */

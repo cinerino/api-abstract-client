@@ -8,6 +8,20 @@ import { ISearchResult, Service } from '../service';
  */
 export class OrderService extends Service {
     /**
+     * 注文を作成する
+     */
+    public async placeOrder(
+        params: { orderNumber: string }
+    ): Promise<factory.order.IOrder> {
+        return this.fetch({
+            uri: '/orders',
+            method: 'POST',
+            body: params,
+            expectedStatusCodes: [OK]
+        }).then(async (response) => response.json());
+    }
+
+    /**
      * 確認番号で検索
      * 確認番号と購入者情報より、最新の注文を検索します
      */
@@ -25,6 +39,7 @@ export class OrderService extends Service {
             expectedStatusCodes: [OK]
         }).then(async (response) => response.json());
     }
+
     /**
      * 所有権コードを発行する
      */
@@ -42,6 +57,7 @@ export class OrderService extends Service {
             expectedStatusCodes: [OK]
         }).then(async (response) => response.json());
     }
+
     /**
      * 注文に対するアクションを検索する
      */
@@ -56,6 +72,7 @@ export class OrderService extends Service {
             expectedStatusCodes: [OK]
         }).then(async (response) => response.json());
     }
+
     /**
      * 注文を検索する
      */
