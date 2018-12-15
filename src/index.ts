@@ -12,6 +12,7 @@ import { OrderService } from './service/order';
 import { OrganizationService } from './service/organization';
 import { OwnershipInfoService } from './service/ownershipInfo';
 import { PaymentService } from './service/payment';
+import { PaymentMethodService } from './service/paymentMethod';
 import { PersonService } from './service/person';
 import { PersonOwnershipInfoService } from './service/person/ownershipInfo';
 import { ReservationService } from './service/reservation';
@@ -56,6 +57,10 @@ export namespace service {
      * 決済サービス
      */
     export class Payment extends PaymentService { }
+    /**
+     * 決済方法サービス
+     */
+    export class PaymentMethod extends PaymentMethodService { }
     /**
      * ユーザーサービス
      */
