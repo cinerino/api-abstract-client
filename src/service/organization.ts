@@ -36,8 +36,8 @@ export class OrganizationService extends Service {
      * 劇場組織検索
      */
     public async searchMovieTheaters(
-        params: factory.organization.movieTheater.ISearchConditions
-    ): Promise<ISearchResult<factory.organization.movieTheater.IOrganization[]>> {
+        params: factory.organization.ISearchConditions<factory.organizationType.MovieTheater>
+    ): Promise<ISearchResult<factory.organization.IOrganization<factory.organizationType.MovieTheater>[]>> {
         return this.fetch({
             uri: '/organizations/movieTheater',
             method: 'GET',

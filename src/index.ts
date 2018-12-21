@@ -16,6 +16,7 @@ import { PaymentMethodService } from './service/paymentMethod';
 import { PersonService } from './service/person';
 import { PersonOwnershipInfoService } from './service/person/ownershipInfo';
 import { ReservationService } from './service/reservation';
+import { SellerService } from './service/seller';
 import { TaskService } from './service/task';
 import { PlaceOrderTransactionService } from './service/transaction/placeOrder';
 import { ReturnOrderTransactionService } from './service/transaction/returnOrder';
@@ -76,6 +77,10 @@ export namespace service {
      * 予約サービス
      */
     export class Reservation extends ReservationService { }
+    /**
+     * 販売者サービス
+     */
+    export class Seller extends SellerService { }
     /**
      * タスクサービス
      */
