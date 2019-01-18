@@ -15,11 +15,18 @@ export class PersonService extends Service {
     public async getProfile(params: {
         /**
          * person id(basically specify 'me' to retrieve contacts of login user)
+         * 未指定の場合`me`がセットされます
          */
-        personId: string;
+        id?: string;
+        /**
+         * @deprecated Use params.id
+         */
+        personId?: string;
     }): Promise<factory.person.IProfile> {
+        const id = (params.personId !== undefined) ? params.personId : (params.id !== undefined) ? params.id : 'me';
+
         return this.fetch({
-            uri: `/people/${params.personId}/profile`,
+            uri: `/people/${id}/profile`,
             method: 'GET',
             expectedStatusCodes: [OK]
         }).then(async (response) => response.json());
@@ -31,12 +38,19 @@ export class PersonService extends Service {
     public async updateProfile(params: factory.person.IProfile & {
         /**
          * person id(basically specify 'me' to retrieve contacts of login user)
+         * 未指定の場合`me`がセットされます
          */
-        personId: string;
+        id?: string;
+        /**
+         * @deprecated Use params.id
+         */
+        personId?: string;
     }): Promise<void> {
+        const id = (params.personId !== undefined) ? params.personId : (params.id !== undefined) ? params.id : 'me';
+
         await this.fetch({
-            uri: `/people/${params.personId}/profile`,
-            method: 'PUT',
+            uri: `/people/${id}/profile`,
+            method: 'PATCH',
             body: params,
             expectedStatusCodes: [NO_CONTENT]
         });
@@ -46,10 +60,20 @@ export class PersonService extends Service {
      * 注文を検索する
      */
     public async searchOrders(params: factory.order.ISearchConditions & {
-        personId: string;
+        /**
+         * person id(basically specify 'me' to retrieve contacts of login user)
+         * 未指定の場合`me`がセットされます
+         */
+        id?: string;
+        /**
+         * @deprecated Use params.id
+         */
+        personId?: string;
     }): Promise<ISearchResult<factory.order.IOrder[]>> {
+        const id = (params.personId !== undefined) ? params.personId : (params.id !== undefined) ? params.id : 'me';
+
         return this.fetch({
-            uri: `/people/${params.personId}/orders`,
+            uri: `/people/${id}/orders`,
             method: 'GET',
             qs: params,
             expectedStatusCodes: [OK]
