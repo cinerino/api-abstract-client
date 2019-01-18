@@ -98,3 +98,18 @@ export class DefaultTransporter implements Transporter {
         throw err;
     }
 }
+
+/**
+ * スタブトランポーター
+ */
+export class StubTransporter implements Transporter {
+    public body: any;
+
+    constructor(body: any) {
+        this.body = body;
+    }
+
+    public async fetch(_: string, options: RequestInit) {
+        return new Response(this.body, options);
+    }
+}

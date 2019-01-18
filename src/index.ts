@@ -3,8 +3,9 @@
  * API Service Library for Javascript
  */
 import * as factory from './factory';
+import * as ServiceFactory from './service';
 
-import { AuthClient } from './auth/authClient';
+import { AuthClient, StubAuthClient } from './auth/authClient';
 
 import { CreativeWorkService } from './service/creativeWork';
 import { DeliveryService } from './service/delivery';
@@ -31,10 +32,31 @@ export import transporters = transporters;
  * 認証クライアント抽象クラス
  */
 export abstract class Auth extends AuthClient { }
+
+export namespace auth {
+    /**
+     * 抽象認証クライアント
+     */
+    // tslint:disable-next-line:no-shadowed-variable
+    export abstract class Auth extends AuthClient { }
+    /**
+     * スタブ認証クライアント
+     */
+    export class StubAuth extends StubAuthClient { }
+}
+
 /**
  * サービスモジュール
  */
 export namespace service {
+    export type IOptions = ServiceFactory.IOptions;
+    export type IFetchOptions = ServiceFactory.IFetchOptions;
+    export type ISearchResult<T> = ServiceFactory.ISearchResult<T>;
+    /**
+     * Baseサービス
+     */
+    export class Service extends ServiceFactory.Service { }
+
     /**
      * 作品サービス
      */

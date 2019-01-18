@@ -9,20 +9,8 @@ import * as sinon from 'sinon';
 
 import { StubAuthClient } from './auth/authClient';
 import { Service } from './service';
-import { DefaultTransporter, Transporter } from './transporters';
+import { DefaultTransporter, StubTransporter } from './transporters';
 
-/**
- * スタブトランポーター
- */
-class StubTransporter implements Transporter {
-    public body: any;
-    constructor(body: any) {
-        this.body = body;
-    }
-    public async fetch(_: string, options: RequestInit) {
-        return new Response(this.body, options);
-    }
-}
 const API_ENDPOINT = 'https://example.com';
 
 describe('fetch()', () => {
