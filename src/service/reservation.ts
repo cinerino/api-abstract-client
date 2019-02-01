@@ -6,6 +6,7 @@ import { Service } from '../service';
 export type IScreeningEvent = factory.chevre.event.screeningEvent.IEvent;
 export type IScreeningEventReservation = factory.chevre.reservation.event.IReservation<IScreeningEvent>;
 export type IScreeningEventReservationOwnershipInfo = factory.ownershipInfo.IOwnershipInfo<IScreeningEventReservation>;
+
 /**
  * 予約サービス
  */
@@ -24,13 +25,15 @@ export class ReservationService extends Service {
             method: 'GET',
             qs: params,
             expectedStatusCodes: [OK]
-        }).then(async (response) => {
-            return {
-                totalCount: Number(<string>response.headers.get('X-Total-Count')),
-                data: await response.json()
-            };
-        });
+        })
+            .then(async (response) => {
+                return {
+                    totalCount: Number(<string>response.headers.get('X-Total-Count')),
+                    data: await response.json()
+                };
+            });
     }
+
     /**
      * トークンで上映イベント予約照会
      */
@@ -42,6 +45,7 @@ export class ReservationService extends Service {
             method: 'POST',
             body: { token: params.token },
             expectedStatusCodes: [OK]
-        }).then(async (response) => response.json());
+        })
+            .then(async (response) => response.json());
     }
 }

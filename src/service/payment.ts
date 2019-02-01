@@ -18,6 +18,7 @@ export class PaymentService extends Service {
             method: 'POST',
             expectedStatusCodes: [CREATED],
             body: params
-        }).then(async (response) => response.json());
+        })
+            .then(async (response) => response.json());
     }
 }

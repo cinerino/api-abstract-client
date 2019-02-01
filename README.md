@@ -21,7 +21,7 @@ npm install @cinerino/api-abstract-client
 ### Environment variables
 
 | Name    | Required | Value                          | Purpose |
-|---------|----------|--------------------------------|---------|
+| ------- | -------- | ------------------------------ | ------- |
 | `DEBUG` | false    | cinerino-api-abstract-client:* | Debug   |
 
 ## License

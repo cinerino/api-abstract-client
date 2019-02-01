@@ -64,7 +64,8 @@ export class DefaultTransporter implements Transporter {
         const fetchOptions = DefaultTransporter.CONFIGURE(options);
         debug('fetching...', url, fetchOptions);
 
-        return fetch(url, fetchOptions).then(async (response) => this.wrapCallback(response));
+        return fetch(url, fetchOptions)
+            .then(async (response) => this.wrapCallback(response));
     }
     /**
      * Wraps the response callback.
@@ -79,9 +80,11 @@ export class DefaultTransporter implements Transporter {
                 // Only and only application/json responses should
                 // be decoded back to JSON, but there are cases API back-ends
                 // responds without proper content-type.
-                body = await response.clone().json();
+                body = await response.clone()
+                    .json();
             } catch (error) {
-                body = await response.clone().text();
+                body = await response.clone()
+                    .text();
             }
             if (typeof body === 'object' && body.error !== undefined) {
                 err = new RequestError(body.error.message);

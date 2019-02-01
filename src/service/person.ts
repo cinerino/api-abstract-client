@@ -19,7 +19,7 @@ export class PersonService extends Service {
          */
         id?: string;
         /**
-         * @deprecated Use params.id
+         * @deprecated Use id
          */
         personId?: string;
     }): Promise<factory.person.IProfile> {
@@ -29,7 +29,8 @@ export class PersonService extends Service {
             uri: `/people/${id}/profile`,
             method: 'GET',
             expectedStatusCodes: [OK]
-        }).then(async (response) => response.json());
+        })
+            .then(async (response) => response.json());
     }
 
     /**
@@ -42,7 +43,7 @@ export class PersonService extends Service {
          */
         id?: string;
         /**
-         * @deprecated Use params.id
+         * @deprecated Use id
          */
         personId?: string;
     }): Promise<void> {
@@ -66,7 +67,7 @@ export class PersonService extends Service {
          */
         id?: string;
         /**
-         * @deprecated Use params.id
+         * @deprecated Use id
          */
         personId?: string;
     }): Promise<ISearchResult<factory.order.IOrder[]>> {
@@ -77,12 +78,13 @@ export class PersonService extends Service {
             method: 'GET',
             qs: params,
             expectedStatusCodes: [OK]
-        }).then(async (response) => {
-            return {
-                totalCount: Number(<string>response.headers.get('X-Total-Count')),
-                data: await response.json()
-            };
-        });
+        })
+            .then(async (response) => {
+                return {
+                    totalCount: Number(<string>response.headers.get('X-Total-Count')),
+                    data: await response.json()
+                };
+            });
     }
 
     /**
@@ -101,16 +103,17 @@ export class PersonService extends Service {
             method: 'GET',
             qs: params,
             expectedStatusCodes: [OK]
-        }).then(async (response) => {
-            return {
-                totalCount: Number(<string>response.headers.get('X-Total-Count')),
-                data: await response.json()
-            };
-        });
+        })
+            .then(async (response) => {
+                return {
+                    totalCount: Number(<string>response.headers.get('X-Total-Count')),
+                    data: await response.json()
+                };
+            });
     }
 
     /**
-     * IDで検索
+     * ユーザー取得
      */
     public async findById(params: {
         id: string;
@@ -119,6 +122,7 @@ export class PersonService extends Service {
             uri: `/people/${params.id}`,
             method: 'GET',
             expectedStatusCodes: [OK]
-        }).then(async (response) => response.json());
+        })
+            .then(async (response) => response.json());
     }
 }

@@ -75,6 +75,7 @@ export namespace service {
     export class Order extends OrderService { }
     /**
      * 組織サービス
+     * @deprecated Use service.Seller. 販売者サービスを使用してください
      */
     export class Organization extends OrganizationService { }
     /**

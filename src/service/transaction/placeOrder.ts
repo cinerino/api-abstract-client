@@ -45,7 +45,8 @@ export class PlaceOrderTransactionService extends Service implements Transaction
             method: 'POST',
             body: params,
             expectedStatusCodes: [OK]
-        }).then(async (response) => response.json());
+        })
+            .then(async (response) => response.json());
     }
 
     /**
@@ -60,7 +61,8 @@ export class PlaceOrderTransactionService extends Service implements Transaction
             method: 'POST',
             expectedStatusCodes: [CREATED],
             body: params.object
-        }).then(async (response) => response.json());
+        })
+            .then(async (response) => response.json());
     }
 
     /**
@@ -92,7 +94,8 @@ export class PlaceOrderTransactionService extends Service implements Transaction
             method: 'POST',
             expectedStatusCodes: [CREATED],
             body: params.object
-        }).then(async (response) => response.json());
+        })
+            .then(async (response) => response.json());
     }
 
     /**
@@ -124,7 +127,8 @@ export class PlaceOrderTransactionService extends Service implements Transaction
             method: 'POST',
             expectedStatusCodes: [CREATED],
             body: params.object
-        }).then(async (response) => response.json());
+        })
+            .then(async (response) => response.json());
     }
 
     /**
@@ -139,7 +143,8 @@ export class PlaceOrderTransactionService extends Service implements Transaction
             method: 'POST',
             expectedStatusCodes: [CREATED],
             body: params.object
-        }).then(async (response) => response.json());
+        })
+            .then(async (response) => response.json());
     }
 
     /**
@@ -154,7 +159,8 @@ export class PlaceOrderTransactionService extends Service implements Transaction
             method: 'POST',
             expectedStatusCodes: [CREATED],
             body: params.object
-        }).then(async (response) => response.json());
+        })
+            .then(async (response) => response.json());
     }
 
     /**
@@ -208,7 +214,8 @@ export class PlaceOrderTransactionService extends Service implements Transaction
             method: 'POST',
             expectedStatusCodes: [CREATED],
             body: params.object
-        }).then(async (response) => response.json());
+        })
+            .then(async (response) => response.json());
     }
 
     /**
@@ -248,7 +255,8 @@ export class PlaceOrderTransactionService extends Service implements Transaction
             method: 'PUT',
             expectedStatusCodes: [OK],
             body: params.object.customerContact
-        }).then(async (response) => response.json());
+        })
+            .then(async (response) => response.json());
     }
 
     /**
@@ -283,7 +291,8 @@ export class PlaceOrderTransactionService extends Service implements Transaction
             method: 'PUT',
             expectedStatusCodes: [OK],
             body: params.options
-        }).then(async (response) => response.json());
+        })
+            .then(async (response) => response.json());
     }
 
     /**
@@ -311,12 +320,13 @@ export class PlaceOrderTransactionService extends Service implements Transaction
             method: 'GET',
             qs: params,
             expectedStatusCodes: [OK]
-        }).then(async (response) => {
-            return {
-                totalCount: Number(<string>response.headers.get('X-Total-Count')),
-                data: await response.json()
-            };
-        });
+        })
+            .then(async (response) => {
+                return {
+                    totalCount: Number(<string>response.headers.get('X-Total-Count')),
+                    data: await response.json()
+                };
+            });
     }
 
     /**
@@ -331,7 +341,8 @@ export class PlaceOrderTransactionService extends Service implements Transaction
             method: 'GET',
             qs: params,
             expectedStatusCodes: [OK]
-        }).then(async (response) => response.json());
+        })
+            .then(async (response) => response.json());
     }
 
     /**
@@ -345,6 +356,7 @@ export class PlaceOrderTransactionService extends Service implements Transaction
             method: 'GET',
             qs: params,
             expectedStatusCodes: [OK]
-        }).then(async (response) => <NodeJS.ReadableStream | ReadableStream>response.body);
+        })
+            .then(async (response) => <NodeJS.ReadableStream | ReadableStream>response.body);
     }
 }

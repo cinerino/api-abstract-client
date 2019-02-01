@@ -18,10 +18,12 @@ export class TaskService extends Service {
             method: 'POST',
             body: params,
             expectedStatusCodes: [CREATED]
-        }).then(async (response) => response.json());
+        })
+            .then(async (response) => response.json());
     }
+
     /**
-     * IDで検索
+     * タスク取得
      */
     public async findById<T extends TaskName>(params: {
         name: T;
@@ -31,10 +33,12 @@ export class TaskService extends Service {
             uri: `/tasks/${params.name}/${params.id}`,
             method: 'GET',
             expectedStatusCodes: [OK]
-        }).then(async (response) => response.json());
+        })
+            .then(async (response) => response.json());
     }
+
     /**
-     * 検索する
+     * タスク検索
      */
     public async search<T extends TaskName>(
         params: factory.task.ISearchConditions<T>
@@ -44,11 +48,12 @@ export class TaskService extends Service {
             method: 'GET',
             qs: params,
             expectedStatusCodes: [OK]
-        }).then(async (response) => {
-            return {
-                totalCount: Number(<string>response.headers.get('X-Total-Count')),
-                data: await response.json()
-            };
-        });
+        })
+            .then(async (response) => {
+                return {
+                    totalCount: Number(<string>response.headers.get('X-Total-Count')),
+                    data: await response.json()
+                };
+            });
     }
 }

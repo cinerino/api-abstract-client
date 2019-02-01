@@ -4,7 +4,7 @@ import * as factory from '../factory';
 import { ISearchResult, Service } from '../service';
 
 /**
- * event service
+ * イベントサービス
  */
 export class EventService extends Service {
     /**
@@ -18,16 +18,17 @@ export class EventService extends Service {
             method: 'GET',
             qs: params,
             expectedStatusCodes: [OK]
-        }).then(async (response) => {
-            return {
-                totalCount: Number(<string>response.headers.get('X-Total-Count')),
-                data: await response.json()
-            };
-        });
+        })
+            .then(async (response) => {
+                return {
+                    totalCount: Number(<string>response.headers.get('X-Total-Count')),
+                    data: await response.json()
+                };
+            });
     }
 
     /**
-     * IDで上映イベント検索
+     * 上映イベント取得
      */
     public async findScreeningEventById(params: {
         id: string;
@@ -36,7 +37,8 @@ export class EventService extends Service {
             uri: `/events/screeningEvent/${params.id}`,
             method: 'GET',
             expectedStatusCodes: [OK]
-        }).then(async (response) => response.json());
+        })
+            .then(async (response) => response.json());
     }
 
     /**
@@ -52,7 +54,8 @@ export class EventService extends Service {
             uri: `/events/screeningEvent/${params.eventId}/offers`,
             method: 'GET',
             expectedStatusCodes: [OK]
-        }).then(async (response) => response.json());
+        })
+            .then(async (response) => response.json());
     }
 
     /**
@@ -77,6 +80,7 @@ export class EventService extends Service {
             method: 'GET',
             expectedStatusCodes: [OK],
             qs: params
-        }).then(async (response) => response.json());
+        })
+            .then(async (response) => response.json());
     }
 }

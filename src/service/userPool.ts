@@ -8,7 +8,7 @@ import { ISearchResult, Service } from '../service';
  */
 export class UserPoolService extends Service {
     /**
-     * IDで検索する
+     * ユーザープール取得
      */
     public async findById(params: {
         userPoolId: string;
@@ -17,8 +17,10 @@ export class UserPoolService extends Service {
             uri: `/userPools/${params.userPoolId}`,
             method: 'GET',
             expectedStatusCodes: [OK]
-        }).then(async (response) => response.json());
+        })
+            .then(async (response) => response.json());
     }
+
     /**
      * クライアント検索
      */
@@ -30,15 +32,17 @@ export class UserPoolService extends Service {
             method: 'GET',
             qs: params,
             expectedStatusCodes: [OK]
-        }).then(async (response) => {
-            return {
-                totalCount: Number(<string>response.headers.get('X-Total-Count')),
-                data: await response.json()
-            };
-        });
+        })
+            .then(async (response) => {
+                return {
+                    totalCount: Number(<string>response.headers.get('X-Total-Count')),
+                    data: await response.json()
+                };
+            });
     }
+
     /**
-     * IDでクライアント検索
+     * クライアント取得
      */
     public async findClientById(params: {
         userPoolId: string;
@@ -48,6 +52,7 @@ export class UserPoolService extends Service {
             uri: `/userPools/${params.userPoolId}/clients/${params.clientId}`,
             method: 'GET',
             expectedStatusCodes: [OK]
-        }).then(async (response) => response.json());
+        })
+            .then(async (response) => response.json());
     }
 }
