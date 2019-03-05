@@ -53,7 +53,7 @@ export class PlaceOrderTransactionService extends Service implements Transaction
      * 座席予約承認作成
      */
     public async authorizeSeatReservation(params: {
-        object: factory.action.authorize.offer.seatReservation.IObjectWithoutDetail;
+        object: factory.action.authorize.offer.seatReservation.IObjectWithoutDetail<factory.service.webAPI.Identifier.Chevre>;
         purpose: factory.action.authorize.offer.seatReservation.IPurpose;
     }): Promise<factory.action.authorize.offer.seatReservation.IAction<factory.service.webAPI.Identifier>> {
         return this.fetch({
