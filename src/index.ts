@@ -21,6 +21,7 @@ import { PersonOwnershipInfoService } from './service/person/ownershipInfo';
 import { ReservationService } from './service/reservation';
 import { SellerService } from './service/seller';
 import { TaskService } from './service/task';
+import { MoneyTransferTransactionService } from './service/transaction/moneyTransfer';
 import { PlaceOrderTransactionService } from './service/transaction/placeOrder';
 import { ReturnOrderTransactionService } from './service/transaction/returnOrder';
 import { UserPoolService } from './service/userPool';
@@ -122,6 +123,10 @@ export namespace service {
      * 取引サービス
      */
     export namespace transaction {
+        /**
+         * 通貨転送取引サービス
+         */
+        export class MoneyTransfer extends MoneyTransferTransactionService { }
         /**
          * 注文取引サービス
          */
