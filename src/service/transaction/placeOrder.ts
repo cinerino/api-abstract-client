@@ -84,6 +84,7 @@ export class PlaceOrderTransactionService extends Service implements Transaction
 
     /**
      * 汎用決済承認
+     * @deprecated Use service.Payment
      */
     public async authorizeAnyPayment<T extends factory.paymentMethodType>(params: {
         object: factory.action.authorize.paymentMethod.any.IObject<T>;
@@ -100,6 +101,7 @@ export class PlaceOrderTransactionService extends Service implements Transaction
 
     /**
      * 汎用決済承認取消
+     * @deprecated Use service.Payment
      */
     public async voidAnyPayment(params: {
         /**
@@ -117,6 +119,7 @@ export class PlaceOrderTransactionService extends Service implements Transaction
 
     /**
      * クレジットカードのオーソリを取得する
+     * @deprecated Use service.Payment
      */
     public async authorizeCreditCardPayment(params: {
         object: factory.action.authorize.paymentMethod.creditCard.IObject;
@@ -133,6 +136,7 @@ export class PlaceOrderTransactionService extends Service implements Transaction
 
     /**
      * 口座決済のオーソリを取得する
+     * @deprecated Use service.Payment
      */
     public async authorizeAccountPayment<T extends factory.accountType>(params: {
         object: factory.action.authorize.paymentMethod.account.IObject<T>;
@@ -149,6 +153,7 @@ export class PlaceOrderTransactionService extends Service implements Transaction
 
     /**
      * ムビチケ承認
+     * @deprecated Use service.Payment
      */
     public async authorizeMovieTicketPayment(params: {
         object: factory.action.authorize.paymentMethod.movieTicket.IObject;
@@ -165,6 +170,7 @@ export class PlaceOrderTransactionService extends Service implements Transaction
 
     /**
      * 決済承認取消
+     * @deprecated Use service.Payment
      */
     public async voidPayment(params: {
         /**
