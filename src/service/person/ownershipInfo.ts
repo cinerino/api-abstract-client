@@ -8,12 +8,13 @@ export type ICreditCard =
 export type IAccountOwnershipInfo<T extends factory.accountType> =
     factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<T>>;
 export type IScreeningEventReservationOwnershipInfo =
-    factory.ownershipInfo.IOwnershipInfo<factory.chevre.reservation.event.IReservation<factory.chevre.event.screeningEvent.IEvent>>;
+    factory.ownershipInfo.IOwnershipInfo<factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>>;
 export type IOwnershipInfoWithDetail<T extends factory.ownershipInfo.IGoodType> =
     factory.ownershipInfo.IOwnershipInfo<factory.ownershipInfo.IGoodWithDetail<T>>;
 export interface ICodeResponse {
     code: string;
 }
+
 /**
  * ユーザー所有権サービス
  */

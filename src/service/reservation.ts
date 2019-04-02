@@ -3,8 +3,7 @@ import { OK } from 'http-status';
 import * as factory from '../factory';
 import { Service } from '../service';
 
-export type IScreeningEvent = factory.chevre.event.screeningEvent.IEvent;
-export type IScreeningEventReservation = factory.chevre.reservation.event.IReservation<IScreeningEvent>;
+export type IScreeningEventReservation = factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>;
 export type IScreeningEventReservationOwnershipInfo = factory.ownershipInfo.IOwnershipInfo<IScreeningEventReservation>;
 
 /**
@@ -15,7 +14,7 @@ export class ReservationService extends Service {
      * 上映イベント予約検索
      */
     public async searchScreeningEventReservations(
-        params: factory.chevre.reservation.event.ISearchConditions
+        params: factory.chevre.reservation.ISearchConditions<factory.chevre.reservationType.EventReservation>
     ): Promise<{
         totalCount: number;
         data: IScreeningEventReservation[];
