@@ -352,10 +352,10 @@ export class PlaceOrderTransactionService extends Service implements Transaction
     }
 
     /**
-     * レポートダウンロード
+     * ストリーミングダウンロード
      */
-    public async downloadReport(params: factory.transaction.ISearchConditions<factory.transactionType.PlaceOrder> & {
-        format: factory.encodingFormat.Text;
+    public async stream(params: factory.transaction.ISearchConditions<factory.transactionType.PlaceOrder> & {
+        format: factory.encodingFormat.Application | factory.encodingFormat.Text;
     }): Promise<NodeJS.ReadableStream | ReadableStream> {
         return this.fetch({
             uri: `/transactions/${this.typeOf}/report`,
