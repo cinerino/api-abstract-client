@@ -10,6 +10,7 @@ import { AuthClient, StubAuthClient } from './auth/authClient';
 import { CreativeWorkService } from './service/creativeWork';
 import { DeliveryService } from './service/delivery';
 import { EventService } from './service/event';
+import { IAMService } from './service/iam';
 import { InvoiceService } from './service/invoice';
 import { OrderService } from './service/order';
 import { OrganizationService } from './service/organization';
@@ -71,6 +72,10 @@ export namespace service {
      * イベントサービス
      */
     export class Event extends EventService { }
+    /**
+     * IAMサービス
+     */
+    export class IAM extends IAMService { }
     /**
      * インボイスサービス
      */
