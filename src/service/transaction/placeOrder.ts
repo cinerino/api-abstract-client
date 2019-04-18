@@ -283,13 +283,8 @@ export class PlaceOrderTransactionService extends Service implements Transaction
              * メールをカスタマイズしたい場合、PUGテンプレートを指定
              * 挿入変数として`order`を使用できます
              * @see https://pugjs.org/api/getting-started.html
-             * @example example/sendOrder.pug
              */
             emailTemplate?: string;
-            /**
-             * インセンティブとしてポイントを付与する場合、ポイント数と対象口座を指定
-             */
-            // incentives?: IIncentive[];
         };
     }): Promise<factory.transaction.placeOrder.IResult> {
         return this.fetch({

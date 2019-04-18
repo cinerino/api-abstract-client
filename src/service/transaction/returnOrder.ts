@@ -43,10 +43,45 @@ export class ReturnOrderTransactionService extends Service implements Transactio
          * 取引ID
          */
         id: string;
+        potentialActions?: {
+            returnOrder?: {
+                potentialActions?: {
+                    /**
+                     * クレジットカード返金アクションについてカスタマイズする場合に指定
+                     */
+                    refundCreditCard?: {
+                        object: {
+                            object: {
+                                paymentMethod: {
+                                    /**
+                                     * 返金対象決済ID
+                                     */
+                                    paymentMethodId: string;
+                                };
+                            }[];
+                        };
+                        potentialActions?: {
+                            sendEmailMessage?: {
+                                object?: {
+                                    /**
+                                     * 返金メールテンプレート
+                                     * メールをカスタマイズしたい場合、PUGテンプレートを指定
+                                     * 挿入変数として`order`を使用できます
+                                     * @see https://pugjs.org/api/getting-started.html
+                                     */
+                                    emailTemplate?: string;
+                                };
+                            };
+                        };
+                    }[];
+                };
+            };
+        };
     }): Promise<void> {
         await this.fetch({
             uri: `/transactions/${this.typeOf}/${params.id}/confirm`,
             method: 'PUT',
+            body: params,
             expectedStatusCodes: [NO_CONTENT]
         });
     }
