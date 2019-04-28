@@ -3,24 +3,24 @@ import { OK } from 'http-status';
 import * as factory from '../factory';
 import { Service } from '../service';
 
-export type IScreeningEventReservation = factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>;
-export type IScreeningEventReservationOwnershipInfo = factory.ownershipInfo.IOwnershipInfo<IScreeningEventReservation>;
+export type IReservation<T extends factory.chevre.reservationType> = factory.chevre.reservation.IReservation<T>;
+export type IReservationOwnershipInfo<T extends factory.chevre.reservationType> = factory.ownershipInfo.IOwnershipInfo<IReservation<T>>;
 
 /**
  * 予約サービス
  */
 export class ReservationService extends Service {
     /**
-     * 上映イベント予約検索
+     * 予約検索
      */
-    public async searchScreeningEventReservations(
-        params: factory.chevre.reservation.ISearchConditions<factory.chevre.reservationType.EventReservation>
+    public async search<T extends factory.chevre.reservationType>(
+        params: factory.chevre.reservation.ISearchConditions<T>
     ): Promise<{
         totalCount: number;
-        data: IScreeningEventReservation[];
+        data: IReservation<T>[];
     }> {
         return this.fetch({
-            uri: '/reservations/eventReservation/screeningEvent',
+            uri: '/reservations',
             method: 'GET',
             qs: params,
             expectedStatusCodes: [OK]
@@ -34,15 +34,15 @@ export class ReservationService extends Service {
     }
 
     /**
-     * トークンで上映イベント予約照会
+     * トークンで予約照会
      */
-    public async findScreeningEventReservationByToken(params: {
+    public async findScreeningEventReservationByToken<T extends factory.chevre.reservationType>(params: {
         token: string;
-    }): Promise<IScreeningEventReservationOwnershipInfo> {
+    }): Promise<IReservationOwnershipInfo<T>> {
         return this.fetch({
             uri: `/reservations/eventReservation/screeningEvent/findByToken`,
             method: 'POST',
-            body: { token: params.token },
+            body: params,
             expectedStatusCodes: [OK]
         })
             .then(async (response) => response.json());
