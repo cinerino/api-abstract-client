@@ -34,12 +34,16 @@ describe('person service', () => {
 
     it('プロフィール取得の結果が期待通り', async () => {
         const data = {};
-        const myMock = fetchMock.sandbox().mock('*', data);
-        sandbox.mock(people).expects('fetch').once().resolves(await myMock());
+        const myMock = fetchMock.sandbox()
+            .mock('*', data);
+        sandbox.mock(people)
+            .expects('fetch')
+            .once()
+            .resolves(await myMock());
         const personId = 'me';
 
         const result = await people.getProfile({
-            personId: personId
+            id: personId
         });
         assert.deepEqual(result, data);
         sandbox.verify();
@@ -48,7 +52,10 @@ describe('person service', () => {
     it('プロフィール更新の結果が期待通り', async () => {
         const personId = 'me';
         const data = undefined;
-        sandbox.mock(people).expects('fetch').once().resolves();
+        sandbox.mock(people)
+            .expects('fetch')
+            .once()
+            .resolves();
 
         const profile = {
             givenName: 'xxx',
@@ -57,7 +64,7 @@ describe('person service', () => {
             email: 'xxx'
         };
         const result = await people.updateProfile({
-            personId: personId,
+            id: personId,
             ...profile
         });
         assert.deepEqual(result, data);

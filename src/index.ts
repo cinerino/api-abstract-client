@@ -13,7 +13,6 @@ import { EventService } from './service/event';
 import { IAMService } from './service/iam';
 import { InvoiceService } from './service/invoice';
 import { OrderService } from './service/order';
-import { OrganizationService } from './service/organization';
 import { OwnershipInfoService } from './service/ownershipInfo';
 import { PaymentService } from './service/payment';
 import { PaymentMethodService } from './service/paymentMethod';
@@ -84,11 +83,6 @@ export namespace service {
      * 注文サービス
      */
     export class Order extends OrderService { }
-    /**
-     * 組織サービス
-     * @deprecated Use service.Seller. 販売者サービスを使用してください
-     */
-    export class Organization extends OrganizationService { }
     /**
      * 所有権サービス
      */

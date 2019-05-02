@@ -29,15 +29,11 @@ export class PersonOwnershipInfoService extends Service {
          */
         id?: string;
         /**
-         * @deprecated Use id
-         */
-        personId?: string;
-        /**
          * クレジットカード情報(情報の渡し方にはいくつかパターンがあるので、型を参照すること)
          */
         creditCard: ICreditCard;
     }): Promise<factory.paymentMethod.paymentCard.creditCard.ICheckedCard> {
-        const id = (params.personId !== undefined) ? params.personId : (params.id !== undefined) ? params.id : 'me';
+        const id = (params.id !== undefined) ? params.id : 'me';
 
         return this.fetch({
             uri: `/people/${id}/ownershipInfos/creditCards`,
@@ -57,12 +53,8 @@ export class PersonOwnershipInfoService extends Service {
          * 未指定の場合`me`がセットされます
          */
         id?: string;
-        /**
-         * @deprecated Use id
-         */
-        personId?: string;
     }): Promise<factory.paymentMethod.paymentCard.creditCard.ICheckedCard[]> {
-        const id = (params.personId !== undefined) ? params.personId : (params.id !== undefined) ? params.id : 'me';
+        const id = (params.id !== undefined) ? params.id : 'me';
 
         return this.fetch({
             uri: `/people/${id}/ownershipInfos/creditCards`,
@@ -83,15 +75,11 @@ export class PersonOwnershipInfoService extends Service {
          */
         id?: string;
         /**
-         * @deprecated Use id
-         */
-        personId?: string;
-        /**
          * カード連番
          */
         cardSeq: string;
     }): Promise<void> {
-        const id = (params.personId !== undefined) ? params.personId : (params.id !== undefined) ? params.id : 'me';
+        const id = (params.id !== undefined) ? params.id : 'me';
 
         await this.fetch({
             uri: `/people/${id}/ownershipInfos/creditCards/${params.cardSeq}`,
@@ -110,10 +98,6 @@ export class PersonOwnershipInfoService extends Service {
          */
         id?: string;
         /**
-         * @deprecated Use id
-         */
-        personId?: string;
-        /**
          * 口座名義
          */
         name: string;
@@ -122,7 +106,7 @@ export class PersonOwnershipInfoService extends Service {
          */
         accountType: T;
     }): Promise<IAccountOwnershipInfo<T>> {
-        const id = (params.personId !== undefined) ? params.personId : (params.id !== undefined) ? params.id : 'me';
+        const id = (params.id !== undefined) ? params.id : 'me';
 
         return this.fetch({
             uri: `/people/${id}/ownershipInfos/accounts/${params.accountType}`,
@@ -147,10 +131,6 @@ export class PersonOwnershipInfoService extends Service {
          */
         id?: string;
         /**
-         * @deprecated Use id
-         */
-        personId?: string;
-        /**
          * 口座タイプ
          */
         accountType: T;
@@ -159,7 +139,7 @@ export class PersonOwnershipInfoService extends Service {
          */
         accountNumber: string;
     }): Promise<void> {
-        const id = (params.personId !== undefined) ? params.personId : (params.id !== undefined) ? params.id : 'me';
+        const id = (params.id !== undefined) ? params.id : 'me';
 
         await this.fetch({
             uri: `/people/${id}/ownershipInfos/accounts/${params.accountType}/${params.accountNumber}/close`,
@@ -178,12 +158,8 @@ export class PersonOwnershipInfoService extends Service {
              * 未指定の場合`me`がセットされます
              */
             id?: string;
-            /**
-             * @deprecated Use id
-             */
-            personId?: string;
         }): Promise<ISearchResult<factory.pecorino.action.transfer.moneyTransfer.IAction<T>[]>> {
-        const id = (params.personId !== undefined) ? params.personId : (params.id !== undefined) ? params.id : 'me';
+        const id = (params.id !== undefined) ? params.id : 'me';
 
         return this.fetch({
             // tslint:disable-next-line:max-line-length
@@ -210,12 +186,8 @@ export class PersonOwnershipInfoService extends Service {
              * 未指定の場合`me`がセットされます
              */
             id?: string;
-            /**
-             * @deprecated Use id
-             */
-            personId?: string;
         }): Promise<ISearchResult<IOwnershipInfoWithDetail<T>[]>> {
-        const id = (params.personId !== undefined) ? params.personId : (params.id !== undefined) ? params.id : 'me';
+        const id = (params.id !== undefined) ? params.id : 'me';
 
         return this.fetch({
             uri: `/people/${id}/ownershipInfos`,
@@ -240,13 +212,9 @@ export class PersonOwnershipInfoService extends Service {
          * 未指定の場合`me`がセットされます
          */
         id?: string;
-        /**
-         * @deprecated Use id
-         */
-        personId?: string;
         ownershipInfoId: string;
     }): Promise<ICodeResponse> {
-        const id = (params.personId !== undefined) ? params.personId : (params.id !== undefined) ? params.id : 'me';
+        const id = (params.id !== undefined) ? params.id : 'me';
 
         return this.fetch({
             uri: `/people/${id}/ownershipInfos/${params.ownershipInfoId}/authorize`,

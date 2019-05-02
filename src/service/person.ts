@@ -18,12 +18,8 @@ export class PersonService extends Service {
          * 未指定の場合`me`がセットされます
          */
         id?: string;
-        /**
-         * @deprecated Use id
-         */
-        personId?: string;
     }): Promise<factory.person.IProfile> {
-        const id = (params.personId !== undefined) ? params.personId : (params.id !== undefined) ? params.id : 'me';
+        const id = (params.id !== undefined) ? params.id : 'me';
 
         return this.fetch({
             uri: `/people/${id}/profile`,
@@ -42,12 +38,8 @@ export class PersonService extends Service {
          * 未指定の場合`me`がセットされます
          */
         id?: string;
-        /**
-         * @deprecated Use id
-         */
-        personId?: string;
     }): Promise<void> {
-        const id = (params.personId !== undefined) ? params.personId : (params.id !== undefined) ? params.id : 'me';
+        const id = (params.id !== undefined) ? params.id : 'me';
 
         await this.fetch({
             uri: `/people/${id}/profile`,
@@ -66,12 +58,8 @@ export class PersonService extends Service {
          * 未指定の場合`me`がセットされます
          */
         id?: string;
-        /**
-         * @deprecated Use id
-         */
-        personId?: string;
     }): Promise<ISearchResult<factory.order.IOrder[]>> {
-        const id = (params.personId !== undefined) ? params.personId : (params.id !== undefined) ? params.id : 'me';
+        const id = (params.id !== undefined) ? params.id : 'me';
 
         return this.fetch({
             uri: `/people/${id}/orders`,
