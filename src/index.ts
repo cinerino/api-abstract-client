@@ -18,6 +18,7 @@ import { PaymentService } from './service/payment';
 import { PaymentMethodService } from './service/paymentMethod';
 import { PersonService } from './service/person';
 import { PersonOwnershipInfoService } from './service/person/ownershipInfo';
+import { ProjectService } from './service/project';
 import { ReservationService } from './service/reservation';
 import { SellerService } from './service/seller';
 import { TaskService } from './service/task';
@@ -106,6 +107,10 @@ export namespace service {
         // tslint:disable-next-line:no-shadowed-variable
         export class OwnershipInfo extends PersonOwnershipInfoService { }
     }
+    /**
+     * プロジェクトサービス
+     */
+    export class Project extends ProjectService { }
     /**
      * 予約サービス
      */
