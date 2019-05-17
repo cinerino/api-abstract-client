@@ -168,12 +168,12 @@ export class PlaceOrderTransactionService extends Service implements Transaction
              */
             sendEmailMessage?: boolean;
             /**
-             * 注文配送メールテンプレート
-             * メールをカスタマイズしたい場合、PUGテンプレートを指定
+             * 注文配送メールカスタマイズ
+             * メール本文をカスタマイズしたい場合、PUGテンプレートを指定
              * 挿入変数として`order`を使用できます
              * @see https://pugjs.org/api/getting-started.html
              */
-            emailTemplate?: string;
+            email?: factory.creativeWork.message.email.ICustomization;
         };
     }): Promise<factory.transaction.placeOrder.IResult> {
         return this.fetch({
