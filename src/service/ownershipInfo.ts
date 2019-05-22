@@ -9,11 +9,34 @@ import { ISearchResult, Service } from '../service';
 export interface ITokenResponse {
     token: string;
 }
+export type IOwnershipInfo<T extends factory.ownershipInfo.IGoodType> =
+    factory.ownershipInfo.IOwnershipInfo<factory.ownershipInfo.IGood<T>>;
 
 /**
  * 所有権サービス
  */
 export class OwnershipInfoService extends Service {
+    /**
+     * 所有権検索
+     */
+    public async search<T extends factory.ownershipInfo.IGoodType>(
+        params: factory.ownershipInfo.ISearchConditions<T>
+    ): Promise<ISearchResult<IOwnershipInfo<T>[]>> {
+
+        return this.fetch({
+            uri: '/ownershipInfos',
+            method: 'GET',
+            qs: params,
+            expectedStatusCodes: [OK]
+        })
+            .then(async (response) => {
+                return {
+                    totalCount: Number(<string>response.headers.get('X-Total-Count')),
+                    data: await response.json()
+                };
+            });
+    }
+
     /**
      * 所有権トークンを取得する
      * 所有権コードを、jsonwebtokenに変換します

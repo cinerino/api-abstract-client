@@ -7,6 +7,7 @@ import * as ServiceFactory from './service';
 
 import { AuthClient, StubAuthClient } from './auth/authClient';
 
+import { AuthorizationService } from './service/authorization';
 import { CreativeWorkService } from './service/creativeWork';
 import { DeliveryService } from './service/delivery';
 import { EventService } from './service/event';
@@ -55,15 +56,22 @@ export namespace service {
     export type IOptions = ServiceFactory.IOptions;
     export type IFetchOptions = ServiceFactory.IFetchOptions;
     export type ISearchResult<T> = ServiceFactory.ISearchResult<T>;
+
     /**
      * Baseサービス
      */
     export class Service extends ServiceFactory.Service { }
 
     /**
+     * 認可サービス
+     */
+    export class Authorization extends AuthorizationService { }
+
+    /**
      * 作品サービス
      */
     export class CreativeWork extends CreativeWorkService { }
+
     /**
      * 配送サービス
      */
