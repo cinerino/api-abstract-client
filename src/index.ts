@@ -8,6 +8,7 @@ import * as ServiceFactory from './service';
 import { AuthClient, StubAuthClient } from './auth/authClient';
 
 import { AccountService } from './service/account';
+import { ActionService } from './service/action';
 import { AuthorizationService } from './service/authorization';
 import { CreativeWorkService } from './service/creativeWork';
 import { DeliveryService } from './service/delivery';
@@ -67,6 +68,11 @@ export namespace service {
      * 口座サービス
      */
     export class Account extends AccountService { }
+
+    /**
+     * アクションサービス
+     */
+    export class Action extends ActionService { }
 
     /**
      * 認可サービス
