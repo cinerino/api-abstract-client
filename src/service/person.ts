@@ -113,4 +113,17 @@ export class PersonService extends Service {
         })
             .then(async (response) => response.json());
     }
+
+    /**
+     * ユーザー削除
+     */
+    public async deletById(params: {
+        id: string;
+    }): Promise<void> {
+        await this.fetch({
+            uri: `/people/${params.id}`,
+            method: 'DELETE',
+            expectedStatusCodes: [NO_CONTENT]
+        });
+    }
 }
