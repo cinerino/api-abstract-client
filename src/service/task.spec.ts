@@ -6,19 +6,20 @@ import * as fetchMock from 'fetch-mock';
 import { } from 'mocha';
 import * as assert from 'power-assert';
 import * as sinon from 'sinon';
-import * as client from '../index';
 
 import { StubAuthClient } from '../auth/authClient';
+
+import { TaskService } from './task';
 
 const API_ENDPOINT = 'https://localhost';
 
 describe('タスクサービス', () => {
     let sandbox: sinon.SinonSandbox;
-    let taskService: client.service.Task;
+    let taskService: TaskService;
 
     before(() => {
         const auth = new StubAuthClient();
-        taskService = new client.service.Task({
+        taskService = new TaskService({
             auth: auth,
             endpoint: API_ENDPOINT
         });
@@ -34,8 +35,12 @@ describe('タスクサービス', () => {
 
     it('タスク作成の結果が期待通り', async () => {
         const data = {};
-        const myMock = fetchMock.sandbox().mock('*', data);
-        sandbox.mock(taskService).expects('fetch').once().resolves(await myMock());
+        const myMock = fetchMock.sandbox()
+            .mock('*', data);
+        sandbox.mock(taskService)
+            .expects('fetch')
+            .once()
+            .resolves(await myMock());
 
         const result = await taskService.create(<any>{});
 
@@ -45,8 +50,12 @@ describe('タスクサービス', () => {
 
     it('IDで検索の結果が期待通り', async () => {
         const data = {};
-        const myMock = fetchMock.sandbox().mock('*', data);
-        sandbox.mock(taskService).expects('fetch').once().resolves(await myMock());
+        const myMock = fetchMock.sandbox()
+            .mock('*', data);
+        sandbox.mock(taskService)
+            .expects('fetch')
+            .once()
+            .resolves(await myMock());
 
         const result = await taskService.findById(<any>{});
 
@@ -56,8 +65,12 @@ describe('タスクサービス', () => {
 
     it('検索の結果が期待通り', async () => {
         const data = {};
-        const myMock = fetchMock.sandbox().mock('*', data);
-        sandbox.mock(taskService).expects('fetch').once().resolves(await myMock());
+        const myMock = fetchMock.sandbox()
+            .mock('*', data);
+        sandbox.mock(taskService)
+            .expects('fetch')
+            .once()
+            .resolves(await myMock());
 
         const result = await taskService.search(<any>{});
         assert.deepEqual(result.data, data);

@@ -142,9 +142,9 @@ export class PlaceOrderTransactionService extends Service implements Transaction
             /**
              * customer contact info
              */
-            customerContact: factory.transaction.placeOrder.ICustomerContact;
+            customerContact: factory.transaction.placeOrder.ICustomerProfile;
         };
-    }): Promise<factory.transaction.placeOrder.ICustomerContact> {
+    }): Promise<factory.transaction.placeOrder.ICustomerProfile> {
         return this.fetch({
             uri: `/transactions/${this.typeOf}/${params.id}/customerContact`,
             method: 'PUT',

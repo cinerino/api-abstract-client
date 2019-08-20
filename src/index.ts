@@ -21,6 +21,7 @@ import { PaymentService } from './service/payment';
 import { PaymentMethodService } from './service/paymentMethod';
 import { PersonService } from './service/person';
 import { PersonOwnershipInfoService } from './service/person/ownershipInfo';
+import { ProgramMembershipService } from './service/programMembership';
 import { ProjectService } from './service/project';
 import { ReservationService } from './service/reservation';
 import { SellerService } from './service/seller';
@@ -127,6 +128,10 @@ export namespace service {
         // tslint:disable-next-line:no-shadowed-variable
         export class OwnershipInfo extends PersonOwnershipInfoService { }
     }
+    /**
+     * 会員プログラムサービス
+     */
+    export class ProgramMembership extends ProgramMembershipService { }
     /**
      * プロジェクトサービス
      */
