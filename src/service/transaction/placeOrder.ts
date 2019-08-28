@@ -157,30 +157,24 @@ export class PlaceOrderTransactionService extends Service implements Transaction
     /**
      * 取引確定
      */
-    public async confirm(params: {
+    public async confirm(params: factory.transaction.placeOrder.IConfirmParams & {
         /**
-         * 取引ID
+         * 注文配送メールを送信するかどうか
          */
-        id: string;
-        options?: {
-            /**
-             * 注文配送メールを送信するかどうか
-             */
-            sendEmailMessage?: boolean;
-            /**
-             * 注文配送メールカスタマイズ
-             * メール本文をカスタマイズしたい場合、PUGテンプレートを指定
-             * 挿入変数として`order`を使用できます
-             * @see https://pugjs.org/api/getting-started.html
-             */
-            email?: factory.creativeWork.message.email.ICustomization;
-        };
+        sendEmailMessage?: boolean;
+        /**
+         * 注文配送メールカスタマイズ
+         * メール本文をカスタマイズしたい場合、PUGテンプレートを指定
+         * 挿入変数として`order`を使用できます
+         * @see https://pugjs.org/api/getting-started.html
+         */
+        email?: factory.creativeWork.message.email.ICustomization;
     }): Promise<factory.transaction.placeOrder.IResult> {
         return this.fetch({
             uri: `/transactions/${this.typeOf}/${params.id}/confirm`,
             method: 'PUT',
             expectedStatusCodes: [OK],
-            body: params.options
+            body: params
         })
             .then(async (response) => response.json());
     }
