@@ -9,10 +9,15 @@ import { ISearchResult, Service } from '../service';
 export class OrderService extends Service {
     /**
      * 注文を作成する
+     * 確定した注文取引に対して、同期的に注文データを作成します。
+     * すでに注文が作成済の場合、何もしません。
      */
-    public async placeOrder(
-        params: { orderNumber: string }
-    ): Promise<factory.order.IOrder> {
+    public async placeOrder(params: {
+        /**
+         * 注文番号
+         */
+        orderNumber: string;
+    }): Promise<factory.order.IOrder> {
         return this.fetch({
             uri: '/orders',
             method: 'POST',
@@ -27,7 +32,13 @@ export class OrderService extends Service {
      * 確認番号と購入者情報より、最新の注文を検索します
      */
     public async findByConfirmationNumber(params: {
+        /**
+         * 確認番号
+         */
         confirmationNumber: number;
+        /**
+         * 購入者情報
+         */
         customer: {
             email?: string;
             telephone?: string;
@@ -46,7 +57,13 @@ export class OrderService extends Service {
      * 所有権コードを発行する
      */
     public async authorizeOwnershipInfos(params: {
+        /**
+         * 注文番号
+         */
         orderNumber: string;
+        /**
+         * 購入者情報
+         */
         customer: {
             email?: string;
             telephone?: string;
@@ -65,6 +82,9 @@ export class OrderService extends Service {
      * 注文に対するアクションを検索する
      */
     public async searchActionsByOrderNumber(params: {
+        /**
+         * 注文番号
+         */
         orderNumber: string;
         sort: factory.action.ISortOrder;
     }): Promise<factory.action.IAction<factory.action.IAttributes<factory.actionType, any, any>>[]> {

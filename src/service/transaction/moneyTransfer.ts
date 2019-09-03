@@ -12,7 +12,6 @@ export class MoneyTransferTransactionService extends Service implements Transact
 
     /**
      * 取引を開始する
-     * 金額と転送先口座を指定して取引を開始します
      */
     public async start(
         params: factory.transaction.IStartParams<factory.transactionType.MoneyTransfer>
@@ -47,6 +46,9 @@ export class MoneyTransferTransactionService extends Service implements Transact
      * 既に確定済、あるいは、期限切れの取引に対して実行するとArgumentエラーが返されます。
      */
     public async cancel(params: {
+        /**
+         * 取引ID
+         */
         id: string;
     }): Promise<void> {
         await this.fetch({
@@ -80,6 +82,9 @@ export class MoneyTransferTransactionService extends Service implements Transact
      * 取引に対するアクションを検索する
      */
     public async searchActionsByTransactionId(params: {
+        /**
+         * 取引ID
+         */
         id: string;
         sort: factory.action.ISortOrder;
     }): Promise<factory.action.IAction<factory.action.IAttributes<factory.actionType, any, any>>[]> {

@@ -15,22 +15,15 @@ export class PlaceOrderTransactionService extends Service implements Transaction
      */
     public async start(params: {
         /**
-         * 取引期限
-         */
-        expires: Date;
-        /**
          * 購入者
          */
         agent?: {
             identifier?: factory.person.IIdentifier;
         };
         /**
-         * 販売者
+         * 取引期限
          */
-        seller: {
-            typeOf: factory.organizationType;
-            id: string;
-        };
+        expires: Date;
         object?: {
             /**
              * WAITER許可証
@@ -38,6 +31,13 @@ export class PlaceOrderTransactionService extends Service implements Transaction
             passport?: {
                 token: factory.waiter.passport.IEncodedPassport;
             };
+        };
+        /**
+         * 販売者
+         */
+        seller: {
+            typeOf: factory.organizationType;
+            id: string;
         };
     }): Promise<factory.transaction.ITransaction<factory.transactionType.PlaceOrder>> {
         return this.fetch({
@@ -50,7 +50,7 @@ export class PlaceOrderTransactionService extends Service implements Transaction
     }
 
     /**
-     * 座席予約承認作成
+     * 座席予約承認
      */
     public async authorizeSeatReservation(params: {
         object: factory.action.authorize.offer.seatReservation.IObjectWithoutDetail<factory.service.webAPI.Identifier.Chevre>;
@@ -83,7 +83,7 @@ export class PlaceOrderTransactionService extends Service implements Transaction
     }
 
     /**
-     * ポイントインセンティブのオーソリを取得する
+     * ポイントインセンティブ承認
      */
     public async authorizePointAward(params: {
         object: {
@@ -96,9 +96,8 @@ export class PlaceOrderTransactionService extends Service implements Transaction
              */
             toAccountNumber: string;
             /**
-             * 取引メモ
+             * 説明
              * 指定すると、口座の取引明細に記録されます。
-             * 後の調査のためにある程度の情報を記録することが望ましい。
              */
             notes?: string;
         };
@@ -114,7 +113,7 @@ export class PlaceOrderTransactionService extends Service implements Transaction
     }
 
     /**
-     * ポイントインセンティブオーソリ取消
+     * ポイントインセンティブ承認取消
      */
     public async voidPointAward(params: {
         /**
@@ -131,7 +130,7 @@ export class PlaceOrderTransactionService extends Service implements Transaction
     }
 
     /**
-     * 購入者連絡先登録
+     * 購入者プロフィール変更
      */
     public async setCustomerContact(params: {
         /**
@@ -140,7 +139,7 @@ export class PlaceOrderTransactionService extends Service implements Transaction
         id: string;
         object: {
             /**
-             * customer contact info
+             * プロフィール
              */
             customerContact: factory.transaction.placeOrder.ICustomerProfile;
         };
@@ -184,6 +183,9 @@ export class PlaceOrderTransactionService extends Service implements Transaction
      * 既に確定済、あるいは、期限切れの取引に対して実行するとArgumentエラーが返されます。
      */
     public async cancel(params: {
+        /**
+         * 取引ID
+         */
         id: string;
     }): Promise<void> {
         await this.fetch({
@@ -217,6 +219,9 @@ export class PlaceOrderTransactionService extends Service implements Transaction
      * 取引に対するアクションを検索する
      */
     public async searchActionsByTransactionId(params: {
+        /**
+         * 取引ID
+         */
         id: string;
         sort: factory.action.ISortOrder;
     }): Promise<factory.action.IAction<factory.action.IAttributes<factory.actionType, any, any>>[]> {
