@@ -14,12 +14,11 @@ export class PersonService extends Service {
      */
     public async getProfile(params: {
         /**
-         * person id(basically specify 'me' to retrieve contacts of login user)
          * 未指定の場合`me`がセットされます
          */
         id?: string;
     }): Promise<factory.person.IProfile> {
-        const id = (params.id !== undefined) ? params.id : 'me';
+        const id = (typeof params.id === 'string') ? params.id : 'me';
 
         return this.fetch({
             uri: `/people/${id}/profile`,
@@ -34,12 +33,11 @@ export class PersonService extends Service {
      */
     public async updateProfile(params: factory.person.IProfile & {
         /**
-         * person id(basically specify 'me' to retrieve contacts of login user)
          * 未指定の場合`me`がセットされます
          */
         id?: string;
     }): Promise<void> {
-        const id = (params.id !== undefined) ? params.id : 'me';
+        const id = (typeof params.id === 'string') ? params.id : 'me';
 
         await this.fetch({
             uri: `/people/${id}/profile`,
@@ -54,12 +52,11 @@ export class PersonService extends Service {
      */
     public async searchOrders(params: factory.order.ISearchConditions & {
         /**
-         * person id(basically specify 'me' to retrieve contacts of login user)
          * 未指定の場合`me`がセットされます
          */
         id?: string;
     }): Promise<ISearchResult<factory.order.IOrder[]>> {
-        const id = (params.id !== undefined) ? params.id : 'me';
+        const id = (typeof params.id === 'string') ? params.id : 'me';
 
         return this.fetch({
             uri: `/people/${id}/orders`,
@@ -104,10 +101,15 @@ export class PersonService extends Service {
      * ユーザー取得
      */
     public async findById(params: {
-        id: string;
+        /**
+         * 未指定の場合`me`がセットされます
+         */
+        id?: string;
     }): Promise<IPerson> {
+        const id = (typeof params.id === 'string') ? params.id : 'me';
+
         return this.fetch({
-            uri: `/people/${params.id}`,
+            uri: `/people/${id}`,
             method: 'GET',
             expectedStatusCodes: [OK]
         })
@@ -118,11 +120,21 @@ export class PersonService extends Service {
      * ユーザー削除
      */
     public async deletById(params: {
-        id: string;
+        /**
+         * 未指定の場合`me`がセットされます
+         */
+        id?: string;
+        /**
+         * 管理者による削除の場合、物理削除かどうかを指定できます
+         */
+        physically?: boolean;
     }): Promise<void> {
+        const id = (typeof params.id === 'string') ? params.id : 'me';
+
         await this.fetch({
-            uri: `/people/${params.id}`,
+            uri: `/people/${id}`,
             method: 'DELETE',
+            body: params,
             expectedStatusCodes: [NO_CONTENT]
         });
     }

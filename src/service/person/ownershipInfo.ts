@@ -24,7 +24,6 @@ export class PersonOwnershipInfoService extends Service {
      */
     public async addCreditCard(params: {
         /**
-         * person id(basically specify 'me' to retrieve contacts of login user)
          * 未指定の場合`me`がセットされます
          */
         id?: string;
@@ -33,7 +32,7 @@ export class PersonOwnershipInfoService extends Service {
          */
         creditCard: ICreditCard;
     }): Promise<factory.paymentMethod.paymentCard.creditCard.ICheckedCard> {
-        const id = (params.id !== undefined) ? params.id : 'me';
+        const id = (typeof params.id === 'string') ? params.id : 'me';
 
         return this.fetch({
             uri: `/people/${id}/ownershipInfos/creditCards`,
@@ -49,12 +48,11 @@ export class PersonOwnershipInfoService extends Service {
      */
     public async searchCreditCards(params: {
         /**
-         * person id(basically specify 'me' to retrieve contacts of login user)
          * 未指定の場合`me`がセットされます
          */
         id?: string;
     }): Promise<factory.paymentMethod.paymentCard.creditCard.ICheckedCard[]> {
-        const id = (params.id !== undefined) ? params.id : 'me';
+        const id = (typeof params.id === 'string') ? params.id : 'me';
 
         return this.fetch({
             uri: `/people/${id}/ownershipInfos/creditCards`,
@@ -70,7 +68,6 @@ export class PersonOwnershipInfoService extends Service {
      */
     public async deleteCreditCard(params: {
         /**
-         * person id(basically specify 'me' to retrieve contacts of login user)
          * 未指定の場合`me`がセットされます
          */
         id?: string;
@@ -79,7 +76,7 @@ export class PersonOwnershipInfoService extends Service {
          */
         cardSeq: string;
     }): Promise<void> {
-        const id = (params.id !== undefined) ? params.id : 'me';
+        const id = (typeof params.id === 'string') ? params.id : 'me';
 
         await this.fetch({
             uri: `/people/${id}/ownershipInfos/creditCards/${params.cardSeq}`,
@@ -93,7 +90,6 @@ export class PersonOwnershipInfoService extends Service {
      */
     public async openAccount<T extends factory.accountType>(params: {
         /**
-         * person id(basically specify 'me' to retrieve contacts of login user)
          * 未指定の場合`me`がセットされます
          */
         id?: string;
@@ -106,7 +102,7 @@ export class PersonOwnershipInfoService extends Service {
          */
         accountType: T;
     }): Promise<IAccountOwnershipInfo<T>> {
-        const id = (params.id !== undefined) ? params.id : 'me';
+        const id = (typeof params.id === 'string') ? params.id : 'me';
 
         return this.fetch({
             uri: `/people/${id}/ownershipInfos/accounts/${params.accountType}`,
@@ -126,7 +122,6 @@ export class PersonOwnershipInfoService extends Service {
      */
     public async closeAccount<T extends factory.accountType>(params: {
         /**
-         * person id(basically specify 'me' to retrieve contacts of login user)
          * 未指定の場合`me`がセットされます
          */
         id?: string;
@@ -139,7 +134,7 @@ export class PersonOwnershipInfoService extends Service {
          */
         accountNumber: string;
     }): Promise<void> {
-        const id = (params.id !== undefined) ? params.id : 'me';
+        const id = (typeof params.id === 'string') ? params.id : 'me';
 
         await this.fetch({
             uri: `/people/${id}/ownershipInfos/accounts/${params.accountType}/${params.accountNumber}/close`,
@@ -154,12 +149,11 @@ export class PersonOwnershipInfoService extends Service {
     public async searchAccountMoneyTransferActions<T extends factory.accountType>(
         params: factory.pecorino.action.transfer.moneyTransfer.ISearchConditions<T> & {
             /**
-             * person id(basically specify 'me' to retrieve contacts of login user)
              * 未指定の場合`me`がセットされます
              */
             id?: string;
         }): Promise<ISearchResult<factory.pecorino.action.transfer.moneyTransfer.IAction<T>[]>> {
-        const id = (params.id !== undefined) ? params.id : 'me';
+        const id = (typeof params.id === 'string') ? params.id : 'me';
 
         return this.fetch({
             // tslint:disable-next-line:max-line-length
@@ -182,12 +176,11 @@ export class PersonOwnershipInfoService extends Service {
     public async search<T extends factory.ownershipInfo.IGoodType>(
         params: factory.ownershipInfo.ISearchConditions<T> & {
             /**
-             * person id(basically specify 'me' to retrieve contacts of login user)
              * 未指定の場合`me`がセットされます
              */
             id?: string;
         }): Promise<ISearchResult<IOwnershipInfoWithDetail<T>[]>> {
-        const id = (params.id !== undefined) ? params.id : 'me';
+        const id = (typeof params.id === 'string') ? params.id : 'me';
 
         return this.fetch({
             uri: `/people/${id}/ownershipInfos`,
@@ -208,13 +201,12 @@ export class PersonOwnershipInfoService extends Service {
      */
     public async authorize(params: {
         /**
-         * person id(basically specify 'me' to retrieve contacts of login user)
          * 未指定の場合`me`がセットされます
          */
         id?: string;
         ownershipInfoId: string;
     }): Promise<ICodeResponse> {
-        const id = (params.id !== undefined) ? params.id : 'me';
+        const id = (typeof params.id === 'string') ? params.id : 'me';
 
         return this.fetch({
             uri: `/people/${id}/ownershipInfos/${params.ownershipInfoId}/authorize`,
