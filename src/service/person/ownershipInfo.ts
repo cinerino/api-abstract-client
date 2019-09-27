@@ -7,8 +7,6 @@ export type ICreditCard =
     factory.paymentMethod.paymentCard.creditCard.IUncheckedCardRaw | factory.paymentMethod.paymentCard.creditCard.IUncheckedCardTokenized;
 export type IAccountOwnershipInfo<T extends factory.accountType> =
     factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<T>>;
-export type IScreeningEventReservationOwnershipInfo =
-    factory.ownershipInfo.IOwnershipInfo<factory.chevre.reservation.IReservation<factory.chevre.reservationType.EventReservation>>;
 export type IOwnershipInfoWithDetail<T extends factory.ownershipInfo.IGoodType> =
     factory.ownershipInfo.IOwnershipInfo<factory.ownershipInfo.IGoodWithDetail<T>>;
 export interface ICodeResponse {
@@ -28,7 +26,8 @@ export class PersonOwnershipInfoService extends Service {
          */
         id?: string;
         /**
-         * クレジットカード情報(情報の渡し方にはいくつかパターンがあるので、型を参照すること)
+         * クレジットカード情報
+         * 情報の渡し方にはいくつかパターンがあるので、型を参照すること
          */
         creditCard: ICreditCard;
     }): Promise<factory.paymentMethod.paymentCard.creditCard.ICheckedCard> {
@@ -156,7 +155,6 @@ export class PersonOwnershipInfoService extends Service {
         const id = (typeof params.id === 'string') ? params.id : 'me';
 
         return this.fetch({
-            // tslint:disable-next-line:max-line-length
             uri: `/people/${id}/ownershipInfos/accounts/actions/moneyTransfer`,
             method: 'GET',
             qs: params,
