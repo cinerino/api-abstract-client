@@ -207,12 +207,15 @@ export class PlaceOrderTransaction4tttsService extends Service {
          * 決済方法
          */
         paymentMethod: factory.paymentMethodType;
+        informOrderUrl?: string;
+        informReservationUrl?: string;
     }): Promise<IConfirmResponse> {
         return this.fetch({
             uri: `/ttts/transactions/${factory.transactionType.PlaceOrder}/${params.transactionId}/confirm`,
             method: 'POST',
             expectedStatusCodes: [CREATED],
             body: {
+                ...params,
                 payment_method: params.paymentMethod
             }
         })

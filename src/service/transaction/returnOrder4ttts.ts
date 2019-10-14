@@ -34,12 +34,15 @@ export class ReturnOrderTransaction4tttsService extends Service {
          * 返品理由
          */
         reason: factory.transaction.returnOrder.Reason;
+        informOrderUrl?: string;
+        informReservationUrl?: string;
     }): Promise<IConfirmResult> {
         return this.fetch({
             uri: `/ttts/transactions/${factory.transactionType.ReturnOrder}/confirm`,
             method: 'POST',
             expectedStatusCodes: [CREATED],
             body: {
+                ...params,
                 performance_day: params.performanceDay,
                 payment_no: params.paymentNo,
                 cancellation_fee: params.cancellationFee,
