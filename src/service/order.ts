@@ -3,6 +3,10 @@ import { OK } from 'http-status';
 import * as factory from '../factory';
 import { ISearchResult, Service } from '../service';
 
+export type IOrderInquiryResult = factory.order.IOrder & {
+    printToken: string;
+};
+
 /**
  * 注文サービス
  */
@@ -46,6 +50,24 @@ export class OrderService extends Service {
     }): Promise<factory.order.IOrder> {
         return this.fetch({
             uri: '/orders/findByConfirmationNumber',
+            method: 'POST',
+            body: params,
+            expectedStatusCodes: [OK]
+        })
+            .then(async (response) => response.json());
+    }
+
+    /**
+     * 注文照会(ttts専用)
+     * @deprecated
+     */
+    public async findByOrderInquiryKey(params: {
+        performanceDay: string;
+        paymentNo: string;
+        telephone: string;
+    }): Promise<IOrderInquiryResult> {
+        return this.fetch({
+            uri: '/ttts/orders/findByOrderInquiryKey',
             method: 'POST',
             body: params,
             expectedStatusCodes: [OK]
