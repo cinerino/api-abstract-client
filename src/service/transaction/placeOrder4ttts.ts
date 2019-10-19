@@ -115,65 +115,6 @@ export class PlaceOrderTransaction4tttsService extends Service {
     }
 
     /**
-     * クレジットカードのオーソリを取得する
-     */
-    public async createCreditCardAuthorization(params: {
-        /**
-         * 取引ID
-         */
-        transactionId: string;
-        /**
-         * オーダーID
-         */
-        orderId?: string;
-        /**
-         * 金額
-         */
-        amount: number;
-        /**
-         * 支払い方法
-         */
-        method: string;
-        /**
-         * クレジットカード情報
-         */
-        creditCard: ICreditCard;
-    }): Promise<IAuthorizeAction> {
-        return this.fetch({
-            uri: `/ttts/transactions/${factory.transactionType.PlaceOrder}/${params.transactionId}/actions/authorize/creditCard`,
-            method: 'POST',
-            expectedStatusCodes: [CREATED],
-            body: {
-                orderId: params.orderId,
-                amount: params.amount,
-                method: params.method,
-                creditCard: params.creditCard
-            }
-        })
-            .then(async (response) => response.json());
-    }
-
-    /**
-     * クレジットカードオーソリ取消
-     */
-    public async cancelCreditCardAuthorization(params: {
-        /**
-         * 取引ID
-         */
-        transactionId: string;
-        /**
-         * アクションID
-         */
-        actionId: string;
-    }): Promise<void> {
-        await this.fetch({
-            uri: `/ttts/transactions/${factory.transactionType.PlaceOrder}/${params.transactionId}/actions/authorize/creditCard/${params.actionId}`,
-            method: 'DELETE',
-            expectedStatusCodes: [NO_CONTENT]
-        });
-    }
-
-    /**
      * register a customer contact
      */
     public async setCustomerContact(params: {
