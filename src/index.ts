@@ -28,6 +28,7 @@ import { SellerService } from './service/seller';
 import { TaskService } from './service/task';
 import { MoneyTransferTransactionService } from './service/transaction/moneyTransfer';
 import { PlaceOrderTransactionService } from './service/transaction/placeOrder';
+import { PlaceOrderTransaction4ssktsService } from './service/transaction/placeOrder4sskts';
 import { PlaceOrderTransaction4tttsService } from './service/transaction/placeOrder4ttts';
 import { ReturnOrderTransactionService } from './service/transaction/returnOrder';
 import { ReturnOrderTransaction4tttsService } from './service/transaction/returnOrder4ttts';
@@ -163,7 +164,11 @@ export namespace service {
          */
         export class PlaceOrder extends PlaceOrderTransactionService { }
         /**
-         * ttts注文取引サービス
+         * sskts専用注文取引サービス
+         */
+        export class PlaceOrder4sskts extends PlaceOrderTransaction4ssktsService { }
+        /**
+         * ttts専用注文取引サービス
          */
         export class PlaceOrder4ttts extends PlaceOrderTransaction4tttsService { }
         /**

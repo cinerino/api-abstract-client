@@ -61,13 +61,30 @@ export class OrderService extends Service {
      * 注文照会(ttts専用)
      * @deprecated
      */
-    public async findByOrderInquiryKey(params: {
+    public async findByOrderInquiryKey4ttts(params: {
         performanceDay: string;
         paymentNo: string;
         telephone: string;
     }): Promise<IOrderInquiryResult> {
         return this.fetch({
             uri: '/ttts/orders/findByOrderInquiryKey',
+            method: 'POST',
+            body: params,
+            expectedStatusCodes: [OK]
+        })
+            .then(async (response) => response.json());
+    }
+
+    /**
+     * 予約番号と電話番号で注文情報を取得する(sskts専用)
+     */
+    public async findByOrderInquiryKey4sskts(params: {
+        theaterCode: string;
+        confirmationNumber: number;
+        telephone: string;
+    }): Promise<factory.order.IOrder> {
+        return this.fetch({
+            uri: '/orders/findByOrderInquiryKey',
             method: 'POST',
             body: params,
             expectedStatusCodes: [OK]
