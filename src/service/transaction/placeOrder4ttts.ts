@@ -35,6 +35,12 @@ export class PlaceOrderTransaction4tttsService extends Service {
      */
     public async start(params: {
         /**
+         * 購入者
+         */
+        agent?: {
+            identifier?: factory.person.IIdentifier;
+        };
+        /**
          * 取引期限
          * 指定した日時を過ぎると、取引を進行することはできなくなります。
          */

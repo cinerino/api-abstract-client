@@ -19,6 +19,12 @@ export class ReturnOrderTransaction4tttsService extends Service {
      */
     public async confirm(params: {
         /**
+         * 返品者
+         */
+        agent?: {
+            identifier?: factory.person.IIdentifier;
+        };
+        /**
          * 開演日(YYYYMMDD)
          */
         performanceDay: string;

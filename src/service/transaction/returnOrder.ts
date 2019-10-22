@@ -15,6 +15,12 @@ export class ReturnOrderTransactionService extends Service implements Transactio
      */
     public async start(params: {
         /**
+         * 返品者
+         */
+        agent?: {
+            identifier?: factory.person.IIdentifier;
+        };
+        /**
          * 取引期限
          */
         expires: Date;
