@@ -181,9 +181,7 @@ describe('placeOrder transaction client.service', () => {
 
         const result = await transactions.confirm({
             id: 'transactionId',
-            options: {
-                sendEmailMessage: true
-            }
+            sendEmailMessage: true
         });
         assert.deepEqual(result, data);
     });

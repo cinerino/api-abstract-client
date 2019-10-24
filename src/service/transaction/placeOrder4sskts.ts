@@ -2,7 +2,9 @@ import { CREATED, NO_CONTENT, OK } from 'http-status';
 
 import * as factory from '../../factory';
 
-import { IOptions, Service } from '../../service';
+import { IOptions } from '../../service';
+
+import { PlaceOrderTransactionService } from './placeOrder';
 
 /**
  * 承認アクションインターフェース
@@ -14,51 +16,11 @@ export interface IAuthorizeAction {
 /**
  * 注文取引サービス(sskts専用)
  */
-export class PlaceOrderTransaction4ssktsService extends Service {
+export class PlaceOrderTransaction4ssktsService extends PlaceOrderTransactionService {
     public typeOf: factory.transactionType.PlaceOrder = factory.transactionType.PlaceOrder;
 
     constructor(options: IOptions) {
         super(options)/* istanbul ignore next */;
-    }
-
-    /**
-     * 取引開始
-     */
-    public async start(params: {
-        /**
-         * 取引期限
-         * 指定した日時を過ぎると、取引を進行することはできなくなります。
-         */
-        expires: Date;
-        /**
-         * 購入者
-         */
-        agent?: {
-            identifier?: factory.person.IIdentifier;
-        };
-        /**
-         * 販売者
-         */
-        seller?: {
-            typeOf: factory.organizationType;
-            id: string;
-        };
-        object?: {
-            /**
-             * WAITER許可証
-             */
-            passport?: {
-                token: factory.waiter.passport.IEncodedPassport;
-            };
-        };
-    }): Promise<factory.transaction.placeOrder.ITransaction> {
-        return this.fetch({
-            uri: `/transactions/${this.typeOf}/start`,
-            method: 'POST',
-            body: params,
-            expectedStatusCodes: [OK]
-        })
-            .then(async (response) => response.json());
     }
 
     /**
@@ -225,30 +187,6 @@ export class PlaceOrderTransaction4ssktsService extends Service {
     }
 
     /**
-     * 購入者連絡先登録
-     */
-    public async setCustomerContact(params: {
-        /**
-         * 取引ID
-         */
-        id: string;
-        object: {
-            /**
-             * customer contact info
-             */
-            customerContact: factory.transaction.placeOrder.ICustomerProfile;
-        };
-    }): Promise<factory.transaction.placeOrder.ICustomerProfile> {
-        return this.fetch({
-            uri: `/transactions/${this.typeOf}/${params.id}/customerContact`,
-            method: 'PUT',
-            expectedStatusCodes: [CREATED, OK],
-            body: params.object.customerContact
-        })
-            .then(async (response) => response.json());
-    }
-
-    /**
      * 取引確定
      */
     public async confirm(params: {
@@ -256,58 +194,34 @@ export class PlaceOrderTransaction4ssktsService extends Service {
          * 取引ID
          */
         id: string;
-        options?: {
-            /**
-             * 注文配送メールを送信するかどうか
-             */
-            sendEmailMessage?: boolean;
-            /**
-             * 注文配送メール
-             */
-            email?: {
-                /**
-                 * 注文配送メールテンプレート
-                 * メールをカスタマイズしたい場合、PUGテンプレートを指定
-                 * 挿入変数として`order`を使用できます
-                 * @see https://pugjs.org/api/getting-started.html
-                 * @example example/sendOrder.pug
-                 */
-                template?: string;
-                /**
-                 * 注文配送メール送信者
-                 */
-                sender?: { email?: string };
-            };
+        /**
+         * 注文配送メールを送信するかどうか
+         */
+        sendEmailMessage?: boolean;
+        /**
+         * 注文配送メール
+         */
+        email?: {
             /**
              * 注文配送メールテンプレート
-             * @deprecated Use options.email.template
+             * メールをカスタマイズしたい場合、PUGテンプレートを指定
+             * 挿入変数として`order`を使用できます
+             * @see https://pugjs.org/api/getting-started.html
+             * @example example/sendOrder.pug
              */
-            emailTemplate?: string;
+            template?: string;
+            /**
+             * 注文配送メール送信者
+             */
+            sender?: { email?: string };
         };
-    }): Promise<factory.order.IOrder> {
+    }): Promise<factory.transaction.placeOrder.IResult & factory.order.IOrder> {
         return this.fetch({
             uri: `/transactions/${this.typeOf}/${params.id}/confirm`,
             method: 'POST',
             expectedStatusCodes: [CREATED],
-            body: params.options
+            body: params
         })
             .then(async (response) => response.json());
-    }
-
-    /**
-     * 明示的に取引を中止する
-     * 既に確定済、あるいは、期限切れの取引に対して実行するとNotFoundエラーが返されます。
-     */
-    public async cancel(params: {
-        /**
-         * 取引ID
-         */
-        id: string;
-    }): Promise<void> {
-        await this.fetch({
-            uri: `/transactions/${this.typeOf}/${params.id}/cancel`,
-            method: 'PUT',
-            expectedStatusCodes: [NO_CONTENT]
-        });
     }
 }
