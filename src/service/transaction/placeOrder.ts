@@ -141,7 +141,12 @@ export class PlaceOrderTransactionService extends Service implements Transaction
             /**
              * プロフィール
              */
-            customerContact: factory.transaction.placeOrder.ICustomerProfile;
+            customerContact: factory.transaction.placeOrder.ICustomerProfile & {
+                /**
+                 * CLDR two-letter region code
+                 */
+                telephoneRegion?: string;
+            };
         };
     }): Promise<factory.transaction.placeOrder.ICustomerProfile> {
         return this.fetch({

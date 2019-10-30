@@ -17,8 +17,6 @@ export interface IAuthorizeAction {
  * 注文取引サービス(sskts専用)
  */
 export class PlaceOrderTransaction4ssktsService extends PlaceOrderTransactionService {
-    public typeOf: factory.transactionType.PlaceOrder = factory.transactionType.PlaceOrder;
-
     constructor(options: IOptions) {
         super(options)/* istanbul ignore next */;
     }
