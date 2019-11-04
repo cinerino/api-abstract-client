@@ -25,23 +25,24 @@ export class ReturnOrderTransaction4tttsService extends Service {
             identifier?: factory.person.IIdentifier;
         };
         /**
+         * 取引期限
+         */
+        expires: Date;
+        object: {
+            /**
+             * 返品対象注文
+             */
+            order: factory.transaction.returnOrder.IReturnableOrder;
+        };
+        /**
          * 開演日(YYYYMMDD)
          */
-        performanceDay: string;
+        performanceDay?: string;
         /**
          * 購入番号
          */
-        paymentNo: string;
-        /**
-         * 手数料
-         */
-        cancellationFee: number;
-        /**
-         * 返品理由
-         */
-        reason: factory.transaction.returnOrder.Reason;
+        paymentNo?: string;
         informOrderUrl?: string;
-        informReservationUrl?: string;
     }): Promise<IConfirmResult> {
         return this.fetch({
             uri: `/ttts/transactions/${factory.transactionType.ReturnOrder}/confirm`,
@@ -50,9 +51,7 @@ export class ReturnOrderTransaction4tttsService extends Service {
             body: {
                 ...params,
                 performance_day: params.performanceDay,
-                payment_no: params.paymentNo,
-                cancellation_fee: params.cancellationFee,
-                reason: params.reason
+                payment_no: params.paymentNo
             }
         })
             .then(async (response) => response.json());
