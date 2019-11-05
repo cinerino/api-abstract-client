@@ -1,4 +1,4 @@
-import { NO_CONTENT, OK } from 'http-status';
+import { CREATED, NO_CONTENT, OK } from 'http-status';
 
 import * as factory from '../../factory';
 import { ISearchResult, Service } from '../../service';
@@ -71,5 +71,27 @@ export class ReturnOrderTransactionService extends Service implements Transactio
                     data: await response.json()
                 };
             });
+    }
+
+    /**
+     * 確定取引に関してメールを送信する(ttts専用)
+     */
+    public async sendEmailNotification4ttts(params: {
+        /**
+         * 取引ID
+         */
+        transactionId: string;
+        /**
+         * Eメールメッセージ属性
+         */
+        emailMessageAttributes: factory.creativeWork.message.email.IAttributes;
+    }): Promise<factory.task.ITask<factory.taskName.SendEmailMessage>> {
+        return this.fetch({
+            uri: `/ttts/transactions/${factory.transactionType.ReturnOrder}/${params.transactionId}/tasks/sendEmailNotification`,
+            method: 'POST',
+            expectedStatusCodes: [CREATED],
+            body: params.emailMessageAttributes
+        })
+            .then(async (response) => response.json());
     }
 }

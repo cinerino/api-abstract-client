@@ -31,7 +31,6 @@ import { PlaceOrderTransactionService } from './service/transaction/placeOrder';
 import { PlaceOrderTransaction4ssktsService } from './service/transaction/placeOrder4sskts';
 import { PlaceOrderTransaction4tttsService } from './service/transaction/placeOrder4ttts';
 import { ReturnOrderTransactionService } from './service/transaction/returnOrder';
-import { ReturnOrderTransaction4tttsService } from './service/transaction/returnOrder4ttts';
 import { UserPoolService } from './service/userPool';
 import * as transporters from './transporters';
 
@@ -92,38 +91,47 @@ export namespace service {
      * 配送サービス
      */
     export class Delivery extends DeliveryService { }
+
     /**
      * イベントサービス
      */
     export class Event extends EventService { }
+
     /**
      * IAMサービス
      */
     export class IAM extends IAMService { }
+
     /**
      * インボイスサービス
      */
     export class Invoice extends InvoiceService { }
+
     /**
      * 注文サービス
      */
     export class Order extends OrderService { }
+
     /**
      * 所有権サービス
      */
     export class OwnershipInfo extends OwnershipInfoService { }
+
     /**
      * 決済サービス
      */
     export class Payment extends PaymentService { }
+
     /**
      * 決済方法サービス
      */
     export class PaymentMethod extends PaymentMethodService { }
+
     /**
      * ユーザーサービス
      */
     export class Person extends PersonService { }
+
     export namespace person {
         /**
          * ユーザー所有権サービス
@@ -131,26 +139,32 @@ export namespace service {
         // tslint:disable-next-line:no-shadowed-variable
         export class OwnershipInfo extends PersonOwnershipInfoService { }
     }
+
     /**
      * 会員プログラムサービス
      */
     export class ProgramMembership extends ProgramMembershipService { }
+
     /**
      * プロジェクトサービス
      */
     export class Project extends ProjectService { }
+
     /**
      * 予約サービス
      */
     export class Reservation extends ReservationService { }
+
     /**
      * 販売者サービス
      */
     export class Seller extends SellerService { }
+
     /**
      * タスクサービス
      */
     export class Task extends TaskService { }
+
     /**
      * 取引サービス
      */
@@ -159,32 +173,34 @@ export namespace service {
          * 通貨転送取引サービス
          */
         export class MoneyTransfer extends MoneyTransferTransactionService { }
+
         /**
          * 注文取引サービス
          */
         export class PlaceOrder extends PlaceOrderTransactionService { }
+
         /**
          * sskts専用注文取引サービス
          */
         export class PlaceOrder4sskts extends PlaceOrderTransaction4ssktsService { }
+
         /**
          * ttts専用注文取引サービス
          */
         export class PlaceOrder4ttts extends PlaceOrderTransaction4tttsService { }
+
         /**
          * 注文返品取引サービス
          */
         export class ReturnOrder extends ReturnOrderTransactionService { }
-        /**
-         * ttts注文返品取引サービス
-         */
-        export class ReturnOrder4ttts extends ReturnOrderTransaction4tttsService { }
     }
+
     /**
      * 取引サービス
      * @alias service.transaction
      */
     export import txn = transaction;
+
     /**
      * Cognitoユーザープールサービス
      */
