@@ -54,6 +54,22 @@ export class AccountService extends Service {
      * ポイントを入金する(sskts専用)
      */
     public async deposit4sskts(params: {
+        object?: {
+            /**
+             * 金額
+             */
+            amount?: number;
+            /**
+             * 入金先
+             */
+            toLocation?: {
+                accountNumber?: string;
+            };
+            /**
+             * 取引説明
+             */
+            description?: string;
+        };
         /**
          * 入金受取人情報
          */
@@ -64,17 +80,36 @@ export class AccountService extends Service {
         };
         /**
          * 入金先口座番号
+         * @deprecated Use object.toLocation
          */
-        toAccountNumber: string;
+        toAccountNumber?: string;
         /**
          * 入金金額
+         * @deprecated Use object.amount
          */
-        amount: number;
+        amount?: number;
         /**
          * 入金説明
+         * @deprecated Use object.description
          */
         notes?: string;
     }): Promise<void> {
+        if (params.object === undefined || params.object === null) {
+            params.object = {};
+        }
+        if (typeof params.amount === 'number') {
+            params.object.amount = params.amount;
+        }
+        if (typeof params.notes === 'string') {
+            params.object.description = params.notes;
+        }
+        if (typeof params.toAccountNumber === 'string') {
+            if (params.object.toLocation === undefined || params.object.toLocation === null) {
+                params.object.toLocation = {};
+            }
+            params.object.toLocation.accountNumber = params.toAccountNumber;
+        }
+
         await this.fetch({
             uri: '/accounts/transactions/deposit',
             method: 'POST',
