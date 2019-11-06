@@ -89,25 +89,12 @@ export class PlaceOrderTransaction4tttsService extends PlaceOrderTransactionServ
     /**
      * 取引確定
      */
-    public async confirm(params: {
-        /**
-         * 取引ID
-         */
-        id: string;
-        /**
-         * 決済方法
-         */
-        paymentMethod: factory.paymentMethodType;
-        informOrderUrl?: string;
-    }): Promise<IConfirmResponse> {
+    public async confirm(params: factory.transaction.placeOrder.IConfirmParams): Promise<IConfirmResponse> {
         return this.fetch({
             uri: `/ttts/transactions/${this.typeOf}/${params.id}/confirm`,
             method: 'POST',
             expectedStatusCodes: [CREATED],
-            body: {
-                ...params,
-                payment_method: params.paymentMethod
-            }
+            body: params
         })
             .then(async (response) => response.json());
     }
