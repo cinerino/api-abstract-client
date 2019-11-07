@@ -70,7 +70,7 @@ export class PlaceOrderTransaction4tttsService extends PlaceOrderTransactionServ
     /**
      * 取引確定
      */
-    public async confirm(params: factory.transaction.placeOrder.IConfirmParams): Promise<factory.transaction.placeOrder.IResult> {
+    public async confirm4ttts(params: factory.transaction.placeOrder.IConfirmParams): Promise<factory.transaction.placeOrder.IResult> {
         return this.fetch({
             uri: `/ttts/transactions/${this.typeOf}/${params.id}/confirm`,
             method: 'POST',
