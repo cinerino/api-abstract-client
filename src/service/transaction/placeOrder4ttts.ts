@@ -7,25 +7,6 @@ import { IOptions } from '../../service';
 import { PlaceOrderTransactionService } from './placeOrder';
 
 /**
- * クレジットカード承認アクションに必要なクレジットカード情報インターフェース
- */
-export type ICreditCard =
-    factory.paymentMethod.paymentCard.creditCard.IUncheckedCardRaw |
-    factory.paymentMethod.paymentCard.creditCard.IUncheckedCardTokenized |
-    factory.paymentMethod.paymentCard.creditCard.IUnauthorizedCardOfMember;
-
-/**
- * 承認アクションインターフェース
- */
-export interface IAuthorizeAction {
-    id: string;
-}
-
-export interface IConfirmResponse extends factory.transaction.placeOrder.IResult {
-    printToken: string;
-}
-
-/**
  * 注文取引サービス(ttts専用)
  */
 export class PlaceOrderTransaction4tttsService extends PlaceOrderTransactionService {
@@ -89,7 +70,7 @@ export class PlaceOrderTransaction4tttsService extends PlaceOrderTransactionServ
     /**
      * 取引確定
      */
-    public async confirm(params: factory.transaction.placeOrder.IConfirmParams): Promise<IConfirmResponse> {
+    public async confirm(params: factory.transaction.placeOrder.IConfirmParams): Promise<factory.transaction.placeOrder.IResult> {
         return this.fetch({
             uri: `/ttts/transactions/${this.typeOf}/${params.id}/confirm`,
             method: 'POST',
