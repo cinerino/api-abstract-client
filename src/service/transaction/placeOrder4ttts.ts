@@ -68,19 +68,6 @@ export class PlaceOrderTransaction4tttsService extends PlaceOrderTransactionServ
     }
 
     /**
-     * 取引確定
-     */
-    public async confirm4ttts(params: factory.transaction.placeOrder.IConfirmParams): Promise<factory.transaction.placeOrder.IResult> {
-        return this.fetch({
-            uri: `/ttts/transactions/${this.typeOf}/${params.id}/confirm`,
-            method: 'POST',
-            expectedStatusCodes: [CREATED],
-            body: params
-        })
-            .then(async (response) => response.json());
-    }
-
-    /**
      * 確定した取引に関して、購入者にメール通知を送信する
      */
     public async sendEmailNotification(params: {

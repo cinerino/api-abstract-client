@@ -54,34 +54,6 @@ export class OrderService extends Service {
     }
 
     /**
-     * 注文照会(ttts専用)
-     * @deprecated
-     */
-    public async findByOrderInquiryKey4ttts(params: {
-        /**
-         * 確認番号
-         */
-        confirmationNumber: number;
-        /**
-         * 購入者情報
-         */
-        customer: {
-            /**
-             * 下4桁
-             */
-            telephone?: string;
-        };
-    }): Promise<factory.order.IOrder> {
-        return this.fetch({
-            uri: '/ttts/orders/findByOrderInquiryKey',
-            method: 'POST',
-            body: params,
-            expectedStatusCodes: [OK]
-        })
-            .then(async (response) => response.json());
-    }
-
-    /**
      * 予約番号と電話番号で注文情報を取得する(sskts専用)
      */
     public async findByOrderInquiryKey4sskts(params: {
