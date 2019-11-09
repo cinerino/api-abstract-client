@@ -15,7 +15,7 @@ export class PlaceOrderTransaction4tttsService extends PlaceOrderTransactionServ
     }
 
     /**
-     * 取引に座席予約を追加する
+     * 座席予約承認
      */
     public async createSeatReservationAuthorization(params: {
         /**
@@ -23,11 +23,11 @@ export class PlaceOrderTransaction4tttsService extends PlaceOrderTransactionServ
          */
         transactionId: string;
         /**
-         * パフォーマンスID
+         * イベントID
          */
         performanceId: string;
         /**
-         * 座席販売情報
+         * オファー
          */
         offers: {
             seat_code?: string;
@@ -48,7 +48,7 @@ export class PlaceOrderTransaction4tttsService extends PlaceOrderTransactionServ
     }
 
     /**
-     * 座席予約取消
+     * 座席予約承認取消
      */
     public async cancelSeatReservationAuthorization(params: {
         /**
@@ -65,27 +65,5 @@ export class PlaceOrderTransaction4tttsService extends PlaceOrderTransactionServ
             method: 'DELETE',
             expectedStatusCodes: [NO_CONTENT]
         });
-    }
-
-    /**
-     * 確定した取引に関して、購入者にメール通知を送信する
-     */
-    public async sendEmailNotification(params: {
-        /**
-         * 取引ID
-         */
-        transactionId: string;
-        /**
-         * Eメールメッセージ属性
-         */
-        emailMessageAttributes: factory.creativeWork.message.email.IAttributes;
-    }): Promise<factory.task.ITask<factory.taskName.SendEmailMessage>> {
-        return this.fetch({
-            uri: `/ttts/transactions/${this.typeOf}/${params.transactionId}/tasks/sendEmailNotification`,
-            method: 'POST',
-            expectedStatusCodes: [CREATED],
-            body: params.emailMessageAttributes
-        })
-            .then(async (response) => response.json());
     }
 }
