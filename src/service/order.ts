@@ -43,6 +43,8 @@ export class OrderService extends Service {
             email?: string;
             telephone?: string;
         };
+        orderDateFrom?: Date;
+        orderDateThrough?: Date;
     }): Promise<factory.order.IOrder> {
         return this.fetch({
             uri: '/orders/findByConfirmationNumber',
