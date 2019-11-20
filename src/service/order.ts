@@ -117,6 +117,23 @@ export class OrderService extends Service {
     }
 
     /**
+     * 注文取得
+     */
+    public async findByOrderNumber(params: {
+        /**
+         * 注文番号
+         */
+        orderNumber: string;
+    }): Promise<factory.order.IOrder> {
+        return this.fetch({
+            uri: `/orders/${params.orderNumber}`,
+            method: 'GET',
+            expectedStatusCodes: [OK]
+        })
+            .then(async (response) => response.json());
+    }
+
+    /**
      * 注文を検索する
      */
     public async search(
