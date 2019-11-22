@@ -186,45 +186,6 @@ describe('placeOrder transaction client.service', () => {
         assert.deepEqual(result, data);
     });
 
-    it('ポイントインセンティブ承認アクションの結果が期待通り', async () => {
-        const data = {};
-        const myMock = fetchMock.sandbox()
-            .mock('*', data);
-        sandbox.mock(transactions)
-            .expects('fetch')
-            .once()
-            .resolves(await myMock());
-
-        const result = await transactions.createPecorinoAwardAuthorization({
-            object: {
-                amount: 1234,
-                toAccountNumber: '12345'
-            },
-            purpose: { typeOf: client.factory.transactionType.PlaceOrder, id: 'transactionId' }
-        });
-
-        assert.deepEqual(result, data);
-        sandbox.verify();
-    });
-
-    it('ポイントインセンティブオーソリ取消結果が期待通り', async () => {
-        const data = {};
-        const myMock = fetchMock.sandbox()
-            .mock('*', data);
-        sandbox.mock(transactions)
-            .expects('fetch')
-            .once()
-            .resolves(await myMock());
-
-        const result = await transactions.cancelPecorinoAwardAuthorization({
-            id: 'actionId',
-            purpose: { typeOf: client.factory.transactionType.PlaceOrder, id: 'transactionId' }
-        });
-
-        assert.deepEqual(result, undefined);
-        sandbox.verify();
-    });
-
     it('取引中止結果が期待通り', async () => {
         const data = {};
         const myMock = fetchMock.sandbox()
