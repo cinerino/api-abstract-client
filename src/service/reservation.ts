@@ -1,7 +1,7 @@
 import { OK } from 'http-status';
 
 import * as factory from '../factory';
-import { Service } from '../service';
+import { ISearchResult, Service } from '../service';
 
 export type IReservation<T extends factory.chevre.reservationType> = factory.chevre.reservation.IReservation<T>;
 export type IReservationOwnershipInfo<T extends factory.chevre.reservationType> = factory.ownershipInfo.IOwnershipInfo<IReservation<T>>;
@@ -15,10 +15,7 @@ export class ReservationService extends Service {
      */
     public async search<T extends factory.chevre.reservationType>(
         params: factory.chevre.reservation.ISearchConditions<T>
-    ): Promise<{
-        totalCount: number;
-        data: IReservation<T>[];
-    }> {
+    ): Promise<ISearchResult<IReservation<T>[]>> {
         return this.fetch({
             uri: '/reservations',
             method: 'GET',

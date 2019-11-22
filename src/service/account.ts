@@ -1,8 +1,8 @@
-import { CREATED, NO_CONTENT } from 'http-status';
+import { CREATED, NO_CONTENT, OK } from 'http-status';
 
 import * as factory from '../factory';
 
-import { Service } from '../service';
+import { ISearchResult, Service } from '../service';
 
 /**
  * 口座サービス
@@ -48,6 +48,46 @@ export class AccountService extends Service {
             method: 'PUT',
             expectedStatusCodes: [NO_CONTENT]
         });
+    }
+
+    /**
+     * 口座を検索する
+     */
+    public async search<T extends factory.accountType>(
+        params: factory.pecorino.account.ISearchConditions<T>
+    ): Promise<ISearchResult<factory.pecorino.account.IAccount<T>[]>> {
+        return this.fetch({
+            uri: '/accounts',
+            method: 'GET',
+            qs: params,
+            expectedStatusCodes: [OK]
+        })
+            .then(async (response) => {
+                return {
+                    totalCount: Number(<string>response.headers.get('X-Total-Count')),
+                    data: await response.json()
+                };
+            });
+    }
+
+    /**
+     * 口座上の転送アクションを検索する
+     */
+    public async searchMoneyTransferActions<T extends factory.accountType>(
+        params: factory.pecorino.action.transfer.moneyTransfer.ISearchConditions<T>
+    ): Promise<ISearchResult<factory.pecorino.action.transfer.moneyTransfer.IAction<T>[]>> {
+        return this.fetch({
+            uri: `/accounts/actions/moneyTransfer`,
+            method: 'GET',
+            qs: params,
+            expectedStatusCodes: [OK]
+        })
+            .then(async (response) => {
+                return {
+                    totalCount: Number(<string>response.headers.get('X-Total-Count')),
+                    data: await response.json()
+                };
+            });
     }
 
     /**
