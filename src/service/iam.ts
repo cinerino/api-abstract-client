@@ -1,4 +1,4 @@
-import { OK } from 'http-status';
+import { NO_CONTENT, OK } from 'http-status';
 
 import * as factory from '../factory';
 import { ISearchResult, Service } from '../service';
@@ -44,5 +44,33 @@ export class IAMService extends Service {
             expectedStatusCodes: [OK]
         })
             .then(async (response) => response.json());
+    }
+
+    /**
+     * プロフィール検索
+     */
+    public async getUserProfile(params: {
+        id: string;
+    }): Promise<factory.person.IProfile> {
+        return this.fetch({
+            uri: `/iam/users/${params.id}/profile`,
+            method: 'GET',
+            expectedStatusCodes: [OK]
+        })
+            .then(async (response) => response.json());
+    }
+
+    /**
+     * プロフィール更新
+     */
+    public async updateUserProfile(params: factory.person.IProfile & {
+        id: string;
+    }): Promise<void> {
+        await this.fetch({
+            uri: `/iam/users/${params.id}/profile`,
+            method: 'PATCH',
+            body: params,
+            expectedStatusCodes: [NO_CONTENT]
+        });
     }
 }
