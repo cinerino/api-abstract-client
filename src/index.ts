@@ -15,6 +15,7 @@ import { DeliveryService } from './service/delivery';
 import { EventService } from './service/event';
 import { IAMService } from './service/iam';
 import { InvoiceService } from './service/invoice';
+import { OfferService } from './service/offer';
 import { OrderService } from './service/order';
 import { OwnershipInfoService } from './service/ownershipInfo';
 import { PaymentService } from './service/payment';
@@ -106,6 +107,11 @@ export namespace service {
      * インボイスサービス
      */
     export class Invoice extends InvoiceService { }
+
+    /**
+     * オファーサービス
+     */
+    export class Offer extends OfferService { }
 
     /**
      * 注文サービス
