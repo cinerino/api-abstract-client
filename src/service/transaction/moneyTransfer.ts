@@ -2,7 +2,7 @@ import { NO_CONTENT, OK } from 'http-status';
 
 import * as factory from '../../factory';
 import { ISearchResult, Service } from '../../service';
-import { TransactionService } from '../transaction';
+import { ISetProfileParams, TransactionService } from '../transaction';
 
 /**
  * 通貨転送取引サービス
@@ -23,6 +23,18 @@ export class MoneyTransferTransactionService extends Service implements Transact
             expectedStatusCodes: [OK]
         })
             .then(async (response) => response.json());
+    }
+
+    /**
+     * 取引人プロフィール変更
+     */
+    public async setProfile(params: ISetProfileParams): Promise<void> {
+        await this.fetch({
+            uri: `/transactions/${this.typeOf}/${params.id}/agent`,
+            method: 'PUT',
+            expectedStatusCodes: [NO_CONTENT],
+            body: params.agent
+        });
     }
 
     /**
