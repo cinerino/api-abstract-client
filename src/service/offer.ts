@@ -13,16 +13,32 @@ export interface IPurpose {
  */
 export class OfferService extends Service {
     /**
-     * 通貨転送オファー承認
+     * 通貨オファー承認
      * 口座入金、ポイント購入等のオファー承認
      */
-    public async authorizeMoneyTransfer<T extends factory.accountType>(params: {
-        object: factory.action.authorize.offer.moneyTransfer.IObject<T>;
+    public async authorizeMonetaryAmount<T extends factory.accountType>(params: {
+        object: factory.action.authorize.offer.monetaryAmount.IObject<T>;
         purpose: IPurpose;
-        recipient: factory.action.authorize.offer.moneyTransfer.IRecipient;
-    }): Promise<factory.action.authorize.offer.moneyTransfer.IAction<T>> {
+        // recipient: factory.action.authorize.offer.monetaryAmount.IRecipient;
+    }): Promise<factory.action.authorize.offer.monetaryAmount.IAction<T>> {
         return this.fetch({
-            uri: `/offers/${params.object.typeOf}/authorize`,
+            uri: `/offers/${params.object.itemOffered.typeOf}/authorize`,
+            method: 'POST',
+            expectedStatusCodes: [CREATED],
+            body: params
+        })
+            .then(async (response) => response.json());
+    }
+
+    /**
+     * 会員プログラムオファー承認
+     */
+    public async authorizeProgramMembership(params: {
+        object: factory.action.authorize.offer.programMembership.IObject;
+        purpose: IPurpose;
+    }): Promise<factory.action.authorize.offer.programMembership.IAction> {
+        return this.fetch({
+            uri: `/offers/${params.object.itemOffered.typeOf}/authorize`,
             method: 'POST',
             expectedStatusCodes: [CREATED],
             body: params
@@ -39,12 +55,14 @@ export class OfferService extends Service {
          */
         id: string;
         object: {
-            typeOf: string;
+            itemOffered: {
+                typeOf: string;
+            };
         };
         purpose: IPurpose;
     }): Promise<void> {
         await this.fetch({
-            uri: `/offers/${params.object.typeOf}/authorize/${params.id}/void`,
+            uri: `/offers/${params.object.itemOffered.typeOf}/authorize/${params.id}/void`,
             method: 'PUT',
             expectedStatusCodes: [NO_CONTENT],
             body: params
