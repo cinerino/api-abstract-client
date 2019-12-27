@@ -1,4 +1,8 @@
 import { CREATED, NO_CONTENT, OK } from 'http-status';
+import * as util from 'util';
+
+// tslint:disable-next-line:no-require-imports no-var-requires
+const packageInfo = require('../../../package.json');
 
 import * as factory from '../../factory';
 import { ISearchResult, Service } from '../../service';
@@ -131,6 +135,7 @@ export class PlaceOrderTransactionService extends Service implements Transaction
 
     /**
      * 購入者プロフィール変更
+     * @deprecated Use setProfile()
      */
     public async setCustomerContact(params: {
         /**
@@ -266,3 +271,8 @@ export class PlaceOrderTransactionService extends Service implements Transaction
             .then(async (response) => <NodeJS.ReadableStream | ReadableStream>response.body);
     }
 }
+
+PlaceOrderTransactionService.prototype.setCustomerContact = util.deprecate(
+    PlaceOrderTransactionService.prototype.setCustomerContact,
+    `${<string>packageInfo.name}: setCustomerContact() is deprecated. Use setProfile() instead.`
+);
