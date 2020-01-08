@@ -40,4 +40,18 @@ export class ProjectService extends Service {
         })
             .then(async (response) => response.json());
     }
+
+    /**
+     * プロジェクト設定取得
+     */
+    public async getSettings(params: {
+        id: string;
+    }): Promise<factory.project.ISettings> {
+        return this.fetch({
+            uri: `/projects/${params.id}/settings`,
+            method: 'GET',
+            expectedStatusCodes: [OK]
+        })
+            .then(async (response) => response.json());
+    }
 }
