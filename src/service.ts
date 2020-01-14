@@ -22,6 +22,7 @@ export interface IOptions {
      */
     transporter?: Transporter;
 }
+
 export interface IFetchOptions {
     uri: string;
     form?: any;
@@ -33,14 +34,18 @@ export interface IFetchOptions {
     body?: any;
     expectedStatusCodes: number[];
 }
+
 /**
  * base service class
  */
 export class Service {
     public options: IOptions;
+    private project: { id: string } | undefined;
+
     constructor(options: IOptions) {
         this.options = options;
     }
+
     /**
      * Create and send request to API
      */
@@ -52,7 +57,10 @@ export class Service {
         // tslint:disable-next-line:no-parameter-reassignment
         options = { ...defaultOptions, ...options };
 
-        const baseUrl = this.options.endpoint;
+        let baseUrl = this.options.endpoint;
+        if (this.project !== undefined && typeof this.project.id === 'string' && this.project.id.length > 0) {
+            baseUrl = `${baseUrl}/projects/${this.project.id}`;
+        }
         let url = `${baseUrl}${options.uri}`;
 
         const querystrings = qs.stringify(options.qs);
@@ -82,7 +90,21 @@ export class Service {
             return transporter.fetch(url, fetchOptions);
         }
     }
+
+    /**
+     * リクエストプロジェクトを指定する
+     * サービスインスタンスのスコープにおいてプロジェクトが固定されます
+     */
+    public setProject(params: {
+        /**
+         * プロジェクトID
+         */
+        id: string;
+    }) {
+        this.project = { id: params.id };
+    }
 }
+
 /**
  * 検索結果インターフェース
  */
