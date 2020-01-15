@@ -21,6 +21,10 @@ export interface IOptions {
      * transporter object
      */
     transporter?: Transporter;
+    /**
+     * サービスを使用するプロジェクト
+     */
+    project?: { id?: string };
 }
 
 export interface IFetchOptions {
@@ -40,7 +44,6 @@ export interface IFetchOptions {
  */
 export class Service {
     public options: IOptions;
-    private project: { id: string } | undefined;
 
     constructor(options: IOptions) {
         this.options = options;
@@ -58,8 +61,11 @@ export class Service {
         options = { ...defaultOptions, ...options };
 
         let baseUrl = this.options.endpoint;
-        if (this.project !== undefined && typeof this.project.id === 'string' && this.project.id.length > 0) {
-            baseUrl = `${baseUrl}/projects/${this.project.id}`;
+        if (this.options.project !== undefined
+            && this.options.project !== null
+            && typeof this.options.project.id === 'string'
+            && this.options.project.id.length > 0) {
+            baseUrl = `${baseUrl}/projects/${this.options.project.id}`;
         }
         let url = `${baseUrl}${options.uri}`;
 
@@ -89,19 +95,6 @@ export class Service {
 
             return transporter.fetch(url, fetchOptions);
         }
-    }
-
-    /**
-     * リクエストプロジェクトを指定する
-     * サービスインスタンスのスコープにおいてプロジェクトが固定されます
-     */
-    public setProject(params: {
-        /**
-         * プロジェクトID
-         */
-        id: string;
-    }) {
-        this.project = { id: params.id };
     }
 }
 
