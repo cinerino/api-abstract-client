@@ -1,4 +1,4 @@
-import { NO_CONTENT, OK } from 'http-status';
+import { CREATED, NO_CONTENT, OK } from 'http-status';
 
 import * as factory from '../factory';
 import { ISearchResult, Service } from '../service';
@@ -11,13 +11,15 @@ export interface IRole {
     roleName: string;
     memberOf: { typeOf: factory.organizationType.Project; id: string };
 }
+export type IMemberType = factory.personType | factory.creativeWorkType.WebApplication;
 export interface IMember {
     typeOf: RoleType;
     project: { typeOf: factory.organizationType.Project; id: string };
     member: {
-        typeOf: factory.personType;
+        typeOf: IMemberType;
         id: string;
-        username: string;
+        name?: string;
+        username?: string;
         hasRole: IRole[];
     };
 }
@@ -94,7 +96,7 @@ export class IAMService extends Service {
     }
 
     /**
-     * ロール検索
+     * IAMロール検索
      */
     public async searchRoles(params: any): Promise<ISearchResult<IRole[]>> {
         return this.fetch({
@@ -112,7 +114,20 @@ export class IAMService extends Service {
     }
 
     /**
-     * プロジェクトメンバー検索
+     * IAMメンバー作成
+     */
+    public async createMember(params: any): Promise<IMember> {
+        return this.fetch({
+            uri: '/iam/members',
+            method: 'POST',
+            body: params,
+            expectedStatusCodes: [CREATED]
+        })
+            .then(async (response) => response.json());
+    }
+
+    /**
+     * IAMメンバー検索
      */
     public async searchMembers(params: any): Promise<ISearchResult<IMember[]>> {
         return this.fetch({
@@ -130,7 +145,7 @@ export class IAMService extends Service {
     }
 
     /**
-     * プロジェクトメンバー取得
+     * IAMメンバー取得
      */
     public async findMemberById(params: {
         id: string;
@@ -144,7 +159,20 @@ export class IAMService extends Service {
     }
 
     /**
-     * プロジェクトメンバープロフィール検索
+     * IAMメンバー削除
+     */
+    public async deleteMember(params: {
+        id: string;
+    }): Promise<void> {
+        await this.fetch({
+            uri: `/iam/members/${params.id}`,
+            method: 'DELETE',
+            expectedStatusCodes: [NO_CONTENT]
+        });
+    }
+
+    /**
+     * IAMメンバープロフィール検索
      */
     public async getMemberProfile(params: {
         id: string;
@@ -158,7 +186,7 @@ export class IAMService extends Service {
     }
 
     /**
-     * プロジェクトメンバープロフィール更新
+     * IAMメンバープロフィール更新
      */
     public async updateMemberProfile(params: factory.person.IProfile & {
         id: string;
