@@ -148,10 +148,12 @@ export class IAMService extends Service {
      * IAMメンバー取得
      */
     public async findMemberById(params: {
-        id: string;
+        member: {
+            id: string;
+        };
     }): Promise<IMember> {
         return this.fetch({
-            uri: `/iam/members/${params.id}`,
+            uri: `/iam/members/${params.member.id}`,
             method: 'GET',
             expectedStatusCodes: [OK]
         })
@@ -159,13 +161,32 @@ export class IAMService extends Service {
     }
 
     /**
+     * IAMメンバー更新
+     */
+    public async updateMember(params: {
+        member: {
+            id: string;
+            hasRole: { roleName: string }[];
+        };
+    }): Promise<void> {
+        await this.fetch({
+            uri: `/iam/members/${params.member.id}`,
+            method: 'PUT',
+            body: params,
+            expectedStatusCodes: [NO_CONTENT]
+        });
+    }
+
+    /**
      * IAMメンバー削除
      */
     public async deleteMember(params: {
-        id: string;
+        member: {
+            id: string;
+        };
     }): Promise<void> {
         await this.fetch({
-            uri: `/iam/members/${params.id}`,
+            uri: `/iam/members/${params.member.id}`,
             method: 'DELETE',
             expectedStatusCodes: [NO_CONTENT]
         });
@@ -175,10 +196,12 @@ export class IAMService extends Service {
      * IAMメンバープロフィール検索
      */
     public async getMemberProfile(params: {
-        id: string;
+        member: {
+            id: string;
+        };
     }): Promise<factory.person.IProfile> {
         return this.fetch({
-            uri: `/iam/members/${params.id}/profile`,
+            uri: `/iam/members/${params.member.id}/profile`,
             method: 'GET',
             expectedStatusCodes: [OK]
         })
@@ -188,13 +211,15 @@ export class IAMService extends Service {
     /**
      * IAMメンバープロフィール更新
      */
-    public async updateMemberProfile(params: factory.person.IProfile & {
-        id: string;
+    public async updateMemberProfile(params: {
+        member: factory.person.IProfile & {
+            id: string;
+        };
     }): Promise<void> {
         await this.fetch({
-            uri: `/iam/members/${params.id}/profile`,
+            uri: `/iam/members/${params.member.id}/profile`,
             method: 'PATCH',
-            body: params,
+            body: params.member,
             expectedStatusCodes: [NO_CONTENT]
         });
     }
