@@ -134,11 +134,36 @@ export class OrderService extends Service {
     }
 
     /**
+     * 識別子で注文検索
+     */
+    public async findByIdentifier(params: {
+        limit?: number;
+        page?: number;
+        /**
+         * 識別子条件
+         */
+        identifier?: {
+            $all?: factory.order.IIdentifier;
+        };
+    }): Promise<ISearchResult<factory.order.IOrder[]>> {
+        return this.fetch({
+            uri: '/orders/findByIdentifier',
+            method: 'GET',
+            qs: params,
+            expectedStatusCodes: [OK]
+        })
+            .then(async (response) => {
+                return {
+                    totalCount: Number(<string>response.headers.get('X-Total-Count')),
+                    data: await response.json()
+                };
+            });
+    }
+
+    /**
      * 注文を検索する
      */
-    public async search(
-        params: factory.order.ISearchConditions
-    ): Promise<ISearchResult<factory.order.IOrder[]>> {
+    public async search(params: factory.order.ISearchConditions): Promise<ISearchResult<factory.order.IOrder[]>> {
         return this.fetch({
             uri: '/orders',
             method: 'GET',
