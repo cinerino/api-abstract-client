@@ -4,6 +4,68 @@ import * as factory from '../factory';
 import { ISearchResult, Service } from '../service';
 
 /**
+ * COA券種オファーインターフェース
+ */
+export interface ICOATicketOffer {
+    /**
+     * チケットコード
+     */
+    ticketCode: string;
+    /**
+     * チケット名
+     */
+    ticketName: string;
+    /**
+     * チケット名（カナ）
+     */
+    ticketNameKana: string;
+    /**
+     * チケット名（英）
+     */
+    ticketNameEng: string;
+    /**
+     * 標準単価
+     */
+    stdPrice: number;
+    /**
+     * 加算単価(３Ｄ，ＩＭＡＸ、４ＤＸ等の加算料金)
+     */
+    addPrice: number;
+    /**
+     * 販売単価(標準単価＋加算単価)
+     */
+    salePrice: number;
+    /**
+     * 人数制限(制限が無い場合は１)
+     */
+    limitCount: number;
+    /**
+     * 制限単位(１：ｎ人単位、２：ｎ人以上)
+     */
+    limitUnit: string;
+    /**
+     * チケット備考(注意事項等)
+     */
+    ticketNote: string;
+    /**
+     * メガネ単価
+     */
+    addGlasses: number;
+    /**
+     * 会員用フラグ（1：会員専用チケットも表示する。会員以外の場合は0をセット）
+     */
+    flgMember: '0' | '1';
+    /**
+     * ポイント購入の場合の消費ポイント
+     */
+    usePoint: number;
+    /**
+     * ムビチケ券種フラグ
+     */
+    mvtkFlg: boolean;
+}
+
+/**
  * イベントサービス
  */
 export class EventService extends Service {
@@ -75,6 +137,61 @@ export class EventService extends Service {
          */
         store: { id: string };
     }): Promise<factory.chevre.event.screeningEvent.ITicketOffer[]> {
+        return this.fetch({
+            uri: `/events/${params.event.id}/offers/ticket`,
+            method: 'GET',
+            expectedStatusCodes: [OK],
+            qs: params
+        })
+            .then(async (response) => response.json());
+    }
+
+    /**
+     * イベントに対する券種オファー検索(COA券種)
+     */
+    public async searchTicketOffers4COA(params: {
+        /**
+         * イベント
+         */
+        event: { id: string };
+        /**
+         * 販売者
+         */
+        seller: { typeOf: factory.organizationType; id: string };
+        /**
+         * 店舗(idにはアプリケーションクライアントIDを指定)
+         */
+        store: { id: string };
+        /**
+         * ムビチケ券種もほしい場合に指定
+         */
+        movieTicket?: {
+            /**
+             * 電子券区分
+             */
+            kbnDenshiken: string;
+            /**
+             * 前売券区分
+             */
+            kbnMaeuriken: string;
+            /**
+             * 券種区分
+             */
+            kbnKensyu: string;
+            /**
+             * 販売単価
+             */
+            salesPrice: number;
+            /**
+             * 計上単価
+             */
+            appPrice: number;
+            /**
+             * 映写方式区分
+             */
+            kbnEisyahousiki: string;
+        };
+    }): Promise<ICOATicketOffer[]> {
         return this.fetch({
             uri: `/events/${params.event.id}/offers/ticket`,
             method: 'GET',
