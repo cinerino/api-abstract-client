@@ -11,7 +11,7 @@ export class CreativeWorkService extends Service {
      * 映画作品検索
      */
     public async searchMovies(params: factory.chevre.creativeWork.movie.ISearchConditions): Promise<{
-        totalCount: number;
+        totalCount?: number;
         data: factory.chevre.creativeWork.movie.ICreativeWork[];
     }> {
         return this.fetch({
@@ -22,7 +22,9 @@ export class CreativeWorkService extends Service {
         })
             .then(async (response) => {
                 return {
-                    totalCount: Number(<string>response.headers.get('X-Total-Count')),
+                    totalCount: (typeof response.headers.get('X-Total-Count') === 'string')
+                        ? Number(<string>response.headers.get('X-Total-Count'))
+                        : undefined,
                     data: await response.json()
                 };
             });

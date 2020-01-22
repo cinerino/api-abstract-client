@@ -35,7 +35,9 @@ export class UserPoolService extends Service {
         })
             .then(async (response) => {
                 return {
-                    totalCount: Number(<string>response.headers.get('X-Total-Count')),
+                    totalCount: (typeof response.headers.get('X-Total-Count') === 'string')
+                        ? Number(<string>response.headers.get('X-Total-Count'))
+                        : undefined,
                     data: await response.json()
                 };
             });
