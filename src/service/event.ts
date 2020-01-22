@@ -62,7 +62,31 @@ export interface ICOATicketOffer {
     /**
      * ムビチケ券種フラグ
      */
-    mvtkFlg: boolean;
+    flgMvtk: boolean;
+    /**
+     * ムビチケ計上単価
+     */
+    mvtkAppPrice: number;
+    /**
+     * ムビチケ映写方式区分
+     */
+    kbnEisyahousiki: string;
+    /**
+     * ムビチケ電子券区分
+     */
+    mvtkKbnDenshiken: string;
+    /**
+     * ムビチケ前売券区分
+     */
+    mvtkKbnMaeuriken: string;
+    /**
+     * ムビチケ券種区分
+     */
+    mvtkKbnKensyu: string;
+    /**
+     * ムビチケ販売単価
+     */
+    mvtkSalesPrice: number;
 }
 
 /**
