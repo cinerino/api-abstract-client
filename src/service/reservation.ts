@@ -33,6 +33,21 @@ export class ReservationService extends Service {
     }
 
     /**
+     * ストリーミングダウンロード
+     */
+    public async download<T extends factory.chevre.reservationType>(params: factory.chevre.reservation.ISearchConditions<T> & {
+        format: any;
+    }): Promise<NodeJS.ReadableStream | ReadableStream> {
+        return this.fetch({
+            uri: '/reservations/download',
+            method: 'GET',
+            qs: params,
+            expectedStatusCodes: [OK]
+        })
+            .then(async (response) => <NodeJS.ReadableStream | ReadableStream>response.body);
+    }
+
+    /**
      * トークンで予約照会
      */
     public async findScreeningEventReservationByToken<T extends factory.chevre.reservationType>(params: {
