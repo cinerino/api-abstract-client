@@ -137,7 +137,7 @@ export class EventService extends Service {
          * イベント
          */
         event: { id: string };
-    }): Promise<factory.chevre.place.movieTheater.IScreeningRoomSectionOffer[]> {
+    }): Promise<factory.chevre.place.screeningRoomSection.IPlaceWithOffer[]> {
         return this.fetch({
             uri: `/events/${params.event.id}/offers`,
             method: 'GET',

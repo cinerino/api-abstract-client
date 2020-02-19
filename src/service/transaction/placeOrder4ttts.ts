@@ -1,4 +1,4 @@
-import { CREATED, NO_CONTENT } from 'http-status';
+import { CREATED } from 'http-status';
 
 import * as factory from '../../factory';
 
@@ -45,25 +45,5 @@ export class PlaceOrderTransaction4tttsService extends PlaceOrderTransactionServ
             }
         })
             .then(async (response) => response.json());
-    }
-
-    /**
-     * 座席予約承認取消
-     */
-    public async cancelSeatReservationAuthorization(params: {
-        /**
-         * 取引ID
-         */
-        transactionId: string;
-        /**
-         * アクションID
-         */
-        actionId: string;
-    }): Promise<void> {
-        await this.fetch({
-            uri: `/ttts/transactions/${this.typeOf}/${params.transactionId}/actions/authorize/seatReservation/${params.actionId}`,
-            method: 'DELETE',
-            expectedStatusCodes: [NO_CONTENT]
-        });
     }
 }
