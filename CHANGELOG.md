@@ -16,8 +16,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 - 注文返品取引サービスを追加
 - 予約サービスを追加
 - 所有権サービスを追加
-- プロジェクトサービス追加
-- IAMサービス追加
+- プロジェクトサービスを追加
+- IAMサービスを追加
+- 場所サービスを追加
 
 ### Changed
 
