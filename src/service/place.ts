@@ -47,7 +47,7 @@ export class PlaceService extends Service {
              * 劇場コード
              */
             branchCode?: {
-                $eq: string;
+                $eq?: string;
             };
         };
     }): Promise<ISearchResult<factory.chevre.place.screeningRoom.IPlace[]>> {
