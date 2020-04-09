@@ -131,6 +131,7 @@ export class EventService extends Service {
 
     /**
      * イベントに対する座席オファー検索
+     * @deprecated Use searchSeats
      */
     public async searchOffers(params: {
         /**
@@ -144,6 +145,30 @@ export class EventService extends Service {
             expectedStatusCodes: [OK]
         })
             .then(async (response) => response.json());
+    }
+
+    /**
+     * イベントに対する座席検索
+     */
+    public async searchSeats(params: {
+        /**
+         * イベント
+         */
+        event: { id: string };
+        limit?: number;
+        page?: number;
+    }): Promise<ISearchResult<factory.chevre.place.seat.IPlaceWithOffer[]>> {
+        return this.fetch({
+            uri: `/events/${params.event.id}/seats`,
+            method: 'GET',
+            qs: params,
+            expectedStatusCodes: [OK]
+        })
+            .then(async (response) => {
+                return {
+                    data: await response.json()
+                };
+            });
     }
 
     /**
