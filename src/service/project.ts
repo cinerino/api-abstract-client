@@ -1,4 +1,4 @@
-import { CREATED, OK } from 'http-status';
+import { CREATED, NO_CONTENT, OK } from 'http-status';
 
 import * as factory from '../factory';
 import { ISearchResult, Service } from '../service';
@@ -60,6 +60,18 @@ export class ProjectService extends Service {
             expectedStatusCodes: [OK]
         })
             .then(async (response) => response.json());
+    }
+
+    /**
+     * プロジェクト編集
+     */
+    public async update(params: factory.project.IProject): Promise<void> {
+        await this.fetch({
+            uri: `/projects/${params.id}`,
+            method: 'PATCH',
+            body: params,
+            expectedStatusCodes: [NO_CONTENT]
+        });
     }
 
     /**
