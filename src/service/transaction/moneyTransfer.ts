@@ -13,7 +13,7 @@ export class MoneyTransferTransactionService extends Service implements Transact
     /**
      * 取引を開始する
      */
-    public async start<T extends factory.accountType, T2 extends factory.transaction.moneyTransfer.IToLocationType>(
+    public async start<T extends string, T2 extends factory.transaction.moneyTransfer.IToLocationType>(
         params: factory.transaction.moneyTransfer.IStartParamsWithoutDetail<T, T2>
     ): Promise<factory.transaction.moneyTransfer.ITransaction<T, T2>> {
         return this.fetch({

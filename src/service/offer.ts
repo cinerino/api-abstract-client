@@ -16,7 +16,7 @@ export class OfferService extends Service {
      * 通貨オファー承認
      * 口座入金、ポイント購入等のオファー承認
      */
-    public async authorizeMonetaryAmount<T extends factory.accountType>(params: {
+    public async authorizeMonetaryAmount<T extends string>(params: {
         object: factory.action.authorize.offer.monetaryAmount.IObject<T>;
         purpose: IPurpose;
         // recipient: factory.action.authorize.offer.monetaryAmount.IRecipient;

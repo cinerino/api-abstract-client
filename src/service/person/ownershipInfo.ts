@@ -5,7 +5,7 @@ import { ISearchResult, Service } from '../../service';
 
 export type ICreditCard =
     factory.paymentMethod.paymentCard.creditCard.IUncheckedCardRaw | factory.paymentMethod.paymentCard.creditCard.IUncheckedCardTokenized;
-export type IAccountOwnershipInfo<T extends factory.accountType> =
+export type IAccountOwnershipInfo<T extends string> =
     factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<T>>;
 export type IOwnershipInfoWithDetail<T extends factory.ownershipInfo.IGoodType> =
     factory.ownershipInfo.IOwnershipInfo<factory.ownershipInfo.IGoodWithDetail<T>>;
@@ -87,7 +87,7 @@ export class PersonOwnershipInfoService extends Service {
     /**
      * 口座開設
      */
-    public async openAccount<T extends factory.accountType>(params: {
+    public async openAccount<T extends string>(params: {
         /**
          * 未指定の場合`me`がセットされます
          */
@@ -119,7 +119,7 @@ export class PersonOwnershipInfoService extends Service {
      * 口座の状態を変更するだけで、ユーザーの所有する口座リストから削除はされません。
      * 解約された口座で取引を進行しようとすると400エラーとなります。
      */
-    public async closeAccount<T extends factory.accountType>(params: {
+    public async closeAccount<T extends string>(params: {
         /**
          * 未指定の場合`me`がセットされます
          */
@@ -145,7 +145,7 @@ export class PersonOwnershipInfoService extends Service {
     /**
      * 口座取引履歴検索
      */
-    public async searchAccountMoneyTransferActions<T extends factory.accountType>(
+    public async searchAccountMoneyTransferActions<T extends string>(
         params: factory.pecorino.action.transfer.moneyTransfer.ISearchConditions<T> & {
             /**
              * 未指定の場合`me`がセットされます

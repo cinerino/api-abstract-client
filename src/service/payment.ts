@@ -12,7 +12,7 @@ export class PaymentService extends Service {
     /**
      * 口座決済承認
      */
-    public async authorizeAccount<T extends factory.accountType>(params: {
+    public async authorizeAccount<T extends string>(params: {
         object: factory.action.authorize.paymentMethod.account.IObject<T>;
         purpose: IPurpose;
     }): Promise<factory.action.authorize.paymentMethod.account.IAction<T>> {

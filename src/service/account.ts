@@ -11,7 +11,7 @@ export class AccountService extends Service {
     /**
      * 管理者として口座を開設する
      */
-    public async open<T extends factory.accountType>(params: {
+    public async open<T extends string>(params: {
         /**
          * 口座タイプ
          */
@@ -33,7 +33,7 @@ export class AccountService extends Service {
     /**
      * 管理者として口座を解約する
      */
-    public async close<T extends factory.accountType>(params: {
+    public async close<T extends string>(params: {
         /**
          * 口座タイプ
          */
@@ -53,7 +53,7 @@ export class AccountService extends Service {
     /**
      * 口座を検索する
      */
-    public async search<T extends factory.accountType>(
+    public async search<T extends string>(
         params: factory.pecorino.account.ISearchConditions<T>
     ): Promise<ISearchResult<factory.pecorino.account.IAccount<T>[]>> {
         return this.fetch({
@@ -75,7 +75,7 @@ export class AccountService extends Service {
     /**
      * 口座上の転送アクションを検索する
      */
-    public async searchMoneyTransferActions<T extends factory.accountType>(
+    public async searchMoneyTransferActions<T extends string>(
         params: factory.pecorino.action.transfer.moneyTransfer.ISearchConditions<T>
     ): Promise<ISearchResult<factory.pecorino.action.transfer.moneyTransfer.IAction<T>[]>> {
         return this.fetch({

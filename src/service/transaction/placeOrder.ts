@@ -92,14 +92,6 @@ export class PlaceOrderTransactionService extends Service implements Transaction
     public async authorizePointAward(params: {
         object: {
             /**
-             * 金額
-             */
-            amount: number;
-            /**
-             * 入金先口座番号
-             */
-            toAccountNumber: string;
-            /**
              * 説明
              * 指定すると、口座の取引明細に記録されます。
              */
