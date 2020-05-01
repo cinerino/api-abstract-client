@@ -74,6 +74,22 @@ export class PaymentService extends Service {
     }
 
     /**
+     * プリペイドカード決済承認
+     */
+    public async authorizePrepaidCard(params: {
+        object: factory.action.authorize.paymentMethod.prepaidCard.IObject;
+        purpose: IPurpose;
+    }): Promise<factory.action.authorize.paymentMethod.prepaidCard.IAction> {
+        return this.fetch({
+            uri: `/payment/${factory.paymentMethodType.PrepaidCard}/authorize`,
+            method: 'POST',
+            expectedStatusCodes: [CREATED],
+            body: params
+        })
+            .then(async (response) => response.json());
+    }
+
+    /**
      * ムビチケ購入番号確認
      */
     public async checkMovieTicket(

@@ -103,7 +103,7 @@ export class PlaceOrderTransaction4ssktsService extends PlaceOrderTransactionSer
      * ムビチケ決済承認
      */
     public async createMvtkAuthorization(params: {
-        object: factory.action.authorize.discount.mvtk.IObject;
+        object: factory.action.authorize.paymentMethod.movieTicket.IObject4sskts;
         purpose: factory.action.authorize.paymentMethod.any.IPurpose;
     }): Promise<IAuthorizeAction> {
         return this.fetch({
