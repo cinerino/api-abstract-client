@@ -4,7 +4,8 @@ import * as factory from '../../factory';
 import { ISearchResult, Service } from '../../service';
 
 export type ICreditCard =
-    factory.paymentMethod.paymentCard.creditCard.IUncheckedCardRaw | factory.paymentMethod.paymentCard.creditCard.IUncheckedCardTokenized;
+    factory.chevre.paymentMethod.paymentCard.creditCard.IUncheckedCardRaw
+    | factory.chevre.paymentMethod.paymentCard.creditCard.IUncheckedCardTokenized;
 export type IAccountOwnershipInfo<T extends string> =
     factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<T>>;
 export type IOwnershipInfoWithDetail<T extends factory.ownershipInfo.IGoodType> =
@@ -30,7 +31,7 @@ export class PersonOwnershipInfoService extends Service {
          * 情報の渡し方にはいくつかパターンがあるので、型を参照すること
          */
         creditCard: ICreditCard;
-    }): Promise<factory.paymentMethod.paymentCard.creditCard.ICheckedCard> {
+    }): Promise<factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard> {
         const id = (typeof params.id === 'string') ? params.id : 'me';
 
         return this.fetch({
@@ -50,7 +51,7 @@ export class PersonOwnershipInfoService extends Service {
          * 未指定の場合`me`がセットされます
          */
         id?: string;
-    }): Promise<factory.paymentMethod.paymentCard.creditCard.ICheckedCard[]> {
+    }): Promise<factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard[]> {
         const id = (typeof params.id === 'string') ? params.id : 'me';
 
         return this.fetch({

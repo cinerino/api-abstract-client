@@ -13,9 +13,9 @@ export class MoneyTransferTransactionService extends Service implements Transact
     /**
      * 取引を開始する
      */
-    public async start<T extends string, T2 extends factory.transaction.moneyTransfer.IToLocationType>(
-        params: factory.transaction.moneyTransfer.IStartParamsWithoutDetail<T, T2>
-    ): Promise<factory.transaction.moneyTransfer.ITransaction<T, T2>> {
+    public async start(
+        params: factory.transaction.moneyTransfer.IStartParamsWithoutDetail
+    ): Promise<factory.transaction.moneyTransfer.ITransaction> {
         return this.fetch({
             uri: `/transactions/${this.typeOf}/start`,
             method: 'POST',

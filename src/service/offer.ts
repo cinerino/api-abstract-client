@@ -16,11 +16,11 @@ export class OfferService extends Service {
      * 通貨オファー承認
      * 口座入金、ポイント購入等のオファー承認
      */
-    public async authorizeMonetaryAmount<T extends string>(params: {
-        object: factory.action.authorize.offer.monetaryAmount.IObject<T>;
+    public async authorizeMonetaryAmount(params: {
+        object: factory.action.authorize.offer.monetaryAmount.IObject;
         purpose: IPurpose;
         // recipient: factory.action.authorize.offer.monetaryAmount.IRecipient;
-    }): Promise<factory.action.authorize.offer.monetaryAmount.IAction<T>> {
+    }): Promise<factory.action.authorize.offer.monetaryAmount.IAction> {
         return this.fetch({
             uri: `/offers/${params.object.itemOffered.typeOf}/authorize`,
             method: 'POST',
@@ -37,6 +37,22 @@ export class OfferService extends Service {
         object: factory.action.authorize.offer.programMembership.IObject;
         purpose: IPurpose;
     }): Promise<factory.action.authorize.offer.programMembership.IAction> {
+        return this.fetch({
+            uri: `/offers/${params.object.itemOffered.typeOf}/authorize`,
+            method: 'POST',
+            expectedStatusCodes: [CREATED],
+            body: params
+        })
+            .then(async (response) => response.json());
+    }
+
+    /**
+     * 決済カードオファー承認
+     */
+    public async authorizePaymentCard(params: {
+        object: factory.action.authorize.offer.paymentCard.IObject;
+        purpose: IPurpose;
+    }): Promise<factory.action.authorize.offer.paymentCard.IAction> {
         return this.fetch({
             uri: `/offers/${params.object.itemOffered.typeOf}/authorize`,
             method: 'POST',
