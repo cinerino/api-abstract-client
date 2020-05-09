@@ -1,4 +1,4 @@
-import { CREATED, NO_CONTENT } from 'http-status';
+import { CREATED, NO_CONTENT, OK } from 'http-status';
 
 import * as factory from '../factory';
 import { Service } from '../service';
@@ -99,6 +99,25 @@ export class PaymentService extends Service {
             uri: `/payment/${factory.paymentMethodType.MovieTicket}/actions/check`,
             method: 'POST',
             expectedStatusCodes: [CREATED],
+            body: params
+        })
+            .then(async (response) => response.json());
+    }
+
+    /**
+     * プリペイドカード照会
+     */
+    public async checkPrepaidCard(params: {
+        object: {
+            typeOf: string;
+            identifier: string;
+            accessCode: string;
+        };
+    }): Promise<factory.chevre.paymentMethod.paymentCard.prepaidCard.IPrepaidCard> {
+        return this.fetch({
+            uri: `/payment/${factory.paymentMethodType.PrepaidCard}/check`,
+            method: 'POST',
+            expectedStatusCodes: [OK],
             body: params
         })
             .then(async (response) => response.json());
