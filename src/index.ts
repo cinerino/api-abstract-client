@@ -23,6 +23,7 @@ import { PaymentMethodService } from './service/paymentMethod';
 import { PersonService } from './service/person';
 import { PersonOwnershipInfoService } from './service/person/ownershipInfo';
 import { PlaceService } from './service/place';
+import { ProductService } from './service/product';
 import { ProgramMembershipService } from './service/programMembership';
 import { ProjectService } from './service/project';
 import { ReservationService } from './service/reservation';
@@ -151,6 +152,11 @@ export namespace service {
      * 場所サービス
      */
     export class Place extends PlaceService { }
+
+    /**
+     * プロダクトサービス
+     */
+    export class Product extends ProductService { }
 
     /**
      * 会員プログラムサービス
