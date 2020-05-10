@@ -29,4 +29,21 @@ export class ProductService extends Service {
                 };
             });
     }
+
+    /**
+     * プロダクトオファー検索
+     */
+    public async searchOffers(params: {
+        itemOffered: { id: string };
+        seller?: { id: string };
+        availableAtOrFrom?: { id: string };
+    }): Promise<factory.chevre.event.screeningEvent.ITicketOffer[]> {
+        return this.fetch({
+            uri: `/products/${params.itemOffered.id}/offers`,
+            method: 'GET',
+            expectedStatusCodes: [OK],
+            qs: params
+        })
+            .then(async (response) => response.json());
+    }
 }
