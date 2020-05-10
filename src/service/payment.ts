@@ -74,14 +74,14 @@ export class PaymentService extends Service {
     }
 
     /**
-     * プリペイドカード決済承認
+     * 決済カード決済承認
      */
-    public async authorizePrepaidCard(params: {
-        object: factory.action.authorize.paymentMethod.prepaidCard.IObject;
+    public async authorizePaymentCard(params: {
+        object: factory.action.authorize.paymentMethod.paymentCard.IObject;
         purpose: IPurpose;
-    }): Promise<factory.action.authorize.paymentMethod.prepaidCard.IAction> {
+    }): Promise<factory.action.authorize.paymentMethod.paymentCard.IAction> {
         return this.fetch({
-            uri: `/payment/${factory.paymentMethodType.PrepaidCard}/authorize`,
+            uri: `/payment/${factory.paymentMethodType.PaymentCard}/authorize`,
             method: 'POST',
             expectedStatusCodes: [CREATED],
             body: params
@@ -105,17 +105,17 @@ export class PaymentService extends Service {
     }
 
     /**
-     * プリペイドカード照会
+     * 決済カード照会
      */
-    public async checkPrepaidCard(params: {
+    public async checkPaymentCard(params: {
         object: {
             typeOf: string;
             identifier: string;
             accessCode: string;
         };
-    }): Promise<factory.chevre.paymentMethod.paymentCard.prepaidCard.IPrepaidCard> {
+    }): Promise<factory.chevre.paymentMethod.paymentCard.IPaymentCard> {
         return this.fetch({
-            uri: `/payment/${factory.paymentMethodType.PrepaidCard}/check`,
+            uri: `/payment/${factory.paymentMethodType.PaymentCard}/check`,
             method: 'POST',
             expectedStatusCodes: [OK],
             body: params
