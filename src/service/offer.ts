@@ -54,7 +54,7 @@ export class OfferService extends Service {
         purpose: IPurpose;
     }): Promise<factory.action.authorize.offer.paymentCard.IAction> {
         return this.fetch({
-            uri: `/offers/${params.object.itemOffered.typeOf}/authorize`,
+            uri: `/offers/paymentCard/authorize`,
             method: 'POST',
             expectedStatusCodes: [CREATED],
             body: params
