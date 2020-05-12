@@ -28,6 +28,7 @@ import { ProgramMembershipService } from './service/programMembership';
 import { ProjectService } from './service/project';
 import { ReservationService } from './service/reservation';
 import { SellerService } from './service/seller';
+import { ServiceOutputService } from './service/serviceOutput';
 import { TaskService } from './service/task';
 import { MoneyTransferTransactionService } from './service/transaction/moneyTransfer';
 import { PlaceOrderTransactionService } from './service/transaction/placeOrder';
@@ -177,6 +178,11 @@ export namespace service {
      * 販売者サービス
      */
     export class Seller extends SellerService { }
+
+    /**
+     * サービスアウトプットサービス
+     */
+    export class ServiceOutput extends ServiceOutputService { }
 
     /**
      * タスクサービス
