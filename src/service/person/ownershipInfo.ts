@@ -6,8 +6,7 @@ import { ISearchResult, Service } from '../../service';
 export type ICreditCard =
     factory.chevre.paymentMethod.paymentCard.creditCard.IUncheckedCardRaw
     | factory.chevre.paymentMethod.paymentCard.creditCard.IUncheckedCardTokenized;
-export type IAccountOwnershipInfo<T extends string> =
-    factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount<T>>;
+export type IAccountOwnershipInfo = factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount>;
 export type IOwnershipInfoWithDetail<T extends factory.ownershipInfo.IGoodType> =
     factory.ownershipInfo.IOwnershipInfo<factory.ownershipInfo.IGoodWithDetail<T>>;
 export interface ICodeResponse {
@@ -88,7 +87,7 @@ export class PersonOwnershipInfoService extends Service {
     /**
      * 口座開設
      */
-    public async openAccount<T extends string>(params: {
+    public async openAccount(params: {
         /**
          * 未指定の場合`me`がセットされます
          */
@@ -100,8 +99,8 @@ export class PersonOwnershipInfoService extends Service {
         /**
          * 口座タイプ
          */
-        accountType: T;
-    }): Promise<IAccountOwnershipInfo<T>> {
+        accountType: string;
+    }): Promise<IAccountOwnershipInfo> {
         const id = (typeof params.id === 'string') ? params.id : 'me';
 
         return this.fetch({
@@ -146,13 +145,13 @@ export class PersonOwnershipInfoService extends Service {
     /**
      * 口座取引履歴検索
      */
-    public async searchAccountMoneyTransferActions<T extends string>(
-        params: factory.pecorino.action.transfer.moneyTransfer.ISearchConditions<T> & {
+    public async searchAccountMoneyTransferActions(
+        params: factory.pecorino.action.transfer.moneyTransfer.ISearchConditions & {
             /**
              * 未指定の場合`me`がセットされます
              */
             id?: string;
-        }): Promise<ISearchResult<factory.pecorino.action.transfer.moneyTransfer.IAction<T>[]>> {
+        }): Promise<ISearchResult<factory.pecorino.action.transfer.moneyTransfer.IAction[]>> {
         const id = (typeof params.id === 'string') ? params.id : 'me';
 
         return this.fetch({

@@ -20,7 +20,7 @@ export class AccountService extends Service {
          * 口座名義
          */
         name: string;
-    }): Promise<factory.pecorino.account.IAccount<T>> {
+    }): Promise<factory.pecorino.account.IAccount> {
         return this.fetch({
             uri: '/accounts',
             method: 'POST',
@@ -53,9 +53,9 @@ export class AccountService extends Service {
     /**
      * 口座を検索する
      */
-    public async search<T extends string>(
-        params: factory.pecorino.account.ISearchConditions<T>
-    ): Promise<ISearchResult<factory.pecorino.account.IAccount<T>[]>> {
+    public async search(
+        params: factory.pecorino.account.ISearchConditions
+    ): Promise<ISearchResult<factory.pecorino.account.IAccount[]>> {
         return this.fetch({
             uri: '/accounts',
             method: 'GET',
@@ -75,9 +75,9 @@ export class AccountService extends Service {
     /**
      * 口座上の転送アクションを検索する
      */
-    public async searchMoneyTransferActions<T extends string>(
-        params: factory.pecorino.action.transfer.moneyTransfer.ISearchConditions<T>
-    ): Promise<ISearchResult<factory.pecorino.action.transfer.moneyTransfer.IAction<T>[]>> {
+    public async searchMoneyTransferActions(
+        params: factory.pecorino.action.transfer.moneyTransfer.ISearchConditions
+    ): Promise<ISearchResult<factory.pecorino.action.transfer.moneyTransfer.IAction[]>> {
         return this.fetch({
             uri: `/accounts/actions/moneyTransfer`,
             method: 'GET',
