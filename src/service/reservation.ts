@@ -63,6 +63,20 @@ export class ReservationService extends Service {
     }
 
     /**
+     * 予約取消
+     */
+    public async cancel(params: factory.chevre.transaction.cancelReservation.IStartParamsWithoutDetail & {
+        potentialActions?: factory.chevre.transaction.cancelReservation.IPotentialActionsParams;
+    }): Promise<void> {
+        await this.fetch({
+            uri: '/reservations/cancel',
+            method: 'PUT',
+            body: params,
+            expectedStatusCodes: [NO_CONTENT]
+        });
+    }
+
+    /**
      * 予約IDあるいは予約番号指定でチェックイン(発券)する
      */
     public async checkIn(params: {
@@ -70,7 +84,7 @@ export class ReservationService extends Service {
         reservationNumber?: string;
     }): Promise<void> {
         await this.fetch({
-            uri: `/reservations/checkedIn`,
+            uri: '/reservations/checkedIn',
             method: 'PUT',
             body: params,
             expectedStatusCodes: [NO_CONTENT]
