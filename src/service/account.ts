@@ -122,36 +122,21 @@ export class AccountService extends Service {
             name: string;
             url: string;
         };
-        /**
-         * 入金先口座番号
-         * @deprecated Use object.toLocation
-         */
-        toAccountNumber?: string;
-        /**
-         * 入金金額
-         * @deprecated Use object.amount
-         */
-        amount?: number;
-        /**
-         * 入金説明
-         * @deprecated Use object.description
-         */
-        notes?: string;
     }): Promise<void> {
         if (params.object === undefined || params.object === null) {
             params.object = {};
         }
-        if (typeof params.amount === 'number') {
-            params.object.amount = params.amount;
+        if (typeof (<any>params).amount === 'number') {
+            params.object.amount = (<any>params).amount;
         }
-        if (typeof params.notes === 'string') {
-            params.object.description = params.notes;
+        if (typeof (<any>params).notes === 'string') {
+            params.object.description = (<any>params).notes;
         }
-        if (typeof params.toAccountNumber === 'string') {
+        if (typeof (<any>params).toAccountNumber === 'string') {
             if (params.object.toLocation === undefined || params.object.toLocation === null) {
                 params.object.toLocation = {};
             }
-            params.object.toLocation.accountNumber = params.toAccountNumber;
+            params.object.toLocation.accountNumber = (<any>params).toAccountNumber;
         }
 
         await this.fetch({

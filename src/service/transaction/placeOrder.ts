@@ -1,8 +1,4 @@
 import { CREATED, NO_CONTENT, OK } from 'http-status';
-import * as util from 'util';
-
-// tslint:disable-next-line:no-require-imports no-var-requires
-const packageInfo = require('../../../package.json');
 
 import * as factory from '../../factory';
 import { ISearchResult, Service } from '../../service';
@@ -126,36 +122,6 @@ export class PlaceOrderTransactionService extends Service implements Transaction
     }
 
     /**
-     * 購入者プロフィール変更
-     * @deprecated Use setProfile()
-     */
-    public async setCustomerContact(params: {
-        /**
-         * 取引ID
-         */
-        id: string;
-        object: {
-            /**
-             * プロフィール
-             */
-            customerContact: factory.transaction.placeOrder.ICustomerProfile & {
-                /**
-                 * CLDR two-letter region code
-                 */
-                telephoneRegion?: string;
-            };
-        };
-    }): Promise<factory.transaction.placeOrder.ICustomerProfile> {
-        return this.fetch({
-            uri: `/transactions/${this.typeOf}/${params.id}/customerContact`,
-            method: 'PUT',
-            expectedStatusCodes: [OK],
-            body: params.object.customerContact
-        })
-            .then(async (response) => response.json());
-    }
-
-    /**
      * 取引人プロフィール変更
      */
     public async setProfile(params: ISetProfileParams): Promise<void> {
@@ -265,8 +231,3 @@ export class PlaceOrderTransactionService extends Service implements Transaction
             .then(async (response) => <NodeJS.ReadableStream | ReadableStream>response.body);
     }
 }
-
-PlaceOrderTransactionService.prototype.setCustomerContact = util.deprecate(
-    PlaceOrderTransactionService.prototype.setCustomerContact,
-    `${<string>packageInfo.name}: setCustomerContact() is deprecated. Use setProfile() instead.`
-);

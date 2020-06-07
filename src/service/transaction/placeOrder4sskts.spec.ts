@@ -150,26 +150,6 @@ describe('placeOrder transaction client.service', () => {
         sandbox.verify();
     });
 
-    it('購入者情報登録結果が期待通り', async () => {
-        const data = {};
-        const myMock = fetchMock.sandbox()
-            .mock('*', data);
-        sandbox.mock(transactions)
-            .expects('fetch')
-            .once()
-            .resolves(await myMock());
-
-        const result = await transactions.setCustomerContact({
-            id: 'transactionId',
-            object: {
-                customerContact: <any>{}
-            }
-        });
-
-        assert.deepEqual(result, data);
-        sandbox.verify();
-    });
-
     it('取引確定結果が期待通り', async () => {
         const data = {};
         const myMock = fetchMock.sandbox()
