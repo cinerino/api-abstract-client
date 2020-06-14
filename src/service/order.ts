@@ -29,7 +29,7 @@ export class OrderService extends Service {
 
     /**
      * 確認番号で検索
-     * 確認番号と購入者情報より、最新の注文を検索します
+     * 確認番号と購入者情報で注文を検索します
      */
     public async findByConfirmationNumber(params: {
         /**
@@ -45,7 +45,7 @@ export class OrderService extends Service {
         };
         orderDateFrom?: Date;
         orderDateThrough?: Date;
-    }): Promise<factory.order.IOrder> {
+    }): Promise<factory.order.IOrder | factory.order.IOrder[]> {
         return this.fetch({
             uri: '/orders/findByConfirmationNumber',
             method: 'POST',
@@ -62,7 +62,7 @@ export class OrderService extends Service {
         theaterCode: string;
         confirmationNumber: number;
         telephone: string;
-    }): Promise<factory.order.IOrder> {
+    }): Promise<factory.order.IOrder | factory.order.IOrder> {
         return this.fetch({
             uri: '/orders/findByOrderInquiryKey',
             method: 'POST',
