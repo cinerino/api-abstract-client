@@ -47,12 +47,12 @@ export class OfferService extends Service {
     }
 
     /**
-     * 決済カードオファー承認
+     * ペイメントカードオファー承認
      */
     public async authorizePaymentCard(params: {
-        object: factory.action.authorize.offer.paymentCard.IObject;
+        object: factory.action.authorize.offer.product.IObject;
         purpose: IPurpose;
-    }): Promise<factory.action.authorize.offer.paymentCard.IAction> {
+    }): Promise<factory.action.authorize.offer.product.IAction> {
         return this.fetch({
             uri: `/offers/paymentCard/authorize`,
             method: 'POST',

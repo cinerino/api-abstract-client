@@ -74,7 +74,7 @@ export class PaymentService extends Service {
     }
 
     /**
-     * 決済カード決済承認
+     * ペイメントカード決済承認
      */
     public async authorizePaymentCard(params: {
         object: factory.action.authorize.paymentMethod.paymentCard.IObject;
@@ -105,7 +105,7 @@ export class PaymentService extends Service {
     }
 
     /**
-     * 決済カード照会
+     * ペイメントカード照会
      */
     public async checkPaymentCard(params: {
         object: {
