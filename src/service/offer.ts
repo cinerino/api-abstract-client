@@ -31,22 +31,6 @@ export class OfferService extends Service {
     }
 
     /**
-     * 会員プログラムオファー承認
-     */
-    public async authorizeProgramMembership(params: {
-        object: factory.action.authorize.offer.programMembership.IObject;
-        purpose: IPurpose;
-    }): Promise<factory.action.authorize.offer.programMembership.IAction> {
-        return this.fetch({
-            uri: `/offers/${params.object.itemOffered.typeOf}/authorize`,
-            method: 'POST',
-            expectedStatusCodes: [CREATED],
-            body: params
-        })
-            .then(async (response) => response.json());
-    }
-
-    /**
      * ペイメントカードオファー承認
      */
     public async authorizePaymentCard(params: {
