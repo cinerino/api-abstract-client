@@ -14,7 +14,6 @@ export interface IPurpose {
 export class OfferService extends Service {
     /**
      * 通貨オファー承認
-     * 口座入金、ポイント購入等のオファー承認
      */
     public async authorizeMonetaryAmount(params: {
         object: factory.action.authorize.offer.monetaryAmount.IObject;
@@ -31,14 +30,14 @@ export class OfferService extends Service {
     }
 
     /**
-     * ペイメントカードオファー承認
+     * プロダクトオファー承認
      */
-    public async authorizePaymentCard(params: {
+    public async authorizeProduct(params: {
         object: factory.action.authorize.offer.product.IObject;
         purpose: IPurpose;
     }): Promise<factory.action.authorize.offer.product.IAction> {
         return this.fetch({
-            uri: `/offers/paymentCard/authorize`,
+            uri: '/offers/product/authorize',
             method: 'POST',
             expectedStatusCodes: [CREATED],
             body: params
