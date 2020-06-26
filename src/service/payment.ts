@@ -12,10 +12,10 @@ export class PaymentService extends Service {
     /**
      * 口座決済承認
      */
-    public async authorizeAccount<T extends string>(params: {
-        object: factory.action.authorize.paymentMethod.account.IObject<T>;
+    public async authorizeAccount(params: {
+        object: factory.action.authorize.paymentMethod.account.IObject;
         purpose: IPurpose;
-    }): Promise<factory.action.authorize.paymentMethod.account.IAction<T>> {
+    }): Promise<factory.action.authorize.paymentMethod.account.IAction> {
         return this.fetch({
             uri: `/payment/${factory.paymentMethodType.Account}/authorize`,
             method: 'POST',
