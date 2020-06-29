@@ -8,8 +8,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Added
 
-- サービスを一通り実装
-
 ### Changed
 
 ### Deprecated
@@ -19,3 +17,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 ### Fixed
 
 ### Security
+
+## v1.0.0 - 2020-06-29
+
+### Added
+
+- サービスを一通り実装
