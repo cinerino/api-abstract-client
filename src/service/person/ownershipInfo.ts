@@ -174,7 +174,7 @@ export class PersonOwnershipInfoService extends Service {
      * 所有権検索
      */
     public async search<T extends factory.ownershipInfo.IGoodType>(
-        params: factory.ownershipInfo.ISearchConditions<T> & {
+        params: factory.ownershipInfo.ISearchConditions & {
             /**
              * 未指定の場合`me`がセットされます
              */

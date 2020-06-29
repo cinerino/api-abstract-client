@@ -9,21 +9,19 @@
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "forceConsistentCasingInFileNames": true,
-        "lib": [
-            "dom",
-            "es2015",
-            "es5"
-        ],
         "inlineSourceMap": false,
         "inlineSources": false,
         "isolatedModules": false,
+        "lib": [
+            "dom",
+            "es5",
+            "es2015"
+        ],
         "listEmittedFiles": false,
         "listFiles": false,
         "locale": "en-us",
         "module": "commonjs",
         "newLine": "LF",
-        "moduleResolution": "node",
-        "noEmitOnError": true,
         "noImplicitAny": true,
         "noImplicitReturns": true,
         "noImplicitThis": true,
@@ -45,7 +43,7 @@
         "watch": false
     },
     "include": [
-        "./src"
+        "src"
     ],
     "exclude": [
         "**/*.spec.ts"

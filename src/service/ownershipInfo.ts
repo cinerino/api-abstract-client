@@ -20,7 +20,7 @@ export class OwnershipInfoService extends Service {
      * 所有権検索
      */
     public async search<T extends factory.ownershipInfo.IGoodType>(
-        params: factory.ownershipInfo.ISearchConditions<T>
+        params: factory.ownershipInfo.ISearchConditions
     ): Promise<ISearchResult<IOwnershipInfo<T>[]>> {
 
         return this.fetch({
