@@ -10,6 +10,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Changed
 
+- 口座開設レスポンスを口座注文取引結果に変更
+
 ### Deprecated
 
 ### Removed
