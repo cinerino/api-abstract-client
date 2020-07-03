@@ -6,7 +6,6 @@ import { ISearchResult, Service } from '../../service';
 export type ICreditCard =
     factory.chevre.paymentMethod.paymentCard.creditCard.IUncheckedCardRaw
     | factory.chevre.paymentMethod.paymentCard.creditCard.IUncheckedCardTokenized;
-export type IAccountOwnershipInfo = factory.ownershipInfo.IOwnershipInfo<factory.pecorino.account.IAccount>;
 export type IOwnershipInfoWithDetail<T extends factory.ownershipInfo.IGoodType> =
     factory.ownershipInfo.IOwnershipInfo<factory.ownershipInfo.IGoodWithDetail<T>>;
 export interface ICodeResponse {
@@ -100,7 +99,7 @@ export class PersonOwnershipInfoService extends Service {
          * 口座タイプ
          */
         accountType: string;
-    }): Promise<IAccountOwnershipInfo> {
+    }): Promise<factory.transaction.placeOrder.IResult> {
         const id = (typeof params.id === 'string') ? params.id : 'me';
 
         return this.fetch({
@@ -119,7 +118,7 @@ export class PersonOwnershipInfoService extends Service {
      * 口座の状態を変更するだけで、ユーザーの所有する口座リストから削除はされません。
      * 解約された口座で取引を進行しようとすると400エラーとなります。
      */
-    public async closeAccount<T extends string>(params: {
+    public async closeAccount(params: {
         /**
          * 未指定の場合`me`がセットされます
          */
@@ -127,7 +126,7 @@ export class PersonOwnershipInfoService extends Service {
         /**
          * 口座タイプ
          */
-        accountType: T;
+        accountType: string;
         /**
          * 口座番号
          */

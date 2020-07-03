@@ -18,6 +18,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## v1.1.0 - 2020-07-03
+
+### Changed
+
+- 口座開設レスポンスを口座注文取引結果に変更
+
 ## v1.0.0 - 2020-06-29
 
 ### Added

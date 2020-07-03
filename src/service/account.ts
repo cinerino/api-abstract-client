@@ -11,11 +11,11 @@ export class AccountService extends Service {
     /**
      * 管理者として口座を開設する
      */
-    public async open<T extends string>(params: {
+    public async open(params: {
         /**
          * 口座タイプ
          */
-        accountType: T;
+        accountType: string;
         /**
          * 口座名義
          */
@@ -33,11 +33,11 @@ export class AccountService extends Service {
     /**
      * 管理者として口座を解約する
      */
-    public async close<T extends string>(params: {
+    public async close(params: {
         /**
          * 口座タイプ
          */
-        accountType: T;
+        accountType: string;
         /**
          * 口座番号
          */
