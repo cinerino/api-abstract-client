@@ -86,13 +86,7 @@ export class PlaceOrderTransactionService extends Service implements Transaction
      * ポイントインセンティブ承認
      */
     public async authorizePointAward(params: {
-        object: {
-            /**
-             * 説明
-             * 指定すると、口座の取引明細に記録されます。
-             */
-            notes?: string;
-        };
+        object: {};
         purpose: factory.action.authorize.award.point.IPurpose;
     }): Promise<factory.action.authorize.award.point.IAction> {
         return this.fetch({
