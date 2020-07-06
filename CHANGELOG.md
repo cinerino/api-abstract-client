@@ -10,8 +10,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Changed
 
-- ポイントインセンティブ承認からnotesの指定を削除
-
 ### Deprecated
 
 ### Removed
