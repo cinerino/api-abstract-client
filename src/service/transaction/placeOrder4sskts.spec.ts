@@ -114,42 +114,6 @@ describe('placeOrder transaction client.service', () => {
         sandbox.verify();
     });
 
-    it('ムビチケ追加結果が期待通り', async () => {
-        const data = {};
-        const myMock = fetchMock.sandbox()
-            .mock('*', data);
-        sandbox.mock(transactions)
-            .expects('fetch')
-            .once()
-            .resolves(await myMock());
-
-        const result = await transactions.createMvtkAuthorization({
-            object: <any>{},
-            purpose: { typeOf: client.factory.transactionType.PlaceOrder, id: 'transactionId' }
-        });
-
-        assert.deepEqual(result, data);
-        sandbox.verify();
-    });
-
-    it('ムビチケ取消結果が期待通り', async () => {
-        const data = {};
-        const myMock = fetchMock.sandbox()
-            .mock('*', data);
-        sandbox.mock(transactions)
-            .expects('fetch')
-            .once()
-            .resolves(await myMock());
-
-        const result = await transactions.cancelMvtkAuthorization({
-            id: 'actionId',
-            purpose: { typeOf: client.factory.transactionType.PlaceOrder, id: 'transactionId' }
-        });
-
-        assert.deepEqual(result, undefined);
-        sandbox.verify();
-    });
-
     it('取引確定結果が期待通り', async () => {
         const data = {};
         const myMock = fetchMock.sandbox()

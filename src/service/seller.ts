@@ -1,35 +1,18 @@
-import { CREATED, NO_CONTENT, OK } from 'http-status';
+import { OK } from 'http-status';
 
 import * as factory from '../factory';
 import { ISearchResult, Service } from '../service';
-
-export type ISeller = factory.seller.IOrganization<factory.seller.IAttributes<factory.organizationType>>;
 
 /**
  * 販売者サービス
  */
 export class SellerService extends Service {
     /**
-     * 販売者作成
-     */
-    public async create<T extends factory.organizationType>(
-        params: factory.seller.IAttributes<T>
-    ): Promise<ISeller> {
-        return this.fetch({
-            uri: '/sellers',
-            method: 'POST',
-            body: params,
-            expectedStatusCodes: [CREATED]
-        })
-            .then(async (response) => response.json());
-    }
-
-    /**
      * 販売者取得
      */
     public async findById(params: {
         id: string;
-    }): Promise<ISeller> {
+    }): Promise<factory.seller.ISeller> {
         return this.fetch({
             uri: `/sellers/${params.id}`,
             method: 'GET',
@@ -43,7 +26,7 @@ export class SellerService extends Service {
      */
     public async search(
         params: factory.seller.ISearchConditions
-    ): Promise<ISearchResult<ISeller[]>> {
+    ): Promise<ISearchResult<factory.seller.ISeller[]>> {
         return this.fetch({
             uri: '/sellers',
             method: 'GET',
@@ -58,33 +41,5 @@ export class SellerService extends Service {
                     data: await response.json()
                 };
             });
-    }
-
-    /**
-     * 販売者編集
-     */
-    public async update(params: {
-        id: string;
-        attributes: factory.seller.IAttributes<factory.organizationType>;
-    }): Promise<void> {
-        await this.fetch({
-            uri: `/sellers/${params.id}`,
-            method: 'PUT',
-            body: params.attributes,
-            expectedStatusCodes: [NO_CONTENT]
-        });
-    }
-
-    /**
-     * 販売者削除
-     */
-    public async deleteById(params: {
-        id: string;
-    }): Promise<void> {
-        await this.fetch({
-            uri: `/sellers/${params.id}`,
-            method: 'DELETE',
-            expectedStatusCodes: [NO_CONTENT]
-        });
     }
 }
