@@ -98,37 +98,4 @@ export class PlaceOrderTransaction4ssktsService extends PlaceOrderTransactionSer
         })
             .then(async (response) => response.json());
     }
-
-    /**
-     * ムビチケ決済承認
-     */
-    public async createMvtkAuthorization(params: {
-        object: factory.action.authorize.paymentMethod.movieTicket.IObject4sskts;
-        purpose: factory.action.authorize.paymentMethod.any.IPurpose;
-    }): Promise<IAuthorizeAction> {
-        return this.fetch({
-            uri: `/transactions/${this.typeOf}/${params.purpose.id}/actions/authorize/mvtk`,
-            method: 'POST',
-            expectedStatusCodes: [CREATED],
-            body: params.object
-        })
-            .then(async (response) => response.json());
-    }
-
-    /**
-     * ムビチケ決済承認取消
-     */
-    public async cancelMvtkAuthorization(params: {
-        /**
-         * アクションID
-         */
-        id: string;
-        purpose: factory.action.authorize.paymentMethod.any.IPurpose;
-    }): Promise<void> {
-        await this.fetch({
-            uri: `/transactions/${this.typeOf}/${params.purpose.id}/actions/authorize/mvtk/${params.id}`,
-            method: 'DELETE',
-            expectedStatusCodes: [NO_CONTENT]
-        });
-    }
 }
