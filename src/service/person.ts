@@ -152,14 +152,6 @@ export class PersonService extends Service {
          */
         id?: string;
         /**
-         * 会員プログラムID
-         */
-        programMembershipId: string;
-        /**
-         * 会員プログラムに対するオファー識別子
-         */
-        offerIdentifier: string;
-        /**
          * 販売者タイプ
          */
         sellerType: factory.organizationType;
@@ -173,12 +165,7 @@ export class PersonService extends Service {
         return this.fetch({
             uri: `/people/${id}/ownershipInfos/programMembership/register`,
             method: 'PUT',
-            body: {
-                programMembershipId: params.programMembershipId,
-                offerIdentifier: params.offerIdentifier,
-                sellerType: params.sellerType,
-                sellerId: params.sellerId
-            },
+            body: params,
             expectedStatusCodes: [ACCEPTED]
         })
             .then(async (response) => response.json());
