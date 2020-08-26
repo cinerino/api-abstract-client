@@ -13,9 +13,9 @@ export class PaymentService extends Service {
      * 口座決済承認
      */
     public async authorizeAccount(params: {
-        object: factory.action.authorize.paymentMethod.account.IObject;
+        object: factory.action.authorize.paymentMethod.any.IObject;
         purpose: IPurpose;
-    }): Promise<factory.action.authorize.paymentMethod.account.IAction> {
+    }): Promise<factory.action.authorize.paymentMethod.any.IAction> {
         return this.fetch({
             uri: `/payment/${factory.paymentMethodType.Account}/authorize`,
             method: 'POST',
@@ -28,10 +28,10 @@ export class PaymentService extends Service {
     /**
      * 汎用決済承認
      */
-    public async authorizeAnyPayment<T extends factory.paymentMethodType>(params: {
-        object: factory.action.authorize.paymentMethod.any.IObject<T>;
+    public async authorizeAnyPayment(params: {
+        object: factory.action.authorize.paymentMethod.any.IObject;
         purpose: IPurpose;
-    }): Promise<factory.action.authorize.paymentMethod.any.IAction<T>> {
+    }): Promise<factory.action.authorize.paymentMethod.any.IAction> {
         return this.fetch({
             uri: `/payment/any/authorize`,
             method: 'POST',
@@ -42,12 +42,12 @@ export class PaymentService extends Service {
     }
 
     /**
-     * クレジットカードのオーソリを取得する
+     * クレジットカード決済承認
      */
     public async authorizeCreditCard(params: {
-        object: factory.action.authorize.paymentMethod.creditCard.IObject;
+        object: factory.action.authorize.paymentMethod.any.IObject;
         purpose: IPurpose;
-    }): Promise<factory.action.authorize.paymentMethod.creditCard.IAction> {
+    }): Promise<factory.action.authorize.paymentMethod.any.IAction> {
         return this.fetch({
             uri: `/payment/${factory.paymentMethodType.CreditCard}/authorize`,
             method: 'POST',
@@ -58,12 +58,12 @@ export class PaymentService extends Service {
     }
 
     /**
-     * ムビチケ承認
+     * ムビチケ決済承認
      */
     public async authorizeMovieTicket(params: {
-        object: factory.action.authorize.paymentMethod.movieTicket.IObject;
+        object: factory.action.authorize.paymentMethod.any.IObject;
         purpose: IPurpose;
-    }): Promise<factory.action.authorize.paymentMethod.movieTicket.IAction> {
+    }): Promise<factory.action.authorize.paymentMethod.any.IAction> {
         return this.fetch({
             uri: `/payment/${factory.paymentMethodType.MovieTicket}/authorize`,
             method: 'POST',
@@ -77,9 +77,9 @@ export class PaymentService extends Service {
      * ペイメントカード決済承認
      */
     public async authorizePaymentCard(params: {
-        object: factory.action.authorize.paymentMethod.paymentCard.IObject;
+        object: factory.action.authorize.paymentMethod.any.IObject;
         purpose: IPurpose;
-    }): Promise<factory.action.authorize.paymentMethod.paymentCard.IAction> {
+    }): Promise<factory.action.authorize.paymentMethod.any.IAction> {
         return this.fetch({
             uri: `/payment/${factory.paymentMethodType.PaymentCard}/authorize`,
             method: 'POST',
@@ -90,7 +90,7 @@ export class PaymentService extends Service {
     }
 
     /**
-     * ムビチケ購入番号確認
+     * ムビチケ認証
      */
     public async checkMovieTicket(
         params: factory.action.check.paymentMethod.movieTicket.IObject
@@ -105,7 +105,7 @@ export class PaymentService extends Service {
     }
 
     /**
-     * ペイメントカード照会
+     * ペイメントカード認証
      */
     public async checkPaymentCard(params: {
         object: {
