@@ -15,7 +15,7 @@ export class PaymentMethodService extends Service {
         params: any
     ): Promise<ISearchResult<factory.chevre.paymentMethod.paymentCard.movieTicket.IMovieTicket[]>> {
         return this.fetch({
-            uri: `/paymentMethods/${factory.paymentMethodType.MovieTicket}`,
+            uri: `/paymentMethods/${factory.chevre.service.paymentService.PaymentServiceType.MovieTicket}`,
             method: 'GET',
             qs: params,
             expectedStatusCodes: [OK]

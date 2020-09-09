@@ -49,7 +49,7 @@ export class PaymentService extends Service {
         purpose: IPurpose;
     }): Promise<factory.action.authorize.paymentMethod.any.IAction> {
         return this.fetch({
-            uri: `/payment/${factory.paymentMethodType.CreditCard}/authorize`,
+            uri: `/payment/${factory.chevre.service.paymentService.PaymentServiceType.CreditCard}/authorize`,
             method: 'POST',
             expectedStatusCodes: [CREATED],
             body: params
@@ -65,7 +65,7 @@ export class PaymentService extends Service {
         purpose: IPurpose;
     }): Promise<factory.action.authorize.paymentMethod.any.IAction> {
         return this.fetch({
-            uri: `/payment/${factory.paymentMethodType.MovieTicket}/authorize`,
+            uri: `/payment/${factory.chevre.service.paymentService.PaymentServiceType.MovieTicket}/authorize`,
             method: 'POST',
             expectedStatusCodes: [CREATED],
             body: params
@@ -96,7 +96,7 @@ export class PaymentService extends Service {
         params: factory.action.check.paymentMethod.movieTicket.IObject
     ): Promise<factory.action.check.paymentMethod.movieTicket.IAction> {
         return this.fetch({
-            uri: `/payment/${factory.paymentMethodType.MovieTicket}/actions/check`,
+            uri: `/payment/${factory.chevre.service.paymentService.PaymentServiceType.MovieTicket}/actions/check`,
             method: 'POST',
             expectedStatusCodes: [CREATED],
             body: params
@@ -150,9 +150,9 @@ export class PaymentService extends Service {
         id: string;
         object: {
             /**
-             * 決済方法
+             * 決済サービスタイプ
              */
-            typeOf: factory.paymentMethodType;
+            typeOf: factory.chevre.service.paymentService.PaymentServiceType | string;
         };
         purpose: IPurpose;
     }): Promise<void> {
