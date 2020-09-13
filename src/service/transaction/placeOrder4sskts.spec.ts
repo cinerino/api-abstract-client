@@ -43,7 +43,7 @@ describe('placeOrder transaction client.service', () => {
 
         const result = await transactions.start({
             expires: new Date(),
-            seller: { typeOf: client.factory.organizationType.MovieTheater, id: 'sellerId' },
+            seller: { typeOf: client.factory.chevre.organizationType.MovieTheater, id: 'sellerId' },
             object: {
                 passport: { token: 'passportToken' }
             }

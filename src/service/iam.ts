@@ -9,12 +9,12 @@ export enum RoleType {
 export interface IRole {
     typeOf: RoleType;
     roleName: string;
-    memberOf: { typeOf: factory.organizationType.Project; id: string };
+    memberOf: { typeOf: factory.chevre.organizationType.Project; id: string };
 }
-export type IMemberType = factory.personType | factory.creativeWorkType.WebApplication;
+export type IMemberType = factory.personType | factory.chevre.creativeWorkType.WebApplication;
 export interface IMember {
     typeOf: RoleType;
-    project: { typeOf: factory.organizationType.Project; id: string };
+    project: { typeOf: factory.chevre.organizationType.Project; id: string };
     member: {
         typeOf: IMemberType;
         id: string;

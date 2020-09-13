@@ -36,7 +36,7 @@ export class PlaceOrderTransactionService extends Service implements Transaction
          * 販売者
          */
         seller: {
-            typeOf: factory.organizationType;
+            typeOf: factory.chevre.organizationType;
             id: string;
         };
     }): Promise<factory.transaction.ITransaction<factory.transactionType.PlaceOrder>> {
