@@ -154,12 +154,12 @@ export class PersonService extends Service {
         /**
          * 販売者タイプ
          */
-        sellerType: factory.organizationType;
+        sellerType: factory.chevre.organizationType;
         /**
          * 販売者ID
          */
         sellerId: string;
-    }): Promise<factory.task.ITask<factory.taskName.RegisterProgramMembership>> {
+    }): Promise<factory.task.ITask<factory.taskName.OrderProgramMembership>> {
         const id = (typeof params.id === 'string') ? params.id : 'me';
 
         return this.fetch({

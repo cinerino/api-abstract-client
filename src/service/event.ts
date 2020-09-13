@@ -197,7 +197,7 @@ export class EventService extends Service {
         /**
          * 販売者
          */
-        seller: { typeOf: factory.organizationType; id: string };
+        seller: { typeOf: factory.chevre.organizationType; id: string };
         /**
          * 店舗(idにはアプリケーションクライアントIDを指定)
          */
@@ -223,7 +223,7 @@ export class EventService extends Service {
         /**
          * 販売者
          */
-        seller: { typeOf: factory.organizationType; id: string };
+        seller: { typeOf: factory.chevre.organizationType; id: string };
         /**
          * 店舗(idにはアプリケーションクライアントIDを指定)
          */
