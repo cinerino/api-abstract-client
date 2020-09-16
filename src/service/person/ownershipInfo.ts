@@ -6,8 +6,7 @@ import { ISearchResult, Service } from '../../service';
 export type ICreditCard =
     factory.chevre.paymentMethod.paymentCard.creditCard.IUncheckedCardRaw
     | factory.chevre.paymentMethod.paymentCard.creditCard.IUncheckedCardTokenized;
-export type IOwnershipInfoWithDetail<T extends factory.ownershipInfo.IGoodType> =
-    factory.ownershipInfo.IOwnershipInfo<factory.ownershipInfo.IGoodWithDetail<T>>;
+export type IOwnershipInfoWithDetail = factory.ownershipInfo.IOwnershipInfo<factory.ownershipInfo.IGoodWithDetail>;
 export interface ICodeResponse {
     code: string;
 }
@@ -172,13 +171,13 @@ export class PersonOwnershipInfoService extends Service {
     /**
      * 所有権検索
      */
-    public async search<T extends factory.ownershipInfo.IGoodType>(
+    public async search(
         params: factory.ownershipInfo.ISearchConditions & {
             /**
              * 未指定の場合`me`がセットされます
              */
             id?: string;
-        }): Promise<ISearchResult<IOwnershipInfoWithDetail<T>[]>> {
+        }): Promise<ISearchResult<IOwnershipInfoWithDetail[]>> {
         const id = (typeof params.id === 'string') ? params.id : 'me';
 
         return this.fetch({
