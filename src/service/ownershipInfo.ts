@@ -9,8 +9,7 @@ import { ISearchResult, Service } from '../service';
 export interface ITokenResponse {
     token: string;
 }
-export type IOwnershipInfo<T extends factory.ownershipInfo.IGoodType> =
-    factory.ownershipInfo.IOwnershipInfo<factory.ownershipInfo.IGood<T>>;
+export type IOwnershipInfo = factory.ownershipInfo.IOwnershipInfo<factory.ownershipInfo.IGood>;
 
 /**
  * 所有権サービス
@@ -19,9 +18,9 @@ export class OwnershipInfoService extends Service {
     /**
      * 所有権検索
      */
-    public async search<T extends factory.ownershipInfo.IGoodType>(
+    public async search(
         params: factory.ownershipInfo.ISearchConditions
-    ): Promise<ISearchResult<IOwnershipInfo<T>[]>> {
+    ): Promise<ISearchResult<IOwnershipInfo[]>> {
 
         return this.fetch({
             uri: '/ownershipInfos',
