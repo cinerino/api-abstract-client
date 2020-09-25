@@ -123,10 +123,6 @@ export class PersonOwnershipInfoService extends Service {
          */
         id?: string;
         /**
-         * 口座タイプ
-         */
-        accountType: string;
-        /**
          * 口座番号
          */
         accountNumber: string;
@@ -134,7 +130,7 @@ export class PersonOwnershipInfoService extends Service {
         const id = (typeof params.id === 'string') ? params.id : 'me';
 
         await this.fetch({
-            uri: `/people/${id}/ownershipInfos/accounts/${params.accountType}/${params.accountNumber}/close`,
+            uri: `/people/${id}/ownershipInfos/accounts/Default/${params.accountNumber}/close`,
             method: 'PUT',
             expectedStatusCodes: [NO_CONTENT]
         });
@@ -160,9 +156,6 @@ export class PersonOwnershipInfoService extends Service {
         })
             .then(async (response) => {
                 return {
-                    totalCount: (typeof response.headers.get('X-Total-Count') === 'string')
-                        ? Number(<string>response.headers.get('X-Total-Count'))
-                        : undefined,
                     data: await response.json()
                 };
             });
@@ -188,9 +181,6 @@ export class PersonOwnershipInfoService extends Service {
         })
             .then(async (response) => {
                 return {
-                    totalCount: (typeof response.headers.get('X-Total-Count') === 'string')
-                        ? Number(<string>response.headers.get('X-Total-Count'))
-                        : undefined,
                     data: await response.json()
                 };
             });

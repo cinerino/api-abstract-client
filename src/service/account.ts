@@ -35,16 +35,12 @@ export class AccountService extends Service {
      */
     public async close(params: {
         /**
-         * 口座タイプ
-         */
-        accountType: string;
-        /**
          * 口座番号
          */
         accountNumber: string;
     }): Promise<void> {
         await this.fetch({
-            uri: `/accounts/${params.accountType}/${params.accountNumber}/close`,
+            uri: `/accounts/Default/${params.accountNumber}/close`,
             method: 'PUT',
             expectedStatusCodes: [NO_CONTENT]
         });
@@ -64,9 +60,6 @@ export class AccountService extends Service {
         })
             .then(async (response) => {
                 return {
-                    totalCount: (typeof response.headers.get('X-Total-Count') === 'string')
-                        ? Number(<string>response.headers.get('X-Total-Count'))
-                        : undefined,
                     data: await response.json()
                 };
             });
@@ -86,9 +79,6 @@ export class AccountService extends Service {
         })
             .then(async (response) => {
                 return {
-                    totalCount: (typeof response.headers.get('X-Total-Count') === 'string')
-                        ? Number(<string>response.headers.get('X-Total-Count'))
-                        : undefined,
                     data: await response.json()
                 };
             });

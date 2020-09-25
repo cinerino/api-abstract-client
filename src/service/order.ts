@@ -154,9 +154,6 @@ export class OrderService extends Service {
         })
             .then(async (response) => {
                 return {
-                    totalCount: (typeof response.headers.get('X-Total-Count') === 'string')
-                        ? Number(<string>response.headers.get('X-Total-Count'))
-                        : undefined,
                     data: await response.json()
                 };
             });
@@ -174,9 +171,6 @@ export class OrderService extends Service {
         })
             .then(async (response) => {
                 return {
-                    totalCount: (typeof response.headers.get('X-Total-Count') === 'string')
-                        ? Number(<string>response.headers.get('X-Total-Count'))
-                        : undefined,
                     data: await response.json()
                 };
             });
