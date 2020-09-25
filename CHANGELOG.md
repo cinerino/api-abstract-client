@@ -18,6 +18,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## v1.16.0 - 2020-09-25
+
+### Changed
+
+- update @cinerino/factory
+- リソース検索結果のtotalCountを全面的に削除
+
 ## v1.15.0 - 2020-09-23
 
 ### Changed
