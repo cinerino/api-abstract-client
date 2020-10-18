@@ -113,22 +113,6 @@ export class AccountService extends Service {
             url: string;
         };
     }): Promise<void> {
-        if (params.object === undefined || params.object === null) {
-            params.object = {};
-        }
-        if (typeof (<any>params).amount === 'number') {
-            params.object.amount = (<any>params).amount;
-        }
-        if (typeof (<any>params).notes === 'string') {
-            params.object.description = (<any>params).notes;
-        }
-        if (typeof (<any>params).toAccountNumber === 'string') {
-            if (params.object.toLocation === undefined || params.object.toLocation === null) {
-                params.object.toLocation = {};
-            }
-            params.object.toLocation.accountNumber = (<any>params).toAccountNumber;
-        }
-
         await this.fetch({
             uri: '/accounts/transactions/deposit',
             method: 'POST',
