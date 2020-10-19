@@ -132,6 +132,9 @@ export class EventService extends Service {
     public async updatePartially(params: {
         id: string;
         eventStatus?: factory.chevre.eventStatusType;
+        onUpdated?: {
+            sendEmailMessage?: factory.action.transfer.send.message.email.IAttributes[];
+        };
     }): Promise<void> {
         await this.fetch({
             uri: `/events/${params.id}`,

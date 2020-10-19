@@ -18,6 +18,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## v1.17.0 - 2020-10-19
+
+### Added
+
+- カテゴリーコードサービスを追加
+
+### Changed
+
+- イベント部分更新にonUpdatedパラメータを追加
+
 ## v1.16.0 - 2020-09-25
 
 ### Changed

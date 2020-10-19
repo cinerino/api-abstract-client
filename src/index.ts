@@ -10,6 +10,7 @@ import { AuthClient, StubAuthClient } from './auth/authClient';
 import { AccountService } from './service/account';
 import { ActionService } from './service/action';
 import { AuthorizationService } from './service/authorization';
+import { CategoryCodeService } from './service/categoryCode';
 import { CreativeWorkService } from './service/creativeWork';
 import { DeliveryService } from './service/delivery';
 import { EventService } from './service/event';
@@ -84,6 +85,11 @@ export namespace service {
      * 認可サービス
      */
     export class Authorization extends AuthorizationService { }
+
+    /**
+     * カテゴリーコードサービス
+     */
+    export class CategoryCode extends CategoryCodeService { }
 
     /**
      * 作品サービス
