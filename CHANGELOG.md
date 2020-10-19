@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Added
 
+- カテゴリーコードサービスを追加
+
 ### Changed
 
 - イベント部分更新にonUpdatedパラメータを追加
