@@ -45,6 +45,7 @@ export class OrderService extends Service {
         };
         orderDateFrom?: Date;
         orderDateThrough?: Date;
+        orderNumber?: string;
     }): Promise<factory.order.IOrder | factory.order.IOrder[]> {
         return this.fetch({
             uri: '/orders/findByConfirmationNumber',
@@ -90,6 +91,33 @@ export class OrderService extends Service {
     }): Promise<factory.order.IOrder> {
         return this.fetch({
             uri: `/orders/${params.orderNumber}/ownershipInfos/authorize`,
+            method: 'POST',
+            body: params,
+            expectedStatusCodes: [OK]
+        })
+            .then(async (response) => response.json());
+    }
+
+    /**
+     * 注文コードを発行する
+     */
+    public async authorize(params: {
+        /**
+         * 注文番号
+         */
+        orderNumber: string;
+        /**
+         * 購入者情報
+         */
+        customer: {
+            email?: string;
+            telephone?: string;
+        };
+    }): Promise<{
+        code: string;
+    }> {
+        return this.fetch({
+            uri: `/orders/${params.orderNumber}/authorize`,
             method: 'POST',
             body: params,
             expectedStatusCodes: [OK]

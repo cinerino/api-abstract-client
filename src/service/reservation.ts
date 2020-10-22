@@ -60,6 +60,25 @@ export class ReservationService extends Service {
     }
 
     /**
+     * 予約を使用する
+     */
+    public async useByToken(params: {
+        object: {
+            id?: string;
+        };
+        instrument: {
+            token: string;
+        };
+    }): Promise<void> {
+        await this.fetch({
+            uri: '/reservations/use',
+            method: 'POST',
+            body: params,
+            expectedStatusCodes: [NO_CONTENT]
+        });
+    }
+
+    /**
      * 予約取消
      */
     public async cancel(params: factory.chevre.transaction.cancelReservation.IStartParamsWithoutDetail & {
@@ -89,7 +108,7 @@ export class ReservationService extends Service {
     }
 
     /**
-     * 入場する
+     * @deprecated
      */
     public async attend(params: {
         id: string;
