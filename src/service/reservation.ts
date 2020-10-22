@@ -47,16 +47,15 @@ export class ReservationService extends Service {
     /**
      * トークンで予約照会
      */
-    public async findScreeningEventReservationByToken<T extends factory.chevre.reservationType>(params: {
+    public async findScreeningEventReservationByToken(params: {
         token: string;
-    }): Promise<IReservationOwnershipInfo<T>> {
-        return this.fetch({
+    }): Promise<void> {
+        await this.fetch({
             uri: `/reservations/eventReservation/screeningEvent/findByToken`,
             method: 'POST',
             body: params,
-            expectedStatusCodes: [OK]
-        })
-            .then(async (response) => response.json());
+            expectedStatusCodes: [NO_CONTENT, OK]
+        });
     }
 
     /**
