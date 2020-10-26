@@ -17,7 +17,7 @@ export class PaymentService extends Service {
         purpose: IPurpose;
     }): Promise<factory.action.authorize.paymentMethod.any.IAction> {
         return this.fetch({
-            uri: `/payment/${factory.paymentMethodType.Account}/authorize`,
+            uri: `/payment/${factory.chevre.product.ProductType.Account}/authorize`,
             method: 'POST',
             expectedStatusCodes: [CREATED],
             body: params
@@ -81,7 +81,7 @@ export class PaymentService extends Service {
         purpose: IPurpose;
     }): Promise<factory.action.authorize.paymentMethod.any.IAction> {
         return this.fetch({
-            uri: `/payment/${factory.paymentMethodType.PaymentCard}/authorize`,
+            uri: `/payment/${factory.chevre.product.ProductType.PaymentCard}/authorize`,
             method: 'POST',
             expectedStatusCodes: [CREATED],
             body: params
@@ -115,7 +115,7 @@ export class PaymentService extends Service {
         };
     }): Promise<factory.chevre.paymentMethod.paymentCard.IPaymentCard> {
         return this.fetch({
-            uri: `/payment/${factory.paymentMethodType.PaymentCard}/check`,
+            uri: `/payment/${factory.chevre.product.ProductType.PaymentCard}/check`,
             method: 'POST',
             expectedStatusCodes: [OK],
             body: params
