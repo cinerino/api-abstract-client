@@ -16,6 +16,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 - 注文照会パラメータ拡張
 - トークンでの予約照会のレスポンスを削除
+- 注文作成をcustomerロールでも実行可能に拡張
 
 ### Deprecated
 

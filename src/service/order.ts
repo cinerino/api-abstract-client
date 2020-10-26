@@ -17,6 +17,7 @@ export class OrderService extends Service {
          * 注文番号
          */
         orderNumber: string;
+        confirmationNumber?: string;
     }): Promise<factory.order.IOrder> {
         return this.fetch({
             uri: '/orders',
