@@ -1,4 +1,4 @@
-import { OK } from 'http-status';
+import { NO_CONTENT, OK } from 'http-status';
 
 import * as factory from '../factory';
 import { ISearchResult, Service } from '../service';
@@ -13,19 +13,24 @@ export class OrderService extends Service {
      * すでに注文が作成済の場合、何もしません。
      */
     public async placeOrder(params: {
-        /**
-         * 注文番号
-         */
-        orderNumber: string;
-        confirmationNumber?: string;
-    }): Promise<factory.order.IOrder> {
-        return this.fetch({
+        object: {
+            /**
+             * 注文番号
+             */
+            orderNumber: string;
+            confirmationNumber?: string;
+        };
+        purpose?: {
+            typeOf?: factory.transactionType;
+            id?: string;
+        };
+    }): Promise<void> {
+        await this.fetch({
             uri: '/orders',
             method: 'POST',
             body: params,
-            expectedStatusCodes: [OK]
-        })
-            .then(async (response) => response.json());
+            expectedStatusCodes: [NO_CONTENT, OK]
+        });
     }
 
     /**

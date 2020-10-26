@@ -10,7 +10,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 - 注文承認を追加
 - 予約使用を追加
-- トークンサービスを塚
+- トークンサービスを追加
 
 ### Changed
 
