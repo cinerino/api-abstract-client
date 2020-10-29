@@ -33,10 +33,7 @@ export class OwnershipInfoService extends Service {
 
     /**
      * 所有権トークンを取得する
-     * 所有権コードを、jsonwebtokenに変換します
-     * 変換されたトークンを使用して、認証、決済等を実行することができます
-     * jsonwebtokenはローカル環境で検証することも可能です
-     * @see https://jwt.io/
+     * @deprecated TokenServiceを使用してください
      */
     public async getToken(params: {
         code: string;

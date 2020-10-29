@@ -3,9 +3,6 @@ import { NO_CONTENT, OK } from 'http-status';
 import * as factory from '../factory';
 import { ISearchResult, Service } from '../service';
 
-export type IReservation<T extends factory.chevre.reservationType> = factory.chevre.reservation.IReservation<T>;
-export type IReservationOwnershipInfo<T extends factory.chevre.reservationType> = factory.ownershipInfo.IOwnershipInfo<IReservation<T>>;
-
 /**
  * 予約サービス
  */
@@ -15,7 +12,7 @@ export class ReservationService extends Service {
      */
     public async search<T extends factory.chevre.reservationType>(
         params: factory.chevre.reservation.ISearchConditions<T>
-    ): Promise<ISearchResult<IReservation<T>[]>> {
+    ): Promise<ISearchResult<factory.chevre.reservation.IReservation<T>[]>> {
         return this.fetch({
             uri: '/reservations',
             method: 'GET',
@@ -60,12 +57,20 @@ export class ReservationService extends Service {
 
     /**
      * 予約を使用する
+     * 注文コードから取得したトークンを利用して、予約に入場記録を追加します
      */
     public async useByToken(params: {
         object: {
+            /**
+             * 予約ID
+             */
             id?: string;
         };
         instrument: {
+            /**
+             * トークン
+             * @see service.Token.getToken()
+             */
             token: string;
         };
     }): Promise<void> {
@@ -93,6 +98,7 @@ export class ReservationService extends Service {
 
     /**
      * 予約IDあるいは予約番号指定でチェックイン(発券)する
+     * @deprecated じきに削除予定
      */
     public async checkIn(params: {
         id?: string;
@@ -107,7 +113,7 @@ export class ReservationService extends Service {
     }
 
     /**
-     * @deprecated
+     * @deprecated じきに削除予定
      */
     public async attend(params: {
         id: string;

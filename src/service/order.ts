@@ -123,7 +123,7 @@ export class OrderService extends Service {
         };
         result?: {
             /**
-             * 有効期間(秒)
+             * コードの有効期間(秒)
              */
             expiresInSeconds?: number;
         };
