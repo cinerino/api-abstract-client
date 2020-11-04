@@ -83,6 +83,32 @@ export class ReservationService extends Service {
     }
 
     /**
+     * 予約に対する入場アクションを検索する
+     */
+    public async searchUseActions(params: {
+        object: {
+            /**
+             * 予約ID
+             */
+            id?: string;
+        };
+        startFrom?: Date;
+        startThrough?: Date;
+    }): Promise<ISearchResult<factory.action.IAction<factory.action.IAttributes<factory.actionType, any, any>>[]>> {
+        return this.fetch({
+            uri: `/reservations/${String(params.object.id)}/actions/use`,
+            method: 'GET',
+            qs: params,
+            expectedStatusCodes: [OK]
+        })
+            .then(async (response) => {
+                return {
+                    data: await response.json()
+                };
+            });
+    }
+
+    /**
      * 予約取消
      */
     public async cancel(params: factory.chevre.transaction.cancelReservation.IStartParamsWithoutDetail & {
