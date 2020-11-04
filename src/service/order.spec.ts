@@ -39,7 +39,7 @@ describe('注文サービス', () => {
             .resolves(await myMock());
 
         const result = await orders.findByConfirmationNumber({
-            confirmationNumber: 123,
+            confirmationNumber: '123',
             customer: {
                 telephone: 'xxx'
             }

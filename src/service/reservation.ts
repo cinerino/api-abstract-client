@@ -3,9 +3,6 @@ import { NO_CONTENT, OK } from 'http-status';
 import * as factory from '../factory';
 import { ISearchResult, Service } from '../service';
 
-export type IReservation<T extends factory.chevre.reservationType> = factory.chevre.reservation.IReservation<T>;
-export type IReservationOwnershipInfo<T extends factory.chevre.reservationType> = factory.ownershipInfo.IOwnershipInfo<IReservation<T>>;
-
 /**
  * 予約サービス
  */
@@ -15,7 +12,7 @@ export class ReservationService extends Service {
      */
     public async search<T extends factory.chevre.reservationType>(
         params: factory.chevre.reservation.ISearchConditions<T>
-    ): Promise<ISearchResult<IReservation<T>[]>> {
+    ): Promise<ISearchResult<factory.chevre.reservation.IReservation<T>[]>> {
         return this.fetch({
             uri: '/reservations',
             method: 'GET',
@@ -47,16 +44,42 @@ export class ReservationService extends Service {
     /**
      * トークンで予約照会
      */
-    public async findScreeningEventReservationByToken<T extends factory.chevre.reservationType>(params: {
+    public async findScreeningEventReservationByToken(params: {
         token: string;
-    }): Promise<IReservationOwnershipInfo<T>> {
-        return this.fetch({
+    }): Promise<void> {
+        await this.fetch({
             uri: `/reservations/eventReservation/screeningEvent/findByToken`,
             method: 'POST',
             body: params,
-            expectedStatusCodes: [OK]
-        })
-            .then(async (response) => response.json());
+            expectedStatusCodes: [NO_CONTENT, OK]
+        });
+    }
+
+    /**
+     * 予約を使用する
+     * 注文コードから取得したトークンを利用して、予約に入場記録を追加します
+     */
+    public async useByToken(params: {
+        object: {
+            /**
+             * 予約ID
+             */
+            id?: string;
+        };
+        instrument: {
+            /**
+             * トークン
+             * @see service.Token.getToken()
+             */
+            token: string;
+        };
+    }): Promise<void> {
+        await this.fetch({
+            uri: '/reservations/use',
+            method: 'POST',
+            body: params,
+            expectedStatusCodes: [NO_CONTENT]
+        });
     }
 
     /**
@@ -75,6 +98,7 @@ export class ReservationService extends Service {
 
     /**
      * 予約IDあるいは予約番号指定でチェックイン(発券)する
+     * @deprecated じきに削除予定
      */
     public async checkIn(params: {
         id?: string;
@@ -89,7 +113,7 @@ export class ReservationService extends Service {
     }
 
     /**
-     * 入場する
+     * @deprecated じきに削除予定
      */
     public async attend(params: {
         id: string;

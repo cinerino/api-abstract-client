@@ -3,12 +3,8 @@ import { OK } from 'http-status';
 import * as factory from '../factory';
 import { ISearchResult, Service } from '../service';
 
-/**
- * トークンレスポンスインターフェース
- */
-export interface ITokenResponse {
-    token: string;
-}
+import { ITokenResponse } from './token';
+
 export type IOwnershipInfo = factory.ownershipInfo.IOwnershipInfo<factory.ownershipInfo.IGood>;
 
 /**
@@ -37,10 +33,7 @@ export class OwnershipInfoService extends Service {
 
     /**
      * 所有権トークンを取得する
-     * 所有権コードを、jsonwebtokenに変換します
-     * 変換されたトークンを使用して、認証、決済等を実行することができます
-     * jsonwebtokenはローカル環境で検証することも可能です
-     * @see https://jwt.io/
+     * @deprecated TokenServiceを使用してください
      */
     public async getToken(params: {
         code: string;
@@ -60,7 +53,7 @@ export class OwnershipInfoService extends Service {
      */
     public async searchCheckTokenActions(params: {
         id: string;
-    }): Promise<ISearchResult<factory.action.check.token.IAction[]>> {
+    }): Promise<ISearchResult<factory.action.IAction<factory.action.IAttributes<factory.actionType, any, any>>[]>> {
         return this.fetch({
             uri: `/ownershipInfos/${params.id}/actions/checkToken`,
             method: 'GET',

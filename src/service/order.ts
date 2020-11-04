@@ -1,4 +1,4 @@
-import { OK } from 'http-status';
+import { NO_CONTENT, OK } from 'http-status';
 
 import * as factory from '../factory';
 import { ISearchResult, Service } from '../service';
@@ -13,18 +13,24 @@ export class OrderService extends Service {
      * すでに注文が作成済の場合、何もしません。
      */
     public async placeOrder(params: {
-        /**
-         * 注文番号
-         */
-        orderNumber: string;
-    }): Promise<factory.order.IOrder> {
-        return this.fetch({
+        object: {
+            /**
+             * 注文番号
+             */
+            orderNumber: string;
+            confirmationNumber?: string;
+        };
+        purpose?: {
+            typeOf?: factory.transactionType;
+            id?: string;
+        };
+    }): Promise<void> {
+        await this.fetch({
             uri: '/orders',
             method: 'POST',
             body: params,
-            expectedStatusCodes: [OK]
-        })
-            .then(async (response) => response.json());
+            expectedStatusCodes: [NO_CONTENT, OK]
+        });
     }
 
     /**
@@ -35,16 +41,17 @@ export class OrderService extends Service {
         /**
          * 確認番号
          */
-        confirmationNumber: number;
+        confirmationNumber: string;
         /**
          * 購入者情報
          */
-        customer: {
+        customer?: {
             email?: string;
             telephone?: string;
         };
         orderDateFrom?: Date;
         orderDateThrough?: Date;
+        orderNumber?: string;
     }): Promise<factory.order.IOrder | factory.order.IOrder[]> {
         return this.fetch({
             uri: '/orders/findByConfirmationNumber',
@@ -60,7 +67,7 @@ export class OrderService extends Service {
      */
     public async findByOrderInquiryKey4sskts(params: {
         theaterCode: string;
-        confirmationNumber: number;
+        confirmationNumber: string;
         telephone: string;
     }): Promise<factory.order.IOrder | factory.order.IOrder> {
         return this.fetch({
@@ -90,6 +97,41 @@ export class OrderService extends Service {
     }): Promise<factory.order.IOrder> {
         return this.fetch({
             uri: `/orders/${params.orderNumber}/ownershipInfos/authorize`,
+            method: 'POST',
+            body: params,
+            expectedStatusCodes: [OK]
+        })
+            .then(async (response) => response.json());
+    }
+
+    /**
+     * 注文コードを発行する
+     */
+    public async authorize(params: {
+        object: {
+            /**
+             * 注文番号
+             */
+            orderNumber: string;
+            /**
+             * 購入者情報
+             */
+            customer: {
+                email?: string;
+                telephone?: string;
+            };
+        };
+        result?: {
+            /**
+             * コードの有効期間(秒)
+             */
+            expiresInSeconds?: number;
+        };
+    }): Promise<{
+        code: string;
+    }> {
+        return this.fetch({
+            uri: `/orders/${String(params.object?.orderNumber)}/authorize`,
             method: 'POST',
             body: params,
             expectedStatusCodes: [OK]
