@@ -11,6 +11,10 @@ export interface ICodeResponse {
     code: string;
 }
 
+export type IMoneyTransferAction = factory.pecorino.action.transfer.moneyTransfer.IAction & {
+    amount: number | factory.chevre.monetaryAmount.IMonetaryAmount;
+};
+
 /**
  * ユーザー所有権サービス
  */
@@ -145,7 +149,7 @@ export class PersonOwnershipInfoService extends Service {
              * 未指定の場合`me`がセットされます
              */
             id?: string;
-        }): Promise<ISearchResult<factory.pecorino.action.transfer.moneyTransfer.IAction[]>> {
+        }): Promise<ISearchResult<IMoneyTransferAction[]>> {
         const id = (typeof params.id === 'string') ? params.id : 'me';
 
         return this.fetch({
