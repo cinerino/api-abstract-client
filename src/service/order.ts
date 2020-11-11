@@ -69,7 +69,7 @@ export class OrderService extends Service {
         theaterCode: string;
         confirmationNumber: string;
         telephone: string;
-    }): Promise<factory.order.IOrder | factory.order.IOrder> {
+    }): Promise<factory.order.IOrder | factory.order.IOrder[]> {
         return this.fetch({
             uri: '/orders/findByOrderInquiryKey',
             method: 'POST',
