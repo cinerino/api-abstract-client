@@ -10,22 +10,6 @@ export import IPurpose = factory.action.authorize.paymentMethod.any.IPurpose;
  */
 export class PaymentService extends Service {
     /**
-     * 口座決済承認
-     */
-    public async authorizeAccount(params: {
-        object: factory.action.authorize.paymentMethod.any.IObject;
-        purpose: IPurpose;
-    }): Promise<factory.action.authorize.paymentMethod.any.IAction> {
-        return this.fetch({
-            uri: `/payment/${factory.chevre.product.ProductType.Account}/authorize`,
-            method: 'POST',
-            expectedStatusCodes: [CREATED],
-            body: params
-        })
-            .then(async (response) => response.json());
-    }
-
-    /**
      * 汎用決済承認
      */
     public async authorizeAnyPayment(params: {
@@ -71,6 +55,17 @@ export class PaymentService extends Service {
             body: params
         })
             .then(async (response) => response.json());
+    }
+
+    /**
+     * 口座決済承認
+     * @deprecated Use authorizePaymentCard()
+     */
+    public async authorizeAccount(params: {
+        object: factory.action.authorize.paymentMethod.any.IObject;
+        purpose: IPurpose;
+    }): Promise<factory.action.authorize.paymentMethod.any.IAction> {
+        return this.authorizePaymentCard(params);
     }
 
     /**
