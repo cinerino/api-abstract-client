@@ -117,7 +117,7 @@ export class PersonService extends Service {
     /**
      * ユーザー削除
      */
-    public async deletById(params: {
+    public async deleteById(params: {
         /**
          * 未指定の場合`me`がセットされます
          */
@@ -145,10 +145,14 @@ export class PersonService extends Service {
          * 未指定の場合`me`がセットされます
          */
         id?: string;
-        /**
-         * 販売者タイプ
-         */
-        sellerType: factory.chevre.organizationType;
+        agent?: {
+            /**
+             * 初めてのメンバーシップ登録の場合、
+             * { name: 'firstMembership', value: '1' }
+             * をセットする
+             */
+            additionalProperty?: factory.person.IAdditionalProperty;
+        };
         /**
          * 販売者ID
          */
