@@ -42,20 +42,6 @@ export class ReservationService extends Service {
     }
 
     /**
-     * トークンで予約照会
-     */
-    public async findScreeningEventReservationByToken(params: {
-        token: string;
-    }): Promise<void> {
-        await this.fetch({
-            uri: `/reservations/eventReservation/screeningEvent/findByToken`,
-            method: 'POST',
-            body: params,
-            expectedStatusCodes: [NO_CONTENT, OK]
-        });
-    }
-
-    /**
      * 予約を使用する
      * 注文コードから取得したトークンを利用して、予約に入場記録を追加します
      */

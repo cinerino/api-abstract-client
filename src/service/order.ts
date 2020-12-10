@@ -80,31 +80,6 @@ export class OrderService extends Service {
     }
 
     /**
-     * 所有権コードを発行する
-     */
-    public async authorizeOwnershipInfos(params: {
-        /**
-         * 注文番号
-         */
-        orderNumber: string;
-        /**
-         * 購入者情報
-         */
-        customer: {
-            email?: string;
-            telephone?: string;
-        };
-    }): Promise<factory.order.IOrder> {
-        return this.fetch({
-            uri: `/orders/${params.orderNumber}/ownershipInfos/authorize`,
-            method: 'POST',
-            body: params,
-            expectedStatusCodes: [OK]
-        })
-            .then(async (response) => response.json());
-    }
-
-    /**
      * 注文コードを発行する
      */
     public async authorize(params: {
