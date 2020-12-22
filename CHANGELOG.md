@@ -18,6 +18,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## v1.22.0 - 2020-12-22
+
+### Added
+
+- 注文トークンによる口座開設サービスを追加
+
 ## v1.21.1 - 2020-12-13
 
 ### Changed
