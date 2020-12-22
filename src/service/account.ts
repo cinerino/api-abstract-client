@@ -1,87 +1,38 @@
-import { CREATED, NO_CONTENT, OK } from 'http-status';
+import { NO_CONTENT } from 'http-status';
 
-import * as factory from '../factory';
-
-import { ISearchResult, Service } from '../service';
+import { Service } from '../service';
 
 /**
  * 口座サービス
  */
 export class AccountService extends Service {
     /**
-     * 管理者として口座を開設する
+     * 注文トークンを使用して口座開設
      */
-    public async open(params: {
-        /**
-         * 口座タイプ
-         */
-        accountType: string;
-        /**
-         * 口座名義
-         */
-        name: string;
-    }): Promise<factory.pecorino.account.IAccount> {
-        return this.fetch({
-            uri: '/accounts',
-            method: 'POST',
-            body: params,
-            expectedStatusCodes: [CREATED]
-        })
-            .then(async (response) => response.json());
-    }
-
-    /**
-     * 管理者として口座を解約する
-     */
-    public async close(params: {
-        /**
-         * 口座番号
-         */
-        accountNumber: string;
+    public async openByToken(params: {
+        instrument: {
+            /**
+             * 注文トークン
+             */
+            token?: string;
+        };
+        object: {
+            /**
+             * 口座種別
+             */
+            typeOf?: string;
+            /**
+             * 初期金額
+             */
+            initialBalance?: number;
+        };
     }): Promise<void> {
         await this.fetch({
-            uri: `/accounts/Default/${params.accountNumber}/close`,
-            method: 'PUT',
+            uri: '/accounts/openByToken',
+            method: 'POST',
+            body: params,
             expectedStatusCodes: [NO_CONTENT]
         });
-    }
-
-    /**
-     * 口座を検索する
-     */
-    public async search(
-        params: factory.pecorino.account.ISearchConditions
-    ): Promise<ISearchResult<factory.pecorino.account.IAccount[]>> {
-        return this.fetch({
-            uri: '/accounts',
-            method: 'GET',
-            qs: params,
-            expectedStatusCodes: [OK]
-        })
-            .then(async (response) => {
-                return {
-                    data: await response.json()
-                };
-            });
-    }
-
-    /**
-     * 口座上の転送アクションを検索する
-     */
-    public async searchMoneyTransferActions(
-        params: factory.pecorino.action.transfer.moneyTransfer.ISearchConditions
-    ): Promise<ISearchResult<factory.pecorino.action.transfer.moneyTransfer.IAction[]>> {
-        return this.fetch({
-            uri: `/accounts/actions/moneyTransfer`,
-            method: 'GET',
-            qs: params,
-            expectedStatusCodes: [OK]
-        })
-            .then(async (response) => {
-                return {
-                    data: await response.json()
-                };
-            });
     }
 
     /**
