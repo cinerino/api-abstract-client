@@ -3,6 +3,10 @@ import { NO_CONTENT, OK } from 'http-status';
 import * as factory from '../factory';
 import { ISearchResult, Service } from '../service';
 
+export interface IUseAction {
+    id: string;
+}
+
 /**
  * 予約サービス
  */
@@ -59,13 +63,26 @@ export class ReservationService extends Service {
              */
             token: string;
         };
-    }): Promise<void> {
-        await this.fetch({
+        location?: {
+            /**
+             * 入場ゲートコード
+             */
+            identifier?: string;
+        };
+    }): Promise<IUseAction | undefined> {
+        return this.fetch({
             uri: '/reservations/use',
             method: 'POST',
             body: params,
-            expectedStatusCodes: [NO_CONTENT]
-        });
+            expectedStatusCodes: [NO_CONTENT, OK]
+        })
+            .then(async (response) => {
+                if (response.status === OK) {
+                    return <Promise<IUseAction>>response.json();
+                } else {
+                    return;
+                }
+            });
     }
 
     /**
