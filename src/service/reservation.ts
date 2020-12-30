@@ -112,6 +112,29 @@ export class ReservationService extends Service {
     }
 
     /**
+     * 予約使用アクション取消
+     */
+    public async cancelUseAction(params: {
+        /**
+         * アクションID
+         */
+        id: string;
+        object: {
+            /**
+             * 予約ID
+             */
+            id?: string;
+        };
+    }): Promise<void> {
+        await this.fetch({
+            uri: `/reservations/${String(params.object.id)}/actions/use/${String(params.id)}/${factory.actionStatusType.CanceledActionStatus}`,
+            method: 'PUT',
+            body: params,
+            expectedStatusCodes: [NO_CONTENT]
+        });
+    }
+
+    /**
      * 予約取消
      */
     public async cancel(params: factory.chevre.transaction.cancelReservation.IStartParamsWithoutDetail & {
