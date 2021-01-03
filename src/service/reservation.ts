@@ -16,7 +16,10 @@ export class ReservationService extends Service {
      */
     public async search<T extends factory.chevre.reservationType>(
         params: factory.chevre.reservation.ISearchConditions<T>
-    ): Promise<ISearchResult<factory.chevre.reservation.IReservation<T>[]>> {
+    ): Promise<{
+        totalCount?: number;
+        data: factory.chevre.reservation.IReservation<T>[];
+    }> {
         return this.fetch({
             uri: '/reservations',
             method: 'GET',
@@ -25,6 +28,9 @@ export class ReservationService extends Service {
         })
             .then(async (response) => {
                 return {
+                    totalCount: (typeof response.headers.get('X-Total-Count') === 'string')
+                        ? Number(<string>response.headers.get('X-Total-Count'))
+                        : undefined,
                     data: await response.json()
                 };
             });
