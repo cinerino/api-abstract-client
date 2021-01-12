@@ -61,6 +61,8 @@ export class Service {
         options = { ...defaultOptions, ...options };
 
         let baseUrl = this.options.endpoint;
+        // tslint:disable-next-line:no-single-line-block-comment
+        /* istanbul ignore else */
         if (this.options.project !== undefined
             && this.options.project !== null
             && typeof this.options.project.id === 'string'
