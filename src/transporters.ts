@@ -13,7 +13,7 @@ const debug = createDebug('cinerino-api-abstract-client:transporters');
  * トランスポーター抽象クラス
  */
 export abstract class Transporter {
-    public abstract async fetch(url: string, options: RequestInit): Promise<Response>;
+    public abstract fetch(url: string, options: RequestInit): Promise<Response>;
 }
 export type IBodyResponseCallback = Promise<Response>;
 /**
