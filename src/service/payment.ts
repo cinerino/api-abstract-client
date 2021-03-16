@@ -10,14 +10,14 @@ export import IPurpose = factory.action.authorize.paymentMethod.any.IPurpose;
  */
 export class PaymentService extends Service {
     /**
-     * 汎用決済承認
+     * 対面決済承認
      */
     public async authorizeAnyPayment(params: {
         object: factory.action.authorize.paymentMethod.any.IObject;
         purpose: IPurpose;
     }): Promise<factory.action.authorize.paymentMethod.any.IAction> {
         return this.fetch({
-            uri: `/payment/any/authorize`,
+            uri: `/payment/${factory.chevre.service.paymentService.PaymentServiceType.FaceToFace}/authorize`,
             method: 'POST',
             expectedStatusCodes: [CREATED],
             body: params
@@ -119,7 +119,7 @@ export class PaymentService extends Service {
     }
 
     /**
-     * 汎用決済承認取消
+     * 対面決済承認取消
      */
     public async voidAnyPayment(params: {
         /**
@@ -129,9 +129,10 @@ export class PaymentService extends Service {
         purpose: IPurpose;
     }): Promise<void> {
         await this.fetch({
-            uri: `/payment/any/authorize/${params.id}/void`,
+            uri: `/payment/${factory.chevre.service.paymentService.PaymentServiceType.FaceToFace}/authorize/${params.id}/void`,
             method: 'PUT',
-            expectedStatusCodes: [NO_CONTENT]
+            expectedStatusCodes: [NO_CONTENT],
+            body: params
         });
     }
 
