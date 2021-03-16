@@ -18,6 +18,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## v1.24.0 - 2021-03-16
+
+### Changed
+
+- 汎用決済サービスを対面決済サービスとして再定義
+- 注文照会結果の型を配列に統一
+
 ## v1.23.6 - 2021-03-14
 
 ### Changed
