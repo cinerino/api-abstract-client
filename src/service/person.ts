@@ -138,38 +138,6 @@ export class PersonService extends Service {
     }
 
     /**
-     * 会員プログラムに登録する(sskts専用)
-     */
-    public async registerProgramMembership(params: {
-        /**
-         * 未指定の場合`me`がセットされます
-         */
-        id?: string;
-        agent?: {
-            /**
-             * 初めてのメンバーシップ登録の場合、
-             * { name: 'firstMembership', value: '1' }
-             * をセットする
-             */
-            additionalProperty?: factory.person.IAdditionalProperty;
-        };
-        /**
-         * 販売者ID
-         */
-        sellerId: string;
-    }): Promise<factory.task.ITask<factory.taskName.OrderProgramMembership>> {
-        const id = (typeof params.id === 'string') ? params.id : 'me';
-
-        return this.fetch({
-            uri: `/people/${id}/ownershipInfos/programMembership/register`,
-            method: 'PUT',
-            body: params,
-            expectedStatusCodes: [ACCEPTED]
-        })
-            .then(async (response) => response.json());
-    }
-
-    /**
      * 会員プログラム登録解除(sskts専用)
      */
     public async unRegisterProgramMembership(params: {
