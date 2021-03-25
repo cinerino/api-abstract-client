@@ -80,6 +80,24 @@ export class OrderService extends Service {
     }
 
     /**
+     * 注文番号と何かしらで注文照会
+     */
+    public async findOneByOrderNumberAndSomething(params: {
+        orderNumber: string;
+        customer?: {
+            telephone?: string;
+        };
+    }): Promise<factory.order.IOrder> {
+        return this.fetch({
+            uri: '/orders/findOneByOrderNumberAndSomething',
+            method: 'POST',
+            body: params,
+            expectedStatusCodes: [OK]
+        })
+            .then(async (response) => response.json());
+    }
+
+    /**
      * 注文コードを発行する
      */
     public async authorize(params: {
