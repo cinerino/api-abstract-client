@@ -23,6 +23,7 @@ export class DeliveryService extends Service {
         await this.fetch({
             uri: `/orders/${params.object?.orderNumber}/deliver`,
             method: 'POST',
+            body: params,
             expectedStatusCodes: [NO_CONTENT]
         });
     }
