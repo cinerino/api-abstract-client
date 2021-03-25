@@ -12,13 +12,16 @@ export class DeliveryService extends Service {
      * すでに配送済の場合、何もしません。
      */
     public async sendOrder(params: {
-        /**
-         * 注文番号
-         */
-        orderNumber: string;
+        object: {
+            /**
+             * 注文番号
+             */
+            orderNumber: string;
+            confirmationNumber?: string;
+        };
     }): Promise<void> {
         await this.fetch({
-            uri: `/orders/${params.orderNumber}/deliver`,
+            uri: `/orders/${params.object?.orderNumber}/deliver`,
             method: 'POST',
             expectedStatusCodes: [NO_CONTENT]
         });
