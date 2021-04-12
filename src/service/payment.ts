@@ -58,17 +58,6 @@ export class PaymentService extends Service {
     }
 
     /**
-     * 口座決済承認
-     * @deprecated Use authorizePaymentCard()
-     */
-    public async authorizeAccount(params: {
-        object: factory.action.authorize.paymentMethod.any.IObject;
-        purpose: IPurpose;
-    }): Promise<factory.action.authorize.paymentMethod.any.IAction> {
-        return this.authorizePaymentCard(params);
-    }
-
-    /**
      * ペイメントカード決済承認
      */
     public async authorizePaymentCard(params: {

@@ -3,8 +3,6 @@ import { OK } from 'http-status';
 import * as factory from '../factory';
 import { ISearchResult, Service } from '../service';
 
-import { ITokenResponse } from './token';
-
 export type IOwnershipInfo = factory.ownershipInfo.IOwnershipInfo<factory.ownershipInfo.IGood>;
 
 /**
@@ -29,22 +27,6 @@ export class OwnershipInfoService extends Service {
                     data: await response.json()
                 };
             });
-    }
-
-    /**
-     * 所有権トークンを取得する
-     * @deprecated TokenServiceを使用してください
-     */
-    public async getToken(params: {
-        code: string;
-    }): Promise<ITokenResponse> {
-        return this.fetch({
-            uri: '/ownershipInfos/tokens',
-            method: 'POST',
-            body: params,
-            expectedStatusCodes: [OK]
-        })
-            .then(async (response) => response.json());
     }
 
     /**
