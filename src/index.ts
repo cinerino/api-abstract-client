@@ -15,12 +15,10 @@ import { CreativeWorkService } from './service/creativeWork';
 import { DeliveryService } from './service/delivery';
 import { EventService } from './service/event';
 import { IAMService } from './service/iam';
-import { InvoiceService } from './service/invoice';
 import { OfferService } from './service/offer';
 import { OrderService } from './service/order';
 import { OwnershipInfoService } from './service/ownershipInfo';
 import { PaymentService } from './service/payment';
-import { PaymentMethodService } from './service/paymentMethod';
 import { PersonService } from './service/person';
 import { PersonOwnershipInfoService } from './service/person/ownershipInfo';
 import { PlaceService } from './service/place';
@@ -113,11 +111,6 @@ export namespace service {
     export class IAM extends IAMService { }
 
     /**
-     * インボイスサービス
-     */
-    export class Invoice extends InvoiceService { }
-
-    /**
      * オファーサービス
      */
     export class Offer extends OfferService { }
@@ -136,11 +129,6 @@ export namespace service {
      * 決済サービス
      */
     export class Payment extends PaymentService { }
-
-    /**
-     * 決済方法サービス
-     */
-    export class PaymentMethod extends PaymentMethodService { }
 
     /**
      * ユーザーサービス

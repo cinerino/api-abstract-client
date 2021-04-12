@@ -130,33 +130,4 @@ export class ReservationService extends Service {
             expectedStatusCodes: [NO_CONTENT]
         });
     }
-
-    /**
-     * 予約IDあるいは予約番号指定でチェックイン(発券)する
-     * @deprecated じきに削除予定
-     */
-    public async checkIn(params: {
-        id?: string;
-        reservationNumber?: string;
-    }): Promise<void> {
-        await this.fetch({
-            uri: '/reservations/checkedIn',
-            method: 'PUT',
-            body: params,
-            expectedStatusCodes: [NO_CONTENT]
-        });
-    }
-
-    /**
-     * @deprecated じきに削除予定
-     */
-    public async attend(params: {
-        id: string;
-    }): Promise<void> {
-        await this.fetch({
-            uri: `/reservations/${encodeURIComponent(String(params.id))}/attended`,
-            method: 'PUT',
-            expectedStatusCodes: [NO_CONTENT]
-        });
-    }
 }
