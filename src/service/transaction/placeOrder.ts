@@ -26,6 +26,15 @@ export class PlaceOrderTransactionService extends Service implements Transaction
         expires: Date;
         object?: {
             /**
+             * 顧客指定
+             */
+            customer?: {
+                /**
+                 * 顧客ID
+                 */
+                id?: string;
+            };
+            /**
              * WAITER許可証
              */
             passport?: {
