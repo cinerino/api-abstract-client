@@ -12,6 +12,7 @@ import { ActionService } from './service/action';
 import { AuthorizationService } from './service/authorization';
 import { CategoryCodeService } from './service/categoryCode';
 import { CreativeWorkService } from './service/creativeWork';
+import { CustomerService } from './service/customer';
 import { DeliveryService } from './service/delivery';
 import { EventService } from './service/event';
 import { IAMService } from './service/iam';
@@ -94,6 +95,11 @@ export namespace service {
      * 作品サービス
      */
     export class CreativeWork extends CreativeWorkService { }
+
+    /**
+     * 顧客サービス
+     */
+    export class Customer extends CustomerService { }
 
     /**
      * 配送サービス
