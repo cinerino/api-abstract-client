@@ -120,8 +120,8 @@ export class ReservationService extends Service {
     /**
      * 予約取消
      */
-    public async cancel(params: factory.chevre.transaction.cancelReservation.IStartParamsWithoutDetail & {
-        potentialActions?: factory.chevre.transaction.cancelReservation.IPotentialActionsParams;
+    public async cancel(params: factory.assetTransaction.cancelReservation.IStartParamsWithoutDetail & {
+        potentialActions?: factory.assetTransaction.cancelReservation.IPotentialActionsParams;
     }): Promise<void> {
         await this.fetch({
             uri: '/reservations/cancel',

@@ -140,12 +140,12 @@ export class PersonOwnershipInfoService extends Service {
      * 口座取引履歴検索
      */
     public async searchAccountMoneyTransferActions(
-        params: factory.pecorino.action.transfer.moneyTransfer.ISearchConditions & {
+        params: factory.account.action.moneyTransfer.ISearchConditions & {
             /**
              * 未指定の場合`me`がセットされます
              */
             id?: string;
-        }): Promise<ISearchResult<factory.pecorino.action.transfer.moneyTransfer.IAction[]>> {
+        }): Promise<ISearchResult<factory.account.action.moneyTransfer.IAction[]>> {
         const id = (typeof params.id === 'string') ? params.id : 'me';
 
         return this.fetch({

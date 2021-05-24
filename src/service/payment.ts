@@ -77,7 +77,18 @@ export class PaymentService extends Service {
      * ムビチケ認証
      */
     public async checkMovieTicket(
-        params: factory.action.check.paymentMethod.movieTicket.IObject
+        // params: factory.action.check.paymentMethod.movieTicket.IObject
+        params: {
+            typeOf: string;
+            movieTickets: factory.action.check.paymentMethod.movieTicket.IMovieTicketResult[];
+            /**
+             * 販売者
+             */
+            seller: {
+                typeOf: factory.chevre.organizationType;
+                id: string;
+            };
+        }
     ): Promise<factory.action.check.paymentMethod.movieTicket.IAction> {
         return this.fetch({
             uri: `/payment/${factory.chevre.service.paymentService.PaymentServiceType.MovieTicket}/actions/check`,
