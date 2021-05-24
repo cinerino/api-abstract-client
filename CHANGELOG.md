@@ -16,6 +16,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Removed
 
+- タスクサービスを削除
+- ユーザープールサービスを削除
+- プロジェクト編集を削除
+- IAMメンバー編集を削除
+- 承認サービスを削除
+
 ### Fixed
 
 ### Security

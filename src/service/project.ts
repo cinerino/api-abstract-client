@@ -1,4 +1,4 @@
-import { CREATED, NO_CONTENT, OK } from 'http-status';
+import { OK } from 'http-status';
 
 import * as factory from '../factory';
 import { ISearchResult, Service } from '../service';
@@ -13,19 +13,6 @@ export interface IGetHealthResult {
  * プロジェクトサービス
  */
 export class ProjectService extends Service {
-    /**
-     * プロジェクト作成
-     */
-    public async create(params: factory.project.IProject): Promise<factory.project.IProject> {
-        return this.fetch({
-            uri: '/projects',
-            method: 'POST',
-            body: params,
-            expectedStatusCodes: [CREATED]
-        })
-            .then(async (response) => response.json());
-    }
-
     /**
      * プロジェクト検索
      */
@@ -53,32 +40,6 @@ export class ProjectService extends Service {
     }): Promise<factory.project.IProject> {
         return this.fetch({
             uri: `/projects/${params.id}`,
-            method: 'GET',
-            expectedStatusCodes: [OK]
-        })
-            .then(async (response) => response.json());
-    }
-
-    /**
-     * プロジェクト編集
-     */
-    public async update(params: factory.project.IProject): Promise<void> {
-        await this.fetch({
-            uri: `/projects/${params.id}`,
-            method: 'PATCH',
-            body: params,
-            expectedStatusCodes: [NO_CONTENT]
-        });
-    }
-
-    /**
-     * プロジェクト設定取得
-     */
-    public async getSettings(params: {
-        id: string;
-    }): Promise<factory.project.ISettings> {
-        return this.fetch({
-            uri: `/projects/${params.id}/settings`,
             method: 'GET',
             expectedStatusCodes: [OK]
         })
