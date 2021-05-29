@@ -15,7 +15,7 @@ export class ProductService extends Service {
         project?: { id?: { $eq?: string } };
         typeOf?: { $eq?: string };
     }): Promise<{
-        data: factory.chevre.service.IService[];
+        data: factory.service.IService[];
     }> {
         return this.fetch({
             uri: '/products',
@@ -37,7 +37,7 @@ export class ProductService extends Service {
         itemOffered: { id: string };
         seller?: { id: string };
         availableAtOrFrom?: { id: string };
-    }): Promise<factory.chevre.event.screeningEvent.ITicketOffer[]> {
+    }): Promise<factory.event.screeningEvent.ITicketOffer[]> {
         return this.fetch({
             uri: `/products/${params.itemOffered.id}/offers`,
             method: 'GET',

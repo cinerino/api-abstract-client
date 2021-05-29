@@ -3,19 +3,6 @@ import { OK } from 'http-status';
 import * as factory from '../factory';
 import { ISearchResult, Service } from '../service';
 
-export interface ICustomer extends factory.chevre.organization.IOrganization {
-    id: string;
-    name: factory.chevre.multilingualString;
-    project: { id: string; typeOf: factory.chevre.organizationType.Project };
-}
-
-export interface ISearchConditions {
-    limit?: number;
-    page?: number;
-    // project?: { id?: { $eq?: string } };
-    name?: { $regex?: string };
-}
-
 /**
  * 顧客サービス
  */
@@ -25,7 +12,7 @@ export class CustomerService extends Service {
      */
     public async findById(params: {
         id: string;
-    }): Promise<ICustomer> {
+    }): Promise<factory.customer.ICustomer> {
         return this.fetch({
             uri: `/customers/${params.id}`,
             method: 'GET',
@@ -37,9 +24,7 @@ export class CustomerService extends Service {
     /**
      * 顧客検索
      */
-    public async search(
-        params: ISearchConditions
-    ): Promise<ISearchResult<ICustomer[]>> {
+    public async search(params: factory.customer.ISearchConditions): Promise<ISearchResult<factory.customer.ICustomer[]>> {
         return this.fetch({
             uri: '/customers',
             method: 'GET',

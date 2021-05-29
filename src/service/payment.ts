@@ -17,7 +17,7 @@ export class PaymentService extends Service {
         purpose: IPurpose;
     }): Promise<factory.action.authorize.paymentMethod.any.IAction> {
         return this.fetch({
-            uri: `/payment/${factory.chevre.service.paymentService.PaymentServiceType.FaceToFace}/authorize`,
+            uri: `/payment/${factory.service.paymentService.PaymentServiceType.FaceToFace}/authorize`,
             method: 'POST',
             expectedStatusCodes: [CREATED],
             body: params
@@ -33,7 +33,7 @@ export class PaymentService extends Service {
         purpose: IPurpose;
     }): Promise<factory.action.authorize.paymentMethod.any.IAction> {
         return this.fetch({
-            uri: `/payment/${factory.chevre.service.paymentService.PaymentServiceType.CreditCard}/authorize`,
+            uri: `/payment/${factory.service.paymentService.PaymentServiceType.CreditCard}/authorize`,
             method: 'POST',
             expectedStatusCodes: [CREATED],
             body: params
@@ -49,7 +49,7 @@ export class PaymentService extends Service {
         purpose: IPurpose;
     }): Promise<factory.action.authorize.paymentMethod.any.IAction> {
         return this.fetch({
-            uri: `/payment/${factory.chevre.service.paymentService.PaymentServiceType.MovieTicket}/authorize`,
+            uri: `/payment/${factory.service.paymentService.PaymentServiceType.MovieTicket}/authorize`,
             method: 'POST',
             expectedStatusCodes: [CREATED],
             body: params
@@ -65,7 +65,7 @@ export class PaymentService extends Service {
         purpose: IPurpose;
     }): Promise<factory.action.authorize.paymentMethod.any.IAction> {
         return this.fetch({
-            uri: `/payment/${factory.chevre.product.ProductType.PaymentCard}/authorize`,
+            uri: `/payment/${factory.product.ProductType.PaymentCard}/authorize`,
             method: 'POST',
             expectedStatusCodes: [CREATED],
             body: params
@@ -85,13 +85,13 @@ export class PaymentService extends Service {
              * 販売者
              */
             seller: {
-                typeOf: factory.chevre.organizationType;
+                typeOf: factory.organizationType;
                 id: string;
             };
         }
     ): Promise<factory.action.check.paymentMethod.movieTicket.IAction> {
         return this.fetch({
-            uri: `/payment/${factory.chevre.service.paymentService.PaymentServiceType.MovieTicket}/actions/check`,
+            uri: `/payment/${factory.service.paymentService.PaymentServiceType.MovieTicket}/actions/check`,
             method: 'POST',
             expectedStatusCodes: [CREATED],
             body: params
@@ -108,9 +108,9 @@ export class PaymentService extends Service {
             identifier: string;
             accessCode: string;
         };
-    }): Promise<factory.chevre.paymentMethod.paymentCard.IPaymentCard> {
+    }): Promise<factory.paymentMethod.paymentCard.IPaymentCard> {
         return this.fetch({
-            uri: `/payment/${factory.chevre.product.ProductType.PaymentCard}/check`,
+            uri: `/payment/${factory.product.ProductType.PaymentCard}/check`,
             method: 'POST',
             expectedStatusCodes: [OK],
             body: params
@@ -129,7 +129,7 @@ export class PaymentService extends Service {
         purpose: IPurpose;
     }): Promise<void> {
         await this.fetch({
-            uri: `/payment/${factory.chevre.service.paymentService.PaymentServiceType.FaceToFace}/authorize/${params.id}/void`,
+            uri: `/payment/${factory.service.paymentService.PaymentServiceType.FaceToFace}/authorize/${params.id}/void`,
             method: 'PUT',
             expectedStatusCodes: [NO_CONTENT],
             body: params
@@ -148,7 +148,7 @@ export class PaymentService extends Service {
             /**
              * 決済サービスタイプ
              */
-            typeOf: factory.chevre.service.paymentService.PaymentServiceType | string;
+            typeOf: factory.service.paymentService.PaymentServiceType | string;
         };
         purpose: IPurpose;
     }): Promise<void> {

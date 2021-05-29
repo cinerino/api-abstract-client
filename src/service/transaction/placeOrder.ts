@@ -45,7 +45,7 @@ export class PlaceOrderTransactionService extends Service implements Transaction
          * 販売者
          */
         seller: {
-            typeOf: factory.chevre.organizationType;
+            typeOf: factory.organizationType;
             id: string;
         };
     }): Promise<factory.transaction.ITransaction<factory.transactionType.PlaceOrder>> {
@@ -154,7 +154,7 @@ export class PlaceOrderTransactionService extends Service implements Transaction
          * 注文配送メールカスタマイズ
          * メール本文をカスタマイズしたい場合、PUGテンプレートを指定
          * 挿入変数として`order`を使用できます
-         * @see https://pugjs.org/api/getting-started.html
+         * 参考 -> https://pugjs.org/api/getting-started.html
          */
         email?: factory.creativeWork.message.email.ICustomization;
     }): Promise<factory.transaction.placeOrder.IResult> {
@@ -226,7 +226,7 @@ export class PlaceOrderTransactionService extends Service implements Transaction
      * ストリーミングダウンロード
      */
     public async stream(params: factory.transaction.ISearchConditions<factory.transactionType.PlaceOrder> & {
-        format: factory.chevre.encodingFormat.Application | factory.chevre.encodingFormat.Text;
+        format: factory.encodingFormat.Application | factory.encodingFormat.Text;
     }): Promise<NodeJS.ReadableStream | ReadableStream> {
         return this.fetch({
             uri: `/transactions/${this.typeOf}/report`,

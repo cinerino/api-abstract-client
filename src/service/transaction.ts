@@ -25,5 +25,5 @@ export abstract class TransactionService {
     /**
      * 取引人プロフィール変更
      */
-    public abstract async setProfile(params: ISetProfileParams): Promise<void>;
+    public abstract setProfile(params: ISetProfileParams): Promise<void>;
 }

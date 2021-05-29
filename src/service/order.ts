@@ -215,7 +215,7 @@ export class OrderService extends Service {
      * ストリーミングダウンロード
      */
     public async download(params: factory.order.ISearchConditions & {
-        format: factory.chevre.encodingFormat.Application | factory.chevre.encodingFormat.Text;
+        format: factory.encodingFormat.Application | factory.encodingFormat.Text;
     }): Promise<NodeJS.ReadableStream | ReadableStream> {
         return this.fetch({
             uri: `/orders/download`,

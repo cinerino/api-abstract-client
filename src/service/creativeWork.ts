@@ -11,8 +11,8 @@ export class CreativeWorkService extends Service {
      * 映画作品検索
      */
     public async searchMovies(
-        params: factory.chevre.creativeWork.movie.ISearchConditions
-    ): Promise<ISearchResult<factory.chevre.creativeWork.movie.ICreativeWork[]>> {
+        params: factory.creativeWork.movie.ISearchConditions
+    ): Promise<ISearchResult<factory.creativeWork.movie.ICreativeWork[]>> {
         return this.fetch({
             uri: '/creativeWorks/movie',
             method: 'GET',
