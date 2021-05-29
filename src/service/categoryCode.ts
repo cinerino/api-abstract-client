@@ -11,8 +11,8 @@ export class CategoryCodeService extends Service {
     /**
      * 検索
      */
-    public async search(params: factory.chevre.categoryCode.ISearchConditions): Promise<{
-        data: factory.chevre.categoryCode.ICategoryCode[];
+    public async search(params: factory.categoryCode.ISearchConditions): Promise<{
+        data: factory.categoryCode.ICategoryCode[];
     }> {
         return this.fetch({
             uri: '/categoryCodes',

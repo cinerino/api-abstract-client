@@ -12,10 +12,10 @@ export class PlaceService extends Service {
      * 劇場検索
      */
     public async searchMovieTheaters(
-        params: factory.chevre.place.movieTheater.ISearchConditions
-    ): Promise<ISearchResult<factory.chevre.place.movieTheater.IPlaceWithoutScreeningRoom[]>> {
+        params: factory.place.movieTheater.ISearchConditions
+    ): Promise<ISearchResult<factory.place.movieTheater.IPlaceWithoutScreeningRoom[]>> {
         return this.fetch({
-            uri: `/places/${factory.chevre.placeType.MovieTheater}`,
+            uri: `/places/${factory.placeType.MovieTheater}`,
             method: 'GET',
             qs: params,
             expectedStatusCodes: [OK]
@@ -50,9 +50,9 @@ export class PlaceService extends Service {
                 $eq?: string;
             };
         };
-    }): Promise<ISearchResult<factory.chevre.place.screeningRoom.IPlace[]>> {
+    }): Promise<ISearchResult<factory.place.screeningRoom.IPlace[]>> {
         return this.fetch({
-            uri: `/places/${factory.chevre.placeType.ScreeningRoom}`,
+            uri: `/places/${factory.placeType.ScreeningRoom}`,
             method: 'GET',
             qs: params,
             expectedStatusCodes: [OK]
@@ -97,9 +97,9 @@ export class PlaceService extends Service {
                 };
             };
         };
-    }): Promise<ISearchResult<factory.chevre.place.seat.IPlace[]>> {
+    }): Promise<ISearchResult<factory.place.seat.IPlace[]>> {
         return this.fetch({
-            uri: `/places/${factory.chevre.placeType.Seat}`,
+            uri: `/places/${factory.placeType.Seat}`,
             method: 'GET',
             qs: params,
             expectedStatusCodes: [OK]

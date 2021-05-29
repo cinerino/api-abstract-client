@@ -4,8 +4,8 @@ import { DefaultTransporter } from '../transporters';
  * 抽象認証クライアント
  */
 export abstract class AuthClient {
-    public abstract async fetch(url: string, options: RequestInit, expectedStatusCodes: number[]): Promise<Response>;
-    public abstract async getAccessToken(): Promise<string>;
+    public abstract fetch(url: string, options: RequestInit, expectedStatusCodes: number[]): Promise<Response>;
+    public abstract getAccessToken(): Promise<string>;
 }
 /**
  * テスト認証クライアント

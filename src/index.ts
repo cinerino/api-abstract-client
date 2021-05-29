@@ -9,7 +9,6 @@ import { AuthClient, StubAuthClient } from './auth/authClient';
 
 import { AccountService } from './service/account';
 import { ActionService } from './service/action';
-import { AuthorizationService } from './service/authorization';
 import { CategoryCodeService } from './service/categoryCode';
 import { CreativeWorkService } from './service/creativeWork';
 import { CustomerService } from './service/customer';
@@ -28,14 +27,12 @@ import { ProjectService } from './service/project';
 import { ReservationService } from './service/reservation';
 import { SellerService } from './service/seller';
 import { ServiceOutputService } from './service/serviceOutput';
-import { TaskService } from './service/task';
 import { TokenService } from './service/token';
 import { MoneyTransferTransactionService } from './service/transaction/moneyTransfer';
 import { PlaceOrderTransactionService } from './service/transaction/placeOrder';
 import { PlaceOrderTransaction4ssktsService } from './service/transaction/placeOrder4sskts';
 import { PlaceOrderTransaction4tttsService } from './service/transaction/placeOrder4ttts';
 import { ReturnOrderTransactionService } from './service/transaction/returnOrder';
-import { UserPoolService } from './service/userPool';
 import * as transporters from './transporters';
 
 export import factory = factory;
@@ -80,11 +77,6 @@ export namespace service {
      * アクションサービス
      */
     export class Action extends ActionService { }
-
-    /**
-     * 認可サービス
-     */
-    export class Authorization extends AuthorizationService { }
 
     /**
      * カテゴリーコードサービス
@@ -180,11 +172,6 @@ export namespace service {
     export class ServiceOutput extends ServiceOutputService { }
 
     /**
-     * タスクサービス
-     */
-    export class Task extends TaskService { }
-
-    /**
      * トークンサービス
      */
     export class Token extends TokenService { }
@@ -224,9 +211,4 @@ export namespace service {
      * @alias service.transaction
      */
     export import txn = transaction;
-
-    /**
-     * Cognitoユーザープールサービス
-     */
-    export class UserPool extends UserPoolService { }
 }

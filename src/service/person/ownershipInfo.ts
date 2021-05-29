@@ -4,8 +4,8 @@ import * as factory from '../../factory';
 import { ISearchResult, Service } from '../../service';
 
 export type ICreditCard =
-    factory.chevre.paymentMethod.paymentCard.creditCard.IUncheckedCardRaw
-    | factory.chevre.paymentMethod.paymentCard.creditCard.IUncheckedCardTokenized;
+    factory.paymentMethod.paymentCard.creditCard.IUncheckedCardRaw
+    | factory.paymentMethod.paymentCard.creditCard.IUncheckedCardTokenized;
 export type IOwnershipInfoWithDetail = factory.ownershipInfo.IOwnershipInfo<factory.ownershipInfo.IGoodWithDetail>;
 export interface ICodeResponse {
     code: string;
@@ -28,7 +28,7 @@ export class PersonOwnershipInfoService extends Service {
          * 情報の渡し方にはいくつかパターンがあるので、型を参照すること
          */
         creditCard: ICreditCard;
-    }): Promise<factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard> {
+    }): Promise<factory.paymentMethod.paymentCard.creditCard.ICheckedCard> {
         const id = (typeof params.id === 'string') ? params.id : 'me';
 
         return this.fetch({
@@ -48,7 +48,7 @@ export class PersonOwnershipInfoService extends Service {
          * 未指定の場合`me`がセットされます
          */
         id?: string;
-    }): Promise<factory.chevre.paymentMethod.paymentCard.creditCard.ICheckedCard[]> {
+    }): Promise<factory.paymentMethod.paymentCard.creditCard.ICheckedCard[]> {
         const id = (typeof params.id === 'string') ? params.id : 'me';
 
         return this.fetch({
@@ -140,12 +140,12 @@ export class PersonOwnershipInfoService extends Service {
      * 口座取引履歴検索
      */
     public async searchAccountMoneyTransferActions(
-        params: factory.pecorino.action.transfer.moneyTransfer.ISearchConditions & {
+        params: factory.account.action.moneyTransfer.ISearchConditions & {
             /**
              * 未指定の場合`me`がセットされます
              */
             id?: string;
-        }): Promise<ISearchResult<factory.pecorino.action.transfer.moneyTransfer.IAction[]>> {
+        }): Promise<ISearchResult<factory.account.action.moneyTransfer.IAction[]>> {
         const id = (typeof params.id === 'string') ? params.id : 'me';
 
         return this.fetch({

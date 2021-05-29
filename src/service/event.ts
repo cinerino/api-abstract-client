@@ -96,9 +96,9 @@ export class EventService extends Service {
     /**
      * イベント検索
      */
-    public async search<T extends factory.chevre.eventType>(
-        params: factory.chevre.event.ISearchConditions<T>
-    ): Promise<ISearchResult<factory.chevre.event.IEvent<T>[]>> {
+    public async search<T extends factory.eventType>(
+        params: factory.event.ISearchConditions<T>
+    ): Promise<ISearchResult<factory.event.IEvent<T>[]>> {
         return this.fetch({
             uri: '/events',
             method: 'GET',
@@ -115,9 +115,9 @@ export class EventService extends Service {
     /**
      * イベント取得
      */
-    public async findById<T extends factory.chevre.eventType>(params: {
+    public async findById<T extends factory.eventType>(params: {
         id: string;
-    }): Promise<factory.chevre.event.IEvent<T>> {
+    }): Promise<factory.event.IEvent<T>> {
         return this.fetch({
             uri: `/events/${params.id}`,
             method: 'GET',
@@ -131,7 +131,7 @@ export class EventService extends Service {
      */
     public async updatePartially(params: {
         id: string;
-        eventStatus?: factory.chevre.eventStatusType;
+        eventStatus?: factory.eventStatusType;
         onUpdated?: {
             sendEmailMessage?: factory.action.transfer.send.message.email.IAttributes[];
         };
@@ -145,24 +145,6 @@ export class EventService extends Service {
     }
 
     /**
-     * イベントに対する座席オファー検索
-     * @deprecated Use searchSeats
-     */
-    public async searchOffers(params: {
-        /**
-         * イベント
-         */
-        event: { id: string };
-    }): Promise<factory.chevre.place.screeningRoomSection.IPlaceWithOffer[]> {
-        return this.fetch({
-            uri: `/events/${params.event.id}/offers`,
-            method: 'GET',
-            expectedStatusCodes: [OK]
-        })
-            .then(async (response) => response.json());
-    }
-
-    /**
      * イベントに対する座席検索
      */
     public async searchSeats(params: {
@@ -172,7 +154,7 @@ export class EventService extends Service {
         event: { id: string };
         limit?: number;
         page?: number;
-    }): Promise<ISearchResult<factory.chevre.place.seat.IPlaceWithOffer[]>> {
+    }): Promise<ISearchResult<factory.place.seat.IPlaceWithOffer[]>> {
         return this.fetch({
             uri: `/events/${params.event.id}/seats`,
             method: 'GET',
@@ -197,12 +179,12 @@ export class EventService extends Service {
         /**
          * 販売者
          */
-        seller: { typeOf: factory.chevre.organizationType; id: string };
+        seller: { typeOf: factory.organizationType; id: string };
         /**
          * 店舗(idにはアプリケーションクライアントIDを指定)
          */
         store: { id: string };
-    }): Promise<factory.chevre.event.screeningEvent.ITicketOffer[]> {
+    }): Promise<factory.event.screeningEvent.ITicketOffer[]> {
         return this.fetch({
             uri: `/events/${params.event.id}/offers/ticket`,
             method: 'GET',
@@ -223,7 +205,7 @@ export class EventService extends Service {
         /**
          * 販売者
          */
-        seller: { typeOf: factory.chevre.organizationType; id: string };
+        seller: { typeOf: factory.organizationType; id: string };
         /**
          * 店舗(idにはアプリケーションクライアントIDを指定)
          */

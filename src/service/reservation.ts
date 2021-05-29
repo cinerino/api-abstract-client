@@ -14,11 +14,11 @@ export class ReservationService extends Service {
     /**
      * 予約検索
      */
-    public async search<T extends factory.chevre.reservationType>(
-        params: factory.chevre.reservation.ISearchConditions<T>
+    public async search<T extends factory.reservationType>(
+        params: factory.reservation.ISearchConditions<T>
     ): Promise<{
         totalCount?: number;
-        data: factory.chevre.reservation.IReservation<T>[];
+        data: factory.reservation.IReservation<T>[];
     }> {
         return this.fetch({
             uri: '/reservations',
@@ -39,7 +39,7 @@ export class ReservationService extends Service {
     /**
      * ストリーミングダウンロード
      */
-    public async download<T extends factory.chevre.reservationType>(params: factory.chevre.reservation.ISearchConditions<T> & {
+    public async download<T extends factory.reservationType>(params: factory.reservation.ISearchConditions<T> & {
         format: any;
     }): Promise<NodeJS.ReadableStream | ReadableStream> {
         return this.fetch({
@@ -65,7 +65,7 @@ export class ReservationService extends Service {
         instrument: {
             /**
              * トークン
-             * @see service.Token.getToken()
+             * service.Token.getToken() にて取得したトークンを使用します
              */
             token: string;
         };
@@ -120,8 +120,8 @@ export class ReservationService extends Service {
     /**
      * 予約取消
      */
-    public async cancel(params: factory.chevre.transaction.cancelReservation.IStartParamsWithoutDetail & {
-        potentialActions?: factory.chevre.transaction.cancelReservation.IPotentialActionsParams;
+    public async cancel(params: factory.assetTransaction.cancelReservation.IStartParamsWithoutDetail & {
+        potentialActions?: factory.assetTransaction.cancelReservation.IPotentialActionsParams;
     }): Promise<void> {
         await this.fetch({
             uri: '/reservations/cancel',
