@@ -25,7 +25,7 @@ describe('ownershipInfo service', () => {
     });
 
     beforeEach(() => {
-        sandbox = sinon.sandbox.create();
+        sandbox = sinon.createSandbox();
     });
 
     afterEach(() => {

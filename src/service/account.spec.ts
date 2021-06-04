@@ -25,7 +25,7 @@ describe('口座サービス', () => {
     });
 
     beforeEach(() => {
-        sandbox = sinon.sandbox.create();
+        sandbox = sinon.createSandbox();
     });
 
     afterEach(() => {

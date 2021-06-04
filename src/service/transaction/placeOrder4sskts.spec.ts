@@ -25,7 +25,7 @@ describe('placeOrder transaction client.service', () => {
     });
 
     beforeEach(() => {
-        sandbox = sinon.sandbox.create();
+        sandbox = sinon.createSandbox();
     });
 
     afterEach(() => {
