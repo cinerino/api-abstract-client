@@ -1,4 +1,4 @@
-import { NO_CONTENT, OK } from 'http-status';
+import { OK } from 'http-status';
 
 import * as factory from '../factory';
 import { ISearchResult, Service } from '../service';
@@ -124,24 +124,6 @@ export class EventService extends Service {
             expectedStatusCodes: [OK]
         })
             .then(async (response) => response.json());
-    }
-
-    /**
-     * イベント更新
-     */
-    public async updatePartially(params: {
-        id: string;
-        eventStatus?: factory.eventStatusType;
-        onUpdated?: {
-            sendEmailMessage?: factory.action.transfer.send.message.email.IAttributes[];
-        };
-    }): Promise<void> {
-        await this.fetch({
-            uri: `/events/${params.id}`,
-            method: 'PATCH',
-            body: params,
-            expectedStatusCodes: [NO_CONTENT]
-        });
     }
 
     /**
