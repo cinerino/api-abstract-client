@@ -26,7 +26,7 @@ export class RequestError extends Error {
     constructor(message?: string) {
         // tslint:disable-next-line:no-single-line-block-comment
         super(message)/* istanbul ignore next */;
-        this.name = 'CinerinoRequestError';
+        this.name = 'ChevreRequestError';
     }
 }
 /**

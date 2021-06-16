@@ -2,6 +2,7 @@
 /**
  * API Service Library for Javascript
  */
+import * as chevre from './chevre';
 import * as factory from './factory';
 import * as ServiceFactory from './service';
 
@@ -35,6 +36,7 @@ import { PlaceOrderTransaction4tttsService } from './service/transaction/placeOr
 import { ReturnOrderTransactionService } from './service/transaction/returnOrder';
 import * as transporters from './transporters';
 
+export import chevre = chevre;
 export import factory = factory;
 export import transporters = transporters;
 
