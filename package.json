@@ -1,6 +1,6 @@
 {
   "name": "@cinerino/api-abstract-client",
-  "version": "3.4.0",
+  "version": "3.5.0",
   "description": "Cinerino API Abstract Client Library for Javascript",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -75,7 +75,7 @@
     "typescript": "4.3.2"
   },
   "dependencies": {
-    "@chevre/factory": "4.120.0",
+    "@chevre/factory": "4.122.1",
     "debug": "^3.2.6",
     "http-status": "^1.4.2",
     "isomorphic-fetch": "^2.2.1",
