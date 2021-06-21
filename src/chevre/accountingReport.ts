@@ -1,5 +1,6 @@
 import { OK } from 'http-status';
 
+import * as factory from '../factory';
 import { ISearchResult, Service } from '../service';
 
 /**
@@ -9,7 +10,9 @@ export class AccountingReportService extends Service {
     /**
      * 検索
      */
-    public async search(params: any): Promise<ISearchResult<any[]>> {
+    public async search(
+        params: factory.report.accountingReport.ISearchConditions
+    ): Promise<ISearchResult<factory.report.accountingReport.IReport[]>> {
         return this.fetch({
             uri: '/accountingReports',
             method: 'GET',
