@@ -1,6 +1,6 @@
 {
   "name": "@cinerino/api-abstract-client",
-  "version": "3.7.0",
+  "version": "3.7.1",
   "description": "Cinerino API Abstract Client Library for Javascript",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
