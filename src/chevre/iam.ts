@@ -3,27 +3,6 @@ import { CREATED, NO_CONTENT, OK } from 'http-status';
 import * as factory from '../factory';
 import { ISearchResult, Service } from '../service';
 
-export enum RoleType {
-    OrganizationRole = 'OrganizationRole'
-}
-export interface IRole {
-    typeOf: RoleType;
-    roleName: string;
-    memberOf: { typeOf: factory.chevre.organizationType.Project; id: string };
-}
-export type IMemberType = factory.personType | factory.chevre.creativeWorkType.WebApplication;
-export interface IMember {
-    typeOf: RoleType;
-    project: { typeOf: factory.chevre.organizationType.Project; id: string };
-    member: {
-        typeOf: IMemberType;
-        id: string;
-        name?: string;
-        username?: string;
-        hasRole: IRole[];
-    };
-}
-
 /**
  * IAMサービス
  */
@@ -97,7 +76,14 @@ export class IAMService extends Service {
     /**
      * IAMロール検索
      */
-    public async searchRoles(params: any): Promise<ISearchResult<IRole[]>> {
+    public async searchRoles(params: {
+        limit?: number;
+        page?: number;
+        roleName?: {
+            $eq?: string;
+            $in?: string[];
+        };
+    }): Promise<ISearchResult<factory.iam.IRole[]>> {
         return this.fetch({
             uri: '/iam/roles',
             method: 'GET',
@@ -114,7 +100,7 @@ export class IAMService extends Service {
     /**
      * IAMメンバー作成
      */
-    public async createMember(params: any): Promise<IMember> {
+    public async createMember(params: factory.iam.IMember): Promise<factory.iam.IMember> {
         return this.fetch({
             uri: '/iam/members',
             method: 'POST',
@@ -127,7 +113,7 @@ export class IAMService extends Service {
     /**
      * IAMメンバー検索
      */
-    public async searchMembers(params: any): Promise<ISearchResult<IMember[]>> {
+    public async searchMembers(params: factory.iam.ISearchConditions): Promise<ISearchResult<factory.iam.IMember[]>> {
         return this.fetch({
             uri: '/iam/members',
             method: 'GET',
@@ -148,7 +134,7 @@ export class IAMService extends Service {
         member: {
             id: string;
         };
-    }): Promise<IMember> {
+    }): Promise<factory.iam.IMember> {
         return this.fetch({
             uri: `/iam/members/${params.member.id}`,
             method: 'GET',
