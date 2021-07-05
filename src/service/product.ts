@@ -4,6 +4,8 @@ import * as factory from '../factory';
 
 import { Service } from '../service';
 
+export type IProduct = factory.product.IProduct | factory.service.paymentService.IService;
+
 /**
  * プロダクトサービス
  */
@@ -11,12 +13,15 @@ export class ProductService extends Service {
     /**
      * 検索
      */
-    public async search(params: {
-        project?: { id?: { $eq?: string } };
-        typeOf?: { $eq?: string };
-    }): Promise<{
-        data: factory.service.IService[];
+    public async search(params: factory.product.ISearchConditions): Promise<{
+        data: IProduct[];
     }> {
+        // public async search(params: {
+        //     project?: { id?: { $eq?: string } };
+        //     typeOf?: { $eq?: string };
+        // }): Promise<{
+        //     data: factory.service.IService[];
+        // }> {
         return this.fetch({
             uri: '/products',
             method: 'GET',

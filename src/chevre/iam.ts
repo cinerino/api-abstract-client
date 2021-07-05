@@ -76,14 +76,7 @@ export class IAMService extends Service {
     /**
      * IAMロール検索
      */
-    public async searchRoles(params: {
-        limit?: number;
-        page?: number;
-        roleName?: {
-            $eq?: string;
-            $in?: string[];
-        };
-    }): Promise<ISearchResult<factory.iam.IRole[]>> {
+    public async searchRoles(params: factory.iam.IRoleSearchConditions): Promise<ISearchResult<factory.iam.IRole[]>> {
         return this.fetch({
             uri: '/iam/roles',
             method: 'GET',

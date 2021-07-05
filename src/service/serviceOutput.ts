@@ -26,4 +26,28 @@ export class ServiceOutputService extends Service {
                 };
             });
     }
+
+    /**
+     * 所有権コードを発行する
+     */
+    public async authorize(params: {
+        object: {
+            /**
+             * 識別子
+             * メンバーシップコードなど
+             */
+            identifier: string;
+            accessCode?: string;
+        };
+    }): Promise<{
+        code: string;
+    }> {
+        return this.fetch({
+            uri: `/serviceOutputs/${String(params.object?.identifier)}/authorize`,
+            method: 'POST',
+            body: params,
+            expectedStatusCodes: [OK]
+        })
+            .then(async (response) => response.json());
+    }
 }
