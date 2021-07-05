@@ -8,11 +8,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Added
 
-- サービスアウトプット所有権コード発行サービスを追加
-
 ### Changed
-
-- 予約の適用メンバーシップをトークン化されたメンバーシップに対応
 
 ### Deprecated
 
@@ -21,6 +17,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 ### Fixed
 
 ### Security
+
+## v3.8.0 - 2021-07-05
+
+### Added
+
+- サービスアウトプット所有権コード発行サービスを追加
+
+### Changed
+
+- 予約の適用メンバーシップをトークン化されたメンバーシップに対応
 
 ## v3.7.3 - 2021-07-04
 
