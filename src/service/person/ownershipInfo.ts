@@ -7,6 +7,8 @@ export type ICreditCard =
     factory.paymentMethod.paymentCard.creditCard.IUncheckedCardRaw
     | factory.paymentMethod.paymentCard.creditCard.IUncheckedCardTokenized;
 export type IOwnershipInfoWithDetail = factory.ownershipInfo.IOwnershipInfo<factory.ownershipInfo.IGoodWithDetail>;
+export type IMembershipOwnershipInfoWithDetail = factory.ownershipInfo.IOwnershipInfo<factory.ownershipInfo.IServiceOutput>;
+export type IReservationOwnershipInfoWithDetail = factory.ownershipInfo.IOwnershipInfo<factory.ownershipInfo.IReservationWithDetail>;
 export interface ICodeResponse {
     code: string;
 }
@@ -152,6 +154,66 @@ export class PersonOwnershipInfoService extends Service {
             uri: `/people/${id}/ownershipInfos/accounts/actions/moneyTransfer`,
             method: 'GET',
             qs: params,
+            expectedStatusCodes: [OK]
+        })
+            .then(async (response) => {
+                return {
+                    data: await response.json()
+                };
+            });
+    }
+
+    /**
+     * マイメンバーシップ検索
+     */
+    public async searchMyMemberships(params: {
+        limit?: number;
+        page?: number;
+        sort?: factory.ownershipInfo.ISortOrder;
+        ownedFrom?: Date;
+        ownedThrough?: Date;
+    }): Promise<ISearchResult<IMembershipOwnershipInfoWithDetail[]>> {
+        const id = 'me';
+
+        return this.fetch({
+            uri: `/people/${id}/ownershipInfos`,
+            method: 'GET',
+            qs: {
+                ...params,
+                typeOfGood: {
+                    issuedThrough: { typeOf: { $eq: factory.product.ProductType.MembershipService } }
+                }
+            },
+            expectedStatusCodes: [OK]
+        })
+            .then(async (response) => {
+                return {
+                    data: await response.json()
+                };
+            });
+    }
+
+    /**
+     * マイ予約検索
+     */
+    public async searchMyReservations(params: {
+        limit?: number;
+        page?: number;
+        sort?: factory.ownershipInfo.ISortOrder;
+        ownedFrom?: Date;
+        ownedThrough?: Date;
+    }): Promise<ISearchResult<IReservationOwnershipInfoWithDetail[]>> {
+        const id = 'me';
+
+        return this.fetch({
+            uri: `/people/${id}/ownershipInfos`,
+            method: 'GET',
+            qs: {
+                ...params,
+                typeOfGood: {
+                    issuedThrough: { typeOf: { $eq: factory.product.ProductType.EventService } }
+                }
+            },
             expectedStatusCodes: [OK]
         })
             .then(async (response) => {
