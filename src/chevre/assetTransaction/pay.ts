@@ -4,6 +4,11 @@ import * as factory from '../../factory';
 
 import { Service } from '../../service';
 
+export interface IPublishPaymentUrlResult {
+    paymentMethodId: string;
+    paymentUrl: string;
+}
+
 /**
  * 決済取引サービス
  */
@@ -19,6 +24,21 @@ export class PayAssetTransactionService extends Service {
             method: 'POST',
             expectedStatusCodes: [CREATED],
             body: params
+        })
+            .then(async (response) => response.json());
+    }
+
+    /**
+     * 決済ロケーション発行
+     */
+    public async publishPaymentUrl(
+        params: factory.assetTransaction.pay.IStartParamsWithoutDetail
+    ): Promise<IPublishPaymentUrlResult> {
+        return this.fetch({
+            uri: `/assetTransactions/${factory.assetTransactionType.Pay}/publishPaymentUrl`,
+            method: 'POST',
+            body: params,
+            expectedStatusCodes: [OK]
         })
             .then(async (response) => response.json());
     }
