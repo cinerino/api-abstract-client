@@ -5,6 +5,11 @@ import { Service } from '../service';
 
 export import IPurpose = factory.action.authorize.paymentMethod.any.IPurpose;
 
+export interface IPublishPaymentUrlResult {
+    paymentMethodId: string;
+    paymentUrl: string;
+}
+
 /**
  * 決済サービス
  */
@@ -68,6 +73,21 @@ export class PaymentService extends Service {
             uri: `/payment/${factory.product.ProductType.PaymentCard}/authorize`,
             method: 'POST',
             expectedStatusCodes: [CREATED],
+            body: params
+        })
+            .then(async (response) => response.json());
+    }
+
+    /**
+     * 決済ロケーション発行
+     */
+    public async publishCreditCardPaymentUrl(
+        params: factory.assetTransaction.pay.IStartParamsWithoutDetail
+    ): Promise<IPublishPaymentUrlResult> {
+        return this.fetch({
+            uri: `/payment/${factory.service.paymentService.PaymentServiceType.CreditCard}/publishPaymentUrl`,
+            method: 'POST',
+            expectedStatusCodes: [OK],
             body: params
         })
             .then(async (response) => response.json());
