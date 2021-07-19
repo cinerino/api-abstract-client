@@ -81,9 +81,10 @@ export class PaymentService extends Service {
     /**
      * 決済ロケーション発行
      */
-    public async publishCreditCardPaymentUrl(
-        params: factory.assetTransaction.pay.IStartParamsWithoutDetail
-    ): Promise<IPublishPaymentUrlResult> {
+    public async publishCreditCardPaymentUrl(params: {
+        object: factory.action.authorize.paymentMethod.any.IObject;
+        purpose: IPurpose;
+    }): Promise<IPublishPaymentUrlResult> {
         return this.fetch({
             uri: `/payment/${factory.service.paymentService.PaymentServiceType.CreditCard}/publishPaymentUrl`,
             method: 'POST',
