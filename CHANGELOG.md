@@ -18,6 +18,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ### Security
 
+## v3.11.0 - 2021-07-20
+
+### Added
+
+- 注文取引期限変更を追加
+
 ## v3.10.8 - 2021-07-20
 
 ### Changed
