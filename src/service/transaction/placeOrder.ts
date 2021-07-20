@@ -143,6 +143,24 @@ export class PlaceOrderTransactionService extends Service implements Transaction
     }
 
     /**
+     * 取引期限変更
+     */
+    public async changeExpiringDate(params: {
+        /**
+         * 取引ID
+         */
+        id: string;
+        expires: Date;
+    }): Promise<void> {
+        await this.fetch({
+            uri: `/transactions/${this.typeOf}/${params.id}/expires`,
+            method: 'PUT',
+            expectedStatusCodes: [NO_CONTENT],
+            body: params
+        });
+    }
+
+    /**
      * 取引確定
      */
     public async confirm(params: factory.transaction.placeOrder.IConfirmParams & {
